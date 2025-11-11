@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/leader.css">
+    <link rel="stylesheet" href="assets/css/leader-extra.css">
+    <link rel="stylesheet" href="assets/css/275ed64cc4367444.css" />
+    <link rel="stylesheet" href="assets/css/1a63c02c6252f740.css" />
+    <link rel="stylesheet" href="assets/css/b6c2cf256f607c90.css" />
+    <link rel="stylesheet" href="assets/css/b13397b0527c0fb5.css" />
+    <link rel="stylesheet" href="assets/css/5a56e3c1761e58ad.css" />
+    <link rel="stylesheet" href="https://www.isotradex.com/cdn.jsdelivr.net/npm/swiper%409/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link href="https://www.isotradex.com/unpkg.com/aos%402.3.1/dist/aos.css" rel="stylesheet">
+    <title> Isotradex: Copy Option Contracts With Lightning Speed | Mirror Top Traders</title>
+    <meta name="description"
+        content="We are a leading platform in copy trading for options. Trade independently or copy strategies from top-performing options traders in real time. Open a demo or live account today and start trading smarter with the power of community-driven investing." />
+    <link rel="icon" href="assets/img/logo/favicon.png" type="image/x-icon" sizes="32x32" />
+    <style>
+        * {
+            -webkit-font-smoothing: antialiased
+        }
+
+        .green-fl {
+            filter: hue-rotate(100deg)
+        }
+
+        .megaMenusubList {
+            position: absolute;
+            bottom: 0;
+            border-bottom: 1px solid var(--cardBorder);
+            right: -100%;
+            border-radius: 0;
+            background: var(--white);
+            padding: 60px 20px 20px 20px;
+            box-shadow: 0 -20px 25px -15px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+            height: 100vh;
+            overflow: auto;
+            top: inherit;
+            transition: .3s;
+            width: 100%;
+        }
+
+        .closemenuList {
+            position: absolute !important;
+            top: 100px;
+            right: 20px;
+        }
+    </style>
+    <style>
+        .bank_list {
+            display: flex;
+            justify-content: center;
+            gap: 20px 28px;
+            flex-wrap: wrap;
+            margin: 40px auto;
+            max-width: 400px;
+        }
+
+        .bank_list img {
+            height: 40px;
+            object-fit: contain;
+            max-width: 100%;
+        }
+
+        @media  only screen and (min-width: 769px) {
+            .bank_list {
+                gap: 32px 50px;
+                margin: 60px auto;
+                max-width: none;
+            }
+
+            .trust__titles {
+                text-align: center;
+                margin-bottom: 36px;
+            }
+
+            .trust__item {
+                flex-basis: calc((100% - 48px) / 2);
+                /* Two items per row with gap */
+                max-width: 350px;
+            }
+
+            .trust__item .trust__image {
+                width: 80px;
+                max-height: 80px;
+                margin-bottom: 8px;
+            }
+        }
+
+        .trust__titles {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .trust__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            background: #fff;
+            box-shadow: 1px 1px 30px 0 rgba(0, 0, 0, 0.1);
+            padding: 16px 24px 32px;
+            border-radius: 4px;
+            flex: 0 0 100%;
+            max-width: 100%;
+            min-height: 230px
+        }
+
+        .trust__item .trust__image {
+            width: 60px;
+            max-height: 60px;
+        }
+
+        .trust__content {
+            text-align: center;
+        }
+
+        .list_trust {
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .trust__content h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .trust__content p {
+            font-size: 16px;
+            line-height: 24px;
+            margin: 0;
+            /* color: rgb(0, 0, 33); */
+        }
+
+        .trust__titles h2 {
+            font-size: 30px;
+            line-height: 40px;
+            margin-bottom: 16px;
+            font-weight: 400;
+            color: rgb(0, 0, 33);
+        }
+
+        .trust__titles p {
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: 400;
+        }
+
+        .section-heading {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .section-heading h2 {
+            font-size: 28px;
+            line-height: 50px;
+            margin-bottom: 16px;
+            font-weight: 400;
+            color: rgb(0, 0, 33);
+        }
+
+        .section-heading p {
+            font-size: 20px;
+            line-height: 26px;
+            font-weight: 400;
+            color: rgb(0, 0, 33);
+            margin: 0;
+        }
+
+        .disclaimer {
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 400;
+            letter-spacing: -0.1px;
+            color: rgb(0, 0, 33);
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .list_trust.swiper {
+            overflow: visible;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .swiper-wrapper {
+            overflow: visible;
+        }
+
+        @media (min-width: 769px) {
+            .trust__list {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .experts {
+                gap: 16px;
+            }
+
+            .swiper-slide {
+                flex-shrink: unset !important
+            }
+        }
+
+        .swiper-slide {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .preloader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 99999999;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preloader::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            background: #000;
+        }
+
+        .preloader::after {
+            content: "";
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 100px;
+            height: 100px;
+            border: 5px solid #9e0000;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 2.5s linear infinite;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preloader img {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            margin: 0 auto;
+            width: 60px;
+            z-index: 101;
+        }
+
+        /* Add keyframes for spinning */
+        @keyframes  spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .instruments {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: scroll
+        }
+
+        @media (min-width: 769px) {
+            .instruments {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
+        .astessd {
+            background-color: var(--bodycolor)
+        }
+        /* .hts_icon {
+        }
+        [data-theme="dark"] .hts_icon {
+            filter: invert(1);
+        } */
+    </style>
+
+</head>
+
+<body class="container-fluid __className_e8ce0c">
+    <div class="preloader" id="preloader">
+        <img src="assets/img/logo/favicon.png" alt="Isotradex" width="120" />
+    </div>
+    <header id="myHeader" class="mainHeader ">
+        <nav class="navbar navbar-expand-lg p-0 border-bottom ">
+            <div class="container-fluid"><span class="IsotradexLogo pointer"><img alt="Isotradex" title="Isotradex"
+                        width="180" style="height:100%" decoding="async" data-nimg="1" style="color:transparent"
+                        class="logo" src="assets/img/logo/lg-logo-dark.png" /></span>
+                <div class="navbar-collapse mobileFlex" id="mynavbar">
+                    <ul class="megaMenuList navbar-nav align-items-center "><a
+                            class="onlyCloseForMobile d-none p-0 text-end"><svg width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="#778290" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle primary">
+                                <g>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </g>
+                            </svg></a>
+                        <div class="repeatList showBottomBarMenu d-lg-none">
+                            <li class="nav-item"><a class="nav-link menuTitle" href="index.html"><img alt="Home"
+                                        loading="lazy" width="17" height="17" decoding="async" data-nimg="1"
+                                        class="d-lg-none showBottomBar" style="color:transparent"
+                                        src="assets/img/home-mobile.svg" />Home</a></li>
+                        </div>
+                        <div class="repeatList showBottomBarMenu">
+                            <li class="nav-item"><a class="nav-link menuTitle" href="leaders.html"><img alt="Leaders"
+                                        loading="lazy" width="17" height="17" decoding="async" data-nimg="1"
+                                        class="d-lg-none showBottomBar" style="color:transparent"
+                                        src="assets/img/leaders.svg" />Leaders</a></li>
+                        </div>
+                        <div class="repeatList showBottomBarMenu">
+                            <li class="nav-item"><a class="nav-link menuTitle" href="markets.html"><img alt="Markets"
+                                        loading="lazy" width="17" height="17" decoding="async"
+                                        data-nimg="1" class="d-lg-none showBottomBar" style="color:transparent"
+                                        src="assets/img/market.svg" />Markets</a></li>
+                        </div>
+                        <div class="repeatList showClickMobile">
+                            <li class="nav-item"><a class="nav-link menuTitle" id="subDropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false" href="become-an-affiliate.html#">Tools</a>
+                                <ul class="dropdown-menu w-100 showMegaMenu" aria-labelledby="subDropdownMenuLink">
+                                    <div class="container max-1320">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy"
+                                                            class="green-fl" width="30" height="30"
+                                                            decoding="async" data-nimg="1"
+                                                            class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="assets/img/tools.svg" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">Trading Tools</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Make use of these
+                                                            tools to help with your investments.</p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="calendar.html">Calendar</a></li>
+                                                            <li><a href="trading-tools.html">Calculator</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy"
+                                                            width="30" height="30" decoding="async"
+                                                            class="green-fl" data-nimg="1"
+                                                            class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="assets/img/instruments.svg" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">Knowledge Base</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Make use of these
+                                                            tools to help with your investments</p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="user-guide.html">Investor Guide</a></li>
+                                                            <li><a href="leader-guide.html">Leader Guide</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="repeatList showClickMobile">
+                            <li class="nav-item"><a class="nav-link menuTitle" id="subDropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false" href="become-an-affiliate.html#">About</a>
+                                <ul class="dropdown-menu w-100 showMegaMenu darkCard "
+                                    aria-labelledby="subDropdownMenuLink">
+                                    <div class="container max-1320">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy"
+                                                            width="30" height="30" decoding="async"
+                                                            data-nimg="1" class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="assets/img/about-us.html" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">About Us</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Have a look at
+                                                            what
+                                                            we’re about and how you can join us.</p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="about.html">Company</a></li>
+                                                            
+                                                            <li><a href="support.html">Support</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy"
+                                                            width="30" height="30" decoding="async"
+                                                            data-nimg="1" class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="assets/img/partner-with-us.html" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">Partnerships</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Partner with us.
+                                                        </p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="become-a-leader.html">Leader Program</a></li>
+                                                            <li><a href="partnership-program.html">Broker
+                                                                    Partnerships</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="repeatList showClickMobile">
+                            <li class="nav-item"><a class="nav-link menuTitle" id="subDropdownMenuLink"
+                                    data-bs-toggle="" href="help-center.html">Help Center</a></li>
+                        </div>
+                        <div class="repeatList showBottomBarMenu d-lg-none">
+                            <li class="nav-item"><a class="nav-link menuTitle more-menu"><img alt="Menu Icon"
+                                        loading="lazy" width="17" height="17" decoding="async"
+                                        data-nimg="1" class="mb-1" style="color:transparent"
+                                        src="assets/img/mobile-more.svg" /><span class="d-block">More</span></a>
+                            </li>
+                            <ul class="megaMenusubList pb-0 viewmoreMenu">
+                                <li class="closemenuList text-end"><a class="secondary d-inline-flex"
+                                        href="javascript:void(0)"><i data-name="x-circle"
+                                            data-tags="cancel,close,delete,remove,times,clear" data-type="x-circle"
+                                            class="vue-feather vue-feather--x-circle"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x-circle vue-feather__content">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="15" y1="9" x2="9" y2="15">
+                                                </line>
+                                                <line x1="9" y1="9" x2="15" y2="15">
+                                                </line>
+                                            </svg></i></a></li>
+                                <li class="nav-item viewMobileListed" style="text-align: start;padding-top: 60px">
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">Knowledge Base</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="user-guide.html" class="px-0 dropdown-item">Investor
+                                                    Guide</a>
+                                            </li>
+                                            <li><a href="leader-guide.html" class="px-0 dropdown-item">Leader
+                                                    Guide</a>
+                                            </li>
+                                            <li><a href="affiliate-guide.html" class="px-0 dropdown-item">Affiliate
+                                                    Guide</a></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">About Us</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="about.html"
+                                                    class="router-link-active router-link-exact-active px-0 dropdown-item"
+                                                    aria-current="page">Company</a></li>
+                                            
+                                            <li><a href="support.html" class="px-0 dropdown-item">Support</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">Partnerships</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="become-an-affiliate.html" class="px-0 dropdown-item">Affiliate
+                                                    Program</a></li>
+                                            <li><a href="become-a-leader.html" class="px-0 dropdown-item">Leader
+                                                    Program</a></li>
+                                            <li><a href="partnership-program.html" class="px-0 dropdown-item">Broker
+                                                    Partnerships</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">Legal</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="terms-of-service.pdf" class="px-0 dropdown-item">Terms
+                                                    Of Service</a>
+                                            </li>
+                                            <li><a href="privacy-policy.html" class="px-0 dropdown-item">Privacy
+                                                    Policy</a></li>
+                                            <li><a href="cookies-policy.html" class="px-0 dropdown-item">Cookies
+                                                    Policy</a></li>
+                                            <li><a href="risk-disclaimer.html" class="px-0 dropdown-item">Risk
+                                                    Disclaimer</a></li>
+                                            <li><a href="conflict-of-interest-policy.pdf"
+                                                    class="px-0 dropdown-item">Conflict of
+                                                    Interest
+                                                    Policy</a></li>
+                                            <li><a href="https://www.isotradex.com/Home/Declaration_of_Consent_Isotradex.pdf"
+                                                    class="px-0 dropdown-item">Declaration of Consent</a>
+                                            </li>
+                                            <li><a href="https://www.isotradex.com/Home/Isotradex-eula-draft.pdf" class="px-0 dropdown-item">End-User
+                                                    License
+                                                    Agreement</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+                <div class="flex-shrink-0 d-flex align-items-center gap-4 mobIndex ">
+                    <div class="position-relative"><a class="grayfade cursor">
+
+                        </a></div>
+                    <div class="headerLogin d-flex align-items-center gap-3"><a href="https://app.Isotradex.com/register"
+                            class="IsotradexBTN" title="Sign Up">Sign
+                            up</a><a href="../dashboard.html" class="userIcon flex-shrink-0"
+                            title="Login"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="#778290" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-user ">
+                                <g>
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </g>
+                            </svg></a></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+        <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <div class="mainWrapper pb-0">
+            <section class="blockElement space bg-white ourCompany beforeNone">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-8 text-center">
+                            <h1 class="bold mb-md-3">Join our <span class="secondary">Affiliate</span> Program </h1>
+                            <p>Isotradex is one of the most transparent copy and social trading platforms in the world whose
+                                main goal is to support Investors and Leaders with their investment goals but to also
+                                compensate Affiliates for their promotional efforts. Our Affiliate Program is open for
+                                Website and Blog owners, Social Media Influencers, Trading Academies, YouTubers and Vloggers
+                                or even Professional Leaders who can attract Investors to sign up through them and earn
+                                additional income.</p>
+                            <div
+                                class="dualButton text-center mt-4 dualbannerbtn d-flex align-items-center justify-content-center flex-wrap px-3">
+                                <a href="https://app.Isotradex.com/register" target="_blank"
+                                    class="button fillBtn Isotradex_btn my-1 me-3">Become an Affiliate</a><a
+                                    href="https://app.Isotradex.com/login" target="_blank"
+                                    class="button borderBtn Isotradex_btn my-1">Login</a></div>
+                            <div class="AutoGuard my-3 my-md-5"><img src="assets/img/herobanner.png"
+                                    alt="Isotradex Affiliate Program | Join the Fintech Era. Be our Brand's Partner"
+                                    title="Isotradex Affiliate program allows to website &amp; community managers, influencers and any content creator to monetize their audience reach. Join the Fintech Era!"
+                                    class="v-lazy-image v-lazy-image-loaded green-fl"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement space pt-0 whoWeAre">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-9 text-center">
+                            <div class="boxed customTop">
+                                <h2 class="mb-md-4">What is a Isotradex Affiliate?</h2>
+                                <p>An Affiliate can be either an individual user or a corporation that participates in
+                                    Isotradex's Affiliate Program, promoting Isotradex's service. Affiliates register for
+                                    the program and then choose a unique URL that they utilize to advertise/promote
+                                    Isotradex. By promoting Isotradex, Affiliates introduce Referral Clients to Isotradex's
+                                    Copy trading services. Affiliates receive a commission for their service for accounts
+                                    that signed up through the Affiliate's website (URL).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 mb-4 mb-md-5 text-center">
+                            <h2>What does an Affiliate do?</h2>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card-body h-100 bg-white p-3 mobCenter"><span class="d-block mb-4"><img
+                                        src="assets/img/create-account.svg"
+                                        class="d-block h-70 v-lazy-image v-lazy-image-loaded green-fl" alt="Create Affiliate Account"
+                                        title="Fill in your details"></span>
+                                <h4 class="bold">Create Affiliate Account</h4>
+                                <p>Fill in your details and get your account enabled immediately. Join us. Fast, Easy, Free!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card-body h-100 bg-white p-3 mobCenter"><span class="d-block mb-4"><img
+                                        src="assets/img/promote.svg"
+                                        class="d-block h-70 v-lazy-image v-lazy-image-loaded green-fl"
+                                        alt="Choose Promotional Content" title="Choose the links,.."></span>
+                                <h4 class="bold">Choose Promotional Content</h4>
+                                <p>Choose the links, banners and landing pages that will help you promote our Social wealth
+                                    management platform powered by copy trading.</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card-body h-100 bg-white p-3 mobCenter"><span class="d-block mb-4"><img
+                                        src="assets/img/earn.svg" class="d-block h-70 v-lazy-image v-lazy-image-loaded green-fl"
+                                        alt="Earn" title="Enjoy our transparent"></span>
+                                <h4 class="bold">Earn</h4>
+                                <p>Enjoy our transparent Geo-based CPA model and monetise your global based traffic and
+                                    network.</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center mt-4"><a href="https://www.Isotradex.com/partners/register"
+                                    target="_blank" class="button fillBtn Isotradex_btn me-3 px-md-5">Become an Affiliate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement space bg-white">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-8 mb-0 mb-md-4 text-center">
+                            <h2>Compensation Schemes</h2>
+                            <p>Our default monetisation model is CPA, but we are open to discuss more options for
+                                established affiliates, like hybrid and custom deals if they can deliver large volumes of
+                                customers. Feel free to contact your account manager to discuss a bespoke monetisation model
+                                that fits your business operations and allows for rapid future growth.<br>Our CPA payouts
+                                are categorised into Tiers, depending on the Geolocation of the accounts referred by our
+                                affiliates. Additionally, various yet simple triggering criteria apply.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement space automated4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="text-center mb-md-4 pb-4">How to become an Affiliate in 3 easy steps</h2>
+                            <ul class="listCounter mb-0">
+                                <li class="d-flex align-items-center align-items-md-start flex-column flex-md-row pb-4">
+                                    <span class="customXpad d-flex justify-content-center"><img
+                                            src="assets/img/open-account.svg"
+                                            class="d-block img-fluid mb-4 v-lazy-image v-lazy-image-loaded green-fl" width="86"
+                                            alt="Click Join Isotradex as an Affiliate"
+                                            title="Access the Affiliate Program "></span><label
+                                        class="d-block text-center text-md-start mb-0">
+                                        <h4 class="mb-2 bold">Click Join Isotradex as an Affiliate</h4>
+                                        <p>Access the Affiliate Program page and click on “Become an Affiliate” to start the
+                                            process.</p>
+                                    </label></li>
+                                <li class="d-flex align-items-center align-items-md-start flex-column flex-md-row pb-4">
+                                    <span class="customXpad d-flex justify-content-center"><img
+                                            src="assets/img/Start-journey.svg"
+                                            class="d-block mb-4 v-lazy-image v-lazy-image-loaded green-fl"
+                                            alt="Complete the Registration Form and get your unique affiliate URL"
+                                            title="Fill in your information in the Online Registration Form"></span><label
+                                        class="d-block text-center text-md-start mb-0">
+                                        <h4 class="mb-2 bold">Complete the Registration Form and get your unique affiliate
+                                            URL</h4>
+                                        <p>Fill in your information in the Online Registration Form, submit your application
+                                            and get your unique Affiliate URL to start inviting Investors to Isotradex.</p>
+                                    </label></li>
+                                <li class="d-flex align-items-center align-items-md-start flex-column flex-md-row pb-4">
+                                    <span class="customXpad d-flex justify-content-center"><img
+                                            src="assets/img/step-6.svg"
+                                            class="d-block mb-4 v-lazy-image v-lazy-image-loaded green-fl"
+                                            alt="Invite your contacts and start earning commissions"
+                                            title="Investors use your Affiliate"></span><label
+                                        class="d-block text-center text-md-start mb-0">
+                                        <h4 class="mb-2 bold">Invite your contacts and start earning commissions</h4>
+                                        <p>Investors use your Affiliate URL to sign up to Isotradex and you receive
+                                            commissions based on our our collaboration agreement</p>
+                                    </label></li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center"><a href="https://www.Isotradex.com/partners/register" target="_blank"
+                                    class="button fillBtn Isotradex_btn me-3 px-md-5">Become an Affiliate</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement space bg-white automated5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="text-center mb-md-5 pb-4">Reasons to become an Affiliate</h2>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-flex align-items-start"><span class="automated me-3 flex-none"><img
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                        class="d-block v-lazy-image" alt="Transparent Compensation Plans"
+                                        title="The AutoScript feature enables"></span>
+                                <div class="flex-none contentCalc">
+                                    <h4 class="bold">Transparent Compensation Plans</h4>
+                                    <p>We have a clear and transparent compensation scheme for our affiliates. We also offer
+                                        tailored agreements for our advanced and highly converting affiliates and those who
+                                        want to get more out of the partnership.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-flex align-items-start"><span class="automated me-3 flex-none"><img
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                        class="d-block v-lazy-image" alt="Dedicated Affiliate Team"
+                                        title="Our Affiliate Desk Team"></span>
+                                <div class="flex-none contentCalc">
+                                    <h4 class="bold">Dedicated Affiliate Team</h4>
+                                    <p>Our Affiliate Desk Team will help you develop your business by providing material,
+                                        content, creative assets or any type of support you might need.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-flex align-items-start"><span class="automated me-3 flex-none"><img
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                        class="d-block v-lazy-image" alt="Licensed and Regulated in the EU"
+                                        title="Isotradex is a transparent"></span>
+                                <div class="flex-none contentCalc">
+                                    <h4 class="bold">Licensed and Regulated in the EU, Japan, Mauritius and SA</h4>
+                                    <p>Isotradex is a transparent, reliable and self-converting fully regulated brand.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-flex align-items-start"><span class="automated me-3 flex-none"><img
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                        class="d-block v-lazy-image" alt="High Conversion Rates"
+                                        title="Isotradex is one of the first .."></span>
+                                <div class="flex-none contentCalc">
+                                    <h4 class="bold">High Conversion Rates</h4>
+                                    <p>Isotradex is one of the first and most established brands in the industry. Watch your
+                                        leads being effortlessly converted.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-flex align-items-start"><span class="automated me-3 flex-none"><img
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                        class="d-block v-lazy-image" alt="No Limits in Payment Requests"
+                                        title="There are no limits per client"></span>
+                                <div class="flex-none contentCalc">
+                                    <h4 class="bold">No Limits in Payment Requests</h4>
+                                    <p>There are no limits per client, or in total commission payouts.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-flex align-items-start"><span class="automated me-3 flex-none"><img
+                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                        class="d-block v-lazy-image" alt="Multi-lingual Support"
+                                        title="Our 24/5 Multilingual Support"></span>
+                                <div class="flex-none contentCalc">
+                                    <h4 class="bold">Multi-lingual Support</h4>
+                                    <p>Our 24/5 Multilingual Support Team is available to assist you via live chat, phone or
+                                        email!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center mt-4"><a href="https://www.Isotradex.com/partners/register"
+                                    target="_blank" class="button fillBtn Isotradex_btn me-3 px-md-5">Become an Affiliate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement space faqs automated6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-md-4 pb-4">Frequently Asked Questions (FAQs)</h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                            aria-controls="flush-collapseOne">How does your tracking work?</button></h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body"><span class="d-block mb-2">Regarding our tracking
+                                                method, we keep a reference log for the users who click on your referral
+                                                link. So even if the referral navigates to another tab or page after
+                                                clicking on your referral link, they will be placed under your affiliate
+                                                account after their registration.</span><span>Please note that each of your
+                                                referral links is intended for specific use. The Web Affiliate Link is only
+                                                meant for usage on the web, while the App Affiliate link is designed solely
+                                                for application usage. For any further information, send an email to <a class="secondary" href="cdn-cgi/l/email-protection.html#046562626d686d65706177446a6b6070766560612a676b69">
+                                                    <span class="__cf_email__" data-cfemail="573631313e3b3e362332241739383323253633327934383a"><span class="__cf_email__" data-cfemail="6e071d011a1c0f0a0b162e000b16145f400d0103">[email&#160;protected]</span></span> </a> with your questions.</span></div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingFour"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                            aria-controls="flush-collapseFour">How can I connect a referral under my
+                                            account if my referrals didn’t correctly use my unique URL?</button></h2>
+                                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">If your referral was not correctly placed under your
+                                            affiliate account, the affiliate desk must be notified immediately, within a
+                                            maximum of five days of the registration of the referral account. The referral
+                                            in question, must personally send an email from their registered Isotradex email
+                                            to <a class="secondary" href="cdn-cgi/l/email-protection.html#d0b1b6b6b9bcb9b1a4b5a390bebfb4a4a2b1b4b5feb3bfbd">
+                                                <span class="__cf_email__" data-cfemail="7a1b1c1c1316131b0e1f093a14151e0e081b1e1f54191517"><span class="__cf_email__" data-cfemail="543d273b20263530312c143a312c2e657a373b39">[email&#160;protected]</span></span> </a> requesting to be added under your affiliate
+                                            account. They must mention your email or affiliate ID. Please note, that all
+                                            requests past the five days' window will not be handled.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingfive"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapsefive" aria-expanded="false"
+                                            aria-controls="flush-collapsefive"> Do you accept PPC Affiliates?</button></h2>
+                                    <div id="flush-collapsefive" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingfive" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">We do accept PPC Affiliates with the condition that
+                                            they will not bid on the Isotradex Brand and any other Trademarks or Names of
+                                            Isotradex and its collaborating Brokers. If you are a PPC Affiliate interested
+                                            in promoting Isotradex, please make sure that you read our PPC Policy <a
+                                                href="affiliate-guide.html" class="secondary">here</a>.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingsix"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapsesix" aria-expanded="false"
+                                            aria-controls="flush-collapsesix">Am I allowed to promote Isotradex on social
+                                            media?</button></h2>
+                                    <div id="flush-collapsesix" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingsix" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Of course, feel free to invite friends or promote
+                                            Isotradex through social media. You can use any of the material available in
+                                            your Affiliate account. Kindly note that the use of disclaimers is mandatory. We
+                                            suggest that you submit for approval to Affiliates Desk any banner or piece of
+                                            content created to promote Isotradex.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingSeven"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseSeven" aria-expanded="false"
+                                            aria-controls="flush-collapseSeven">Do you offer any creative assets for me to
+                                            use online to promote my affiliate account?</button></h2>
+                                    <div id="flush-collapseSeven" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">We offer a variety of banners, widgets, dynamic and
+                                            static ones that you can freely use on your website. These have high conversion
+                                            rates and will offer your website evergreen content as most of them are dynamic.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingEight"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseEight" aria-expanded="false"
+                                            aria-controls="flush-collapseEight"> Can I be a Isotradex Leader and An
+                                            Affiliate at the same time?</button></h2>
+                                    <div id="flush-collapseEight" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Being a Isotradex Leader and Affiliate at the same time
+                                            is a good practice as it can maximize your overall payout from your network. For
+                                            more information send an email to <a class="secondary" href="cdn-cgi/l/email-protection.html#f29394949b9e9b93869781b29c9d968680939697dc919d9f"> <span class="__cf_email__" data-cfemail="046562626d686d65706177446a6b6070766560612a676b69"><span class="__cf_email__" data-cfemail="3b5248544f495a5f5e437b555e43410a15585456">[email&#160;protected]</span></span></a>.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <footer class="mainFooter">
+        <div class="container-fluid">
+            <div class="row justify-content-between">
+                <div class="col-12 col-xl-4">
+                    <div class="d-flex flex-column h-100 justify-content-between calBOxed" style="max-width: 100%">
+                        <div class="socialFooter">
+                            <div class="footerLogo flex-between align-items-start mb-3"><img alt="Logo"
+                                    width="180" style="height:100%" data-nimg="1" style="color:transparent"
+                                    src="assets/img/logo/lg-logo-dark.png" /></div>
+                            <div
+                                class="IsotradexCopyright menutextBG p-3 pb-0 d-flex align-items-start justify-content-between">
+                                <div class="downloadApp">
+                                    <p class="text-white fs-20 mb-md-4 mb-2">Copytrade with<!-- --> <span
+                                            class="hilighted fadebg" style="white-space: nowrap">Isotradex</span>
+                                    </p>
+                                    <p class="fs-12 mb-1 lighter text-white">Download app for</p>
+                                    <div class="d-flex align-items-center"><a href="become-an-affiliate.html#" target="_blank"
+                                            class="fadebg appStore text-white medium fs-14 me-2"
+                                            rel="noreferrer"><span>iOS</span></a><a href="become-an-affiliate.html#" target="_blank"
+                                            class="fadebg appStore text-white medium fs-14"
+                                            rel="noreferrer"><span>Android</span></a></div>
+                                </div>
+                                <div class="mobileApp" style="position: relative">
+                                    <img alt="Phone Icon" style="width: 50px;height: 100%;margin-right: 20px;"
+                                        style="color:transparent" src="assets/img/mockup2.png" />
+                                    <img alt="Phone Icon"
+                                        style="width: 50px;height: 100%;position: absolute;z-index: 2;left: 30px;top:0"
+                                        style="color:transparent" src="assets/img/mockup1.png" />
+                                </div>
+                            </div>
+                            <div class="rtSocial mt-4">
+                                <p class="mb-2">Follow us on</p>
+                                <ul class="socialList d-flex align-items-center justify-content-start">
+                                    <li><a class="d-block ps-0" href="become-an-affiliate.html#" target="_blank" title="Facebook"
+                                            rel="noreferrer"><img alt="Facebook" loading="lazy" width="24"
+                                                height="24" decoding="async" data-nimg="1"
+                                                style="color:transparent" src="assets/img/facebook.svg" /></a>
+                                    </li>
+                                    <li><a class="d-block" href="become-an-affiliate.html#" target="_blank" title="Twitter"
+                                            rel="noreferrer"><img alt="twitter" loading="lazy" width="24"
+                                                height="24" decoding="async" data-nimg="1"
+                                                style="color:transparent" src="assets/img/twitter.svg" /></a>
+                                    </li>
+                                    <li><a class="d-block" href="become-an-affiliate.html#" target="_blank" title="Linkedin"
+                                            rel="noreferrer"><img alt="Linkedin" loading="lazy" width="24"
+                                                height="24" decoding="async" data-nimg="1"
+                                                style="color:transparent" src="assets/img/linkedin.svg" /></a>
+                                    </li>
+                                    <li><a class="d-block" href="become-an-affiliate.html#" target="_blank" title="Youtube"
+                                            rel="noreferrer"><img alt="youtube" loading="lazy" width="24"
+                                                height="24" decoding="async" data-nimg="1"
+                                                style="color:transparent" src="assets/img/youtube.svg" /></a>
+                                    </li>
+                                    <li><a class="d-block" href="become-an-affiliate.html#" target="_blank" title="Instagram"
+                                            rel="noreferrer"><img alt="Instagram" loading="lazy" width="24"
+                                                height="24" decoding="async" data-nimg="1"
+                                                style="color:transparent" src="assets/img/instagram.svg" /></a>
+                                    </li>
+                                    <li><a class="d-block" href="become-an-affiliate.html#" target="_blank" title="Tiktok"
+                                            rel="noreferrer"><img alt="Ticktok" loading="lazy" width="24"
+                                                height="24" decoding="async" data-nimg="1"
+                                                style="color:transparent" src="assets/img/ticktok.svg" /></a>
+                                    </li>
+                                    <li><a class="d-block" href="become-an-affiliate.html#" target="_blank" title="Reddit"
+                                            rel="noreferrer"><img alt="reddit" loading="lazy" width="24"
+                                                height="24" decoding="async" data-nimg="1"
+                                                style="color:transparent" src="assets/img/reddit.svg" /></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="copyRightZultarde">
+                            <p class="fs-14 midgray mb-0">©Copyright 2025 Isotradex</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-8">
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <div class="sndTop false">
+                                <div class="flex-between forMobButton">
+                                    <h6 class="">Legal</h6>
+                                    <i style="color: #778290;width:18px;height:18px" data-feather="plus-circle"></i>
+                                </div>
+                                <ul class="footerList">
+                                    <li><a href="terms-of-service.pdf" class="">Terms Of Service</a></li>
+                                    <li><a href="privacy-policy.html" class="">Privacy Policy</a></li>
+                                    <li><a href="cookies-policy.html" class="">Cookies Policy</a></li>
+                                    <li><a href="risk-disclaimer.html" class="">Risk Disclaimer</a></li>
+                                    <li><a href="conflict-of-interest-policy.pdf" class="">Conflict of Interest
+                                            Policy</a></li>
+                                    <li><a href="https://www.isotradex.com/Home/Declaration_of_Consent_Isotradex.pdf" class="">Declaration
+                                            of
+                                            Consent</a>
+                                    </li>
+                                    <li><a href="https://www.isotradex.com/Home/Isotradex-eula-draft.pdf" class="">End-User License
+                                            Agreement</a></li>
+                                </ul>
+                            </div>
+                            <div class="sndBottom false">
+                                <div class="flex-between forMobButton">
+                                    <h6 class="">Features</h6>
+                                    <i style="color: #778290;width:18px;height:18px" data-feather="plus-circle"></i>
+                                </div>
+                                <ul class="footerList">
+                                    <li><a href="autoprotect.html" class="">AutoGuard™</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            
+                            <div class="sndBottom false">
+                                <div class="flex-between forMobButton">
+                                    <h6 class="">Learn</h6>
+                                    <i style="color: #778290;width:18px;height:18px" data-feather="plus-circle"></i>
+                                </div>
+                                <ul class="footerList">
+                                    <li><a href="affiliate-guide.html" class="">Affiliate Guide</a></li>
+                                    <li><a href="leader-guide.html" class="">Leader Guide</a></li>
+                                    <li><a href="user-guide.html" class="">User Guide</a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="sndTop false">
+                                <div class="flex-between forMobButton">
+                                    <h6 class="">About us</h6>
+                                    <i style="color: #778290;width:18px;height:18px" data-feather="plus-circle"></i>
+                                </div>
+                                <ul class="footerList">
+                                    <li><a href="about.html" class="">Company</a></li>
+                                </ul>
+                            </div>
+                            <div class="sndBottom false">
+                                <div class="flex-between forMobButton">
+                                    <h6 class="">Partnerships</h6>
+                                    <i style="color: #778290;width:18px;height:18px" data-feather="plus-circle"></i>
+                                </div>
+                                <ul class="footerList">
+                                    <li><a href="become-a-leader.html" class="">Leader</a></li>
+                                    <li><a href="become-an-affiliate.html" class="">Affiliate</a></li>
+                                    <li><a href="partnership-program.html" class="">Broker</a></li>
+                                </ul>
+                            </div>
+                            <div class="sndBottom false">
+                                <div class="flex-between forMobButton">
+                                    <h6 class="">Contact</h6>
+                                    <i style="color: #778290;width:18px;height:18px" data-feather="plus-circle"></i>
+                                </div>
+                                <ul class="footerList">
+                                    <li><a class="d-flex align-items-center gap-1" target="_blank"
+                                            href="tel:Premium members" rel="noreferrer"><svg width="16"
+                                                height="16" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-phone-call ">
+                                                <g>
+                                                    <path
+                                                        d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                                    </path>
+                                                </g>
+                                            </svg>Premium members</a></li>
+                                    <li><a class="d-flex align-items-center gap-1" target="_blank" href="cdn-cgi/l/email-protection.html#cab9bfbabaa5b8be8aa4a5aebeb8abaeafe4a9a5a7" rel="noreferrer"><svg width="16"
+                                                height="16" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-mail ">
+                                                <g>
+                                                    <path
+                                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                                    </path>
+                                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                                </g>
+                                            </svg><span class="__cf_email__" data-cfemail="483b3d3838273a3c0826272c3c3a292c2d662b2725"><span class="__cf_email__" data-cfemail="7f160c100b0d1e1b1a073f111a07054e511c1012">[email&#160;protected]</span></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="disclamer mt-1">
+                                <p class="fs-14 mb-2 medium darkbluecolor">Disclaimer</p>
+                                <div>
+                                    <div class="list-unstyled">
+                                        <p>Isotradex, is a Global financial service provider, Isotradex is a
+                                            registered
+                                            trademark of the group, that operates amongst various entities.</p>
+                                        <p>The service provided by Isotradex is operated by the Isotradex Group of
+                                            Companies
+                                            and is regulated by SEC, CRD 298461. CN Global is regulated by FCA in
+                                            the
+                                            United Kingdom, Reference Number 573263. CN is regulated by CIRO,
+                                            reference
+                                            number 9290. Trading in financial instruments involves substantial risk
+                                            and
+                                            there is always the potential for loss. Your trading results may vary.
+                                            Past
+                                            performance is not indicative of future results.
+                                        </p>
+
+                                        <p>Please check our full disclaimer <a href="risk-disclaimer.html"
+                                                class="underline">disclaimer</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.isotradex.com/unpkg.com/aos%402.3.1/dist/aos.js"></script>
+    <!-- SwiperJS JS -->
+    <script src="https://www.isotradex.com/cdn.jsdelivr.net/npm/swiper%409/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var htmlTag = document.documentElement;
+            var storedTheme = localStorage.getItem('data-theme');
+            var currentTheme;
+            if (storedTheme) {
+                htmlTag.setAttribute('data-theme', storedTheme);
+                currentTheme = storedTheme;
+            } else {
+                var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+                currentTheme = prefersLight ? 'light' : 'dark';
+                htmlTag.setAttribute('data-theme', currentTheme);
+            }
+
+            document.querySelectorAll('.logo').forEach(function(el) {
+                if (currentTheme === 'dark') {
+                    el.src = 'assets/img/logo-white.png';
+                } else {
+                    el.src = 'assets/img/logo/lg-logo-dark.png';
+                }
+            });
+            // Set icon in .grayfade depending on theme
+            document.querySelectorAll('.grayfade').forEach(function(el) {
+                if (currentTheme === 'dark') {
+                    el.innerHTML = '<i data-feather="sun" style="width:20px;color:#fff"></i>';
+                } else {
+                    el.innerHTML = '<i data-feather="moon" style="width:20px"></i>';
+                }
+                if (window.feather) feather.replace();
+            });
+
+            document.querySelectorAll('.grayfade').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    var htmlTag = document.documentElement;
+                    var currentTheme = htmlTag.getAttribute('data-theme') || 'dark';
+                    var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    localStorage.setItem('data-theme', newTheme);
+                    location.reload();
+                });
+            });
+        });
+    </script>
+    <script>
+        // Toggle dropdown menus on click
+        document.querySelectorAll('.nav-link.menuTitle#subDropdownMenuLink').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var parentLi = link.closest('li');
+                var dropdown = parentLi ? parentLi.querySelector('.dropdown-menu') : null;
+                if (dropdown) {
+                    dropdown.classList.toggle('show');
+                }
+            });
+        });
+
+        // Remove 'show' class on outside click
+        document.addEventListener('click', function(e) {
+            document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+                // Check if click is inside any open dropdown or its toggle link
+                var parentLi = menu.closest('li');
+                var toggleLink = parentLi ? parentLi.querySelector(
+                    '.nav-link.menuTitle#subDropdownMenuLink') : null;
+                if (
+                    !menu.contains(e.target) &&
+                    !(toggleLink && toggleLink.contains(e.target))
+                ) {
+                    menu.classList.remove('show');
+                }
+            });
+        });
+
+        // Toggle footer sections on mobile
+        document.querySelectorAll('.forMobButton').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var parent = btn.parentElement;
+                if (parent.classList.contains('false')) {
+                    parent.classList.remove('false');
+                    parent.classList.add('active');
+                } else {
+                    parent.classList.remove('active');
+                    parent.classList.add('false');
+                }
+                var icon = btn.querySelector('i[data-feather]');
+                if (icon) {
+                    if (icon.getAttribute('data-feather') === 'plus-circle') {
+                        icon.setAttribute('data-feather', 'minus-circle');
+                    } else {
+                        icon.setAttribute('data-feather', 'plus-circle');
+                    }
+                    feather.replace();
+                }
+            });
+        });
+
+        document.querySelectorAll('.more-menu').forEach(function(menu) {
+            menu.addEventListener('click', function(e) {
+                e.preventDefault();
+                var megaMenu = menu.closest('.repeatList').querySelector('.megaMenusubList');
+                if (megaMenu) {
+                    // menu.closest('.closemenuList').style.display = 'block'
+                    megaMenu.style.display = 'block';
+                    megaMenu.style.right = '0';
+                }
+            });
+        });
+
+        // Hide megaMenusubList when closemenuList is clicked
+        document.querySelectorAll('.closemenuList a').forEach(function(closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var megaMenu = closeBtn.closest('.megaMenusubList');
+                if (megaMenu) {
+                    megaMenu.style.display = '';
+                    megaMenu.style.right = '';
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let swiperInstance = null;
+
+            function initOrDestroySwiper() {
+                const isLargeScreen = window.innerWidth >= 769;
+                if (isLargeScreen) {
+                    if (swiperInstance) {
+                        swiperInstance.destroy(true, true);
+                        swiperInstance = null;
+                    }
+                } else {
+                    if (!swiperInstance) {
+                        swiperInstance = new Swiper('.swiper', {
+                            slidesPerView: 1.3,
+                            centeredSlides: false,
+                            spaceBetween: 10,
+                            loop: true,
+                            pagination: {
+                                el: '.swiper-pagination',
+                                clickable: true,
+                            },
+                            autoplay: true,
+                            breakpoints: {
+                                768: {
+                                    slidesPerView: 2.2,
+                                    spaceBetween: 24,
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+            initOrDestroySwiper();
+            window.addEventListener('resize', initOrDestroySwiper);
+        });
+    </script>
+    <script>
+        feather.replace();
+    </script>
+    <script>
+        // Show loader on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            var loader = document.getElementById('preloader');
+            if (loader) {
+                loader.style.display = 'flex';
+            }
+        });
+
+        // Hide loader when page is fully loaded
+        window.addEventListener('load', function() {
+            var loader = document.getElementById('preloader');
+            if (loader) {
+                loader.style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        AOS.init({
+            duration: 1500,
+            once: false,
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.aos-init');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('aos-animate');
+                    } else {
+                        entry.target.classList.remove('aos-animate');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(el => observer.observe(el));
+        });
+
+
+
+         function redirectUserToRegister() {
+            window.location.replace("https://www.isotradex.com/register");
+        }
+        function redirectUserLogin() {
+            window.location.replace("https://www.isotradex.com/login");
+        }
+    </script>
+
+   <!-- Smartsupp Live Chat script -->
+<script type="text/javascript">
+    var _smartsupp = _smartsupp || {};
+    _smartsupp.key = '869b3960f61eff4dc3c6a53d2de98f4972f7f143';
+    window.smartsupp || (function (d) {
+        var s, c, o = smartsupp = function () { o._.push(arguments) }; 
+        o._ = [];
+        s = d.getElementsByTagName('script')[0]; 
+        c = d.createElement('script');
+        c.type = 'text/javascript'; 
+        c.charset = 'utf-8'; 
+        c.async = true;
+        c.src = 'https://www.smartsuppchat.com/loader.js?'; 
+        s.parentNode.insertBefore(c, s);
+    })(document);
+</script>
+<noscript>Powered by <a href="https://www.smartsupp.com" target="_blank">Smartsupp</a></noscript>
+
+</body>
+
+
+
+</html>

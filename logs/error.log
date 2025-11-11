@@ -1,0 +1,1212 @@
+ERROR 2025-11-08 21:05:47,418 log 92384 123145443430400 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/models.py", line 39, in _get_site_by_request
+    SITE_CACHE[host] = self.get(domain__iexact=host)
+                       ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/generic/base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/generic/edit.py", line 142, in get
+    return self.render_to_response(self.get_context_data())
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/views.py", line 113, in get_context_data
+    current_site = get_current_site(self.request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/shortcuts.py", line 16, in get_current_site
+    return Site.objects.get_current(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/models.py", line 61, in get_current
+    return self._get_site_by_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/models.py", line 45, in _get_site_by_request
+    SITE_CACHE[domain] = self.get(domain__iexact=domain)
+                         ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+ERROR 2025-11-08 21:05:47,427 basehttp 92384 123145443430400 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 185424
+ERROR 2025-11-08 21:05:47,427 basehttp 92384 123145443430400 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 185424
+ERROR 2025-11-08 21:05:55,211 log 92384 123145443430400 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/models.py", line 39, in _get_site_by_request
+    SITE_CACHE[host] = self.get(domain__iexact=host)
+                       ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 449, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/generic/base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/generic/edit.py", line 142, in get
+    return self.render_to_response(self.get_context_data())
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/views.py", line 113, in get_context_data
+    current_site = get_current_site(self.request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/shortcuts.py", line 16, in get_current_site
+    return Site.objects.get_current(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/models.py", line 61, in get_current
+    return self._get_site_by_request(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/sites/models.py", line 45, in _get_site_by_request
+    SITE_CACHE[domain] = self.get(domain__iexact=domain)
+                         ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 635, in get
+    raise self.model.DoesNotExist(
+        "%s matching query does not exist." % self.model._meta.object_name
+    )
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+ERROR 2025-11-08 21:05:55,216 basehttp 92384 123145443430400 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 185561
+ERROR 2025-11-08 21:05:55,216 basehttp 92384 123145443430400 "GET /admin/login/?next=/admin/ HTTP/1.1" 500 185561
+ERROR 2025-11-08 21:13:58,481 log 31034 123145537142784 Internal Server Error: /admin/users/profile/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: users_profile.created_at
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2163, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: users_profile.created_at
+ERROR 2025-11-08 21:13:58,489 basehttp 31034 123145537142784 "GET /admin/users/profile/ HTTP/1.1" 500 192072
+ERROR 2025-11-08 21:13:58,489 basehttp 31034 123145537142784 "GET /admin/users/profile/ HTTP/1.1" 500 192072
+ERROR 2025-11-08 21:14:10,691 log 31034 123145537142784 Internal Server Error: /admin/users/country/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2163, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 766, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 85, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 74, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 299, in get_select
+    related_klass_infos = self.get_related_selections(select, select_mask)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1396, in get_related_selections
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+ERROR 2025-11-08 21:14:10,695 basehttp 31034 123145537142784 "GET /admin/users/country/ HTTP/1.1" 500 161616
+ERROR 2025-11-08 21:14:10,695 basehttp 31034 123145537142784 "GET /admin/users/country/ HTTP/1.1" 500 161616
+ERROR 2025-11-08 21:31:08,436 log 31034 123145520353280 Internal Server Error: /admin/users/country/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2163, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 766, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 85, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 74, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 299, in get_select
+    related_klass_infos = self.get_related_selections(select, select_mask)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1396, in get_related_selections
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+ERROR 2025-11-08 21:31:08,441 basehttp 31034 123145520353280 "GET /admin/users/country/ HTTP/1.1" 500 161622
+ERROR 2025-11-08 21:31:08,441 basehttp 31034 123145520353280 "GET /admin/users/country/ HTTP/1.1" 500 161622
+ERROR 2025-11-08 21:59:02,635 log 31034 123145553932288 Internal Server Error: /admin/users/country/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2163, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1610, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 766, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+                                       ~~~~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases or bool(combinator),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 85, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 74, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+                                                            ~~~~~~~~~~~~~~~^
+        with_col_aliases=with_col_aliases,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 299, in get_select
+    related_klass_infos = self.get_related_selections(select, select_mask)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1396, in get_related_selections
+    raise FieldError(
+    ...<6 lines>...
+    )
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+ERROR 2025-11-08 21:59:02,640 basehttp 31034 123145553932288 "GET /admin/users/country/ HTTP/1.1" 500 161622
+ERROR 2025-11-08 21:59:02,640 basehttp 31034 123145553932288 "GET /admin/users/country/ HTTP/1.1" 500 161622
+ERROR 2025-11-08 22:27:39,434 log 78504 123145382670336 Internal Server Error: /admin/users/profile/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: users_profile.created_at
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2163, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: users_profile.created_at
+ERROR 2025-11-08 22:27:39,440 basehttp 78504 123145382670336 "GET /admin/users/profile/ HTTP/1.1" 500 192078
+ERROR 2025-11-08 22:27:39,440 basehttp 78504 123145382670336 "GET /admin/users/profile/ HTTP/1.1" 500 192078
+ERROR 2025-11-09 09:18:24,685 log 83476 123145569796096 Internal Server Error: /admin/users/user/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 234, in inner
+    if not self.has_permission(request):
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“2” is not a valid UUID.']
+ERROR 2025-11-09 09:18:24,695 basehttp 83476 123145569796096 "GET /admin/users/user/ HTTP/1.1" 500 135743
+ERROR 2025-11-09 09:18:24,695 basehttp 83476 123145569796096 "GET /admin/users/user/ HTTP/1.1" 500 135743
+ERROR 2025-11-09 09:18:27,398 log 83476 123145569796096 Internal Server Error: /admin/users/user/add/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 234, in inner
+    if not self.has_permission(request):
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“2” is not a valid UUID.']
+ERROR 2025-11-09 09:18:27,401 basehttp 83476 123145569796096 "GET /admin/users/user/add/ HTTP/1.1" 500 135642
+ERROR 2025-11-09 09:18:27,401 basehttp 83476 123145569796096 "GET /admin/users/user/add/ HTTP/1.1" 500 135642
+ERROR 2025-11-09 09:21:02,338 log 85659 123145572728832 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 430, in login
+    **self.each_context(request),
+      ~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 342, in each_context
+    "has_permission": self.has_permission(request),
+                      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“3” is not a valid UUID.']
+ERROR 2025-11-09 09:21:02,343 basehttp 85659 123145572728832 "POST /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 131873
+ERROR 2025-11-09 09:21:02,343 basehttp 85659 123145572728832 "POST /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 131873
+ERROR 2025-11-09 09:21:08,332 log 85659 123145572728832 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 430, in login
+    **self.each_context(request),
+      ~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 342, in each_context
+    "has_permission": self.has_permission(request),
+                      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“3” is not a valid UUID.']
+ERROR 2025-11-09 09:21:08,335 basehttp 85659 123145572728832 "POST /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 131873
+ERROR 2025-11-09 09:21:08,335 basehttp 85659 123145572728832 "POST /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 131873
+ERROR 2025-11-09 09:21:09,848 log 85659 123145572728832 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 418, in login
+    if request.method == "GET" and self.has_permission(request):
+                                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“3” is not a valid UUID.']
+ERROR 2025-11-09 09:21:09,851 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 125968
+ERROR 2025-11-09 09:21:09,851 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 125968
+ERROR 2025-11-09 09:21:10,553 log 85659 123145572728832 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 418, in login
+    if request.method == "GET" and self.has_permission(request):
+                                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“3” is not a valid UUID.']
+ERROR 2025-11-09 09:21:10,556 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 126236
+ERROR 2025-11-09 09:21:10,556 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 126236
+ERROR 2025-11-09 09:21:12,866 log 85659 123145572728832 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 418, in login
+    if request.method == "GET" and self.has_permission(request):
+                                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“3” is not a valid UUID.']
+ERROR 2025-11-09 09:21:12,869 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 126236
+ERROR 2025-11-09 09:21:12,869 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 126236
+ERROR 2025-11-09 09:21:13,503 log 85659 123145572728832 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 418, in login
+    if request.method == "GET" and self.has_permission(request):
+                                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“3” is not a valid UUID.']
+ERROR 2025-11-09 09:21:13,505 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 126236
+ERROR 2025-11-09 09:21:13,505 basehttp 85659 123145572728832 "GET /admin/login/?next=/admin/users/user/ HTTP/1.1" 500 126236
+ERROR 2025-11-09 09:21:16,866 log 85659 123145589518336 Internal Server Error: /admin/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2766, in to_python
+    return uuid.UUID(**{input_form: value})
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/uuid.py", line 181, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 265, in wrapper
+    return self.admin_view(view, cacheable)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 234, in inner
+    if not self.has_permission(request):
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 207, in has_permission
+    return request.user.is_active and request.user.is_staff
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 304, in get_user
+    user_id = _get_user_session_key(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 95, in _get_user_session_key
+    return get_user_model()._meta.pk.to_python(request.session[SESSION_KEY])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/fields/__init__.py", line 2768, in to_python
+    raise exceptions.ValidationError(
+    ...<3 lines>...
+    )
+django.core.exceptions.ValidationError: ['“3” is not a valid UUID.']
+ERROR 2025-11-09 09:21:16,869 basehttp 85659 123145589518336 "GET /admin/ HTTP/1.1" 500 135899
+ERROR 2025-11-09 09:21:16,869 basehttp 85659 123145589518336 "GET /admin/ HTTP/1.1" 500 135899
+ERROR 2025-11-09 22:17:46,264 log 22260 123145570578432 Internal Server Error: /admin/trading/tradingpair/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: trading_tradingpair.name
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2163, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: trading_tradingpair.name
+ERROR 2025-11-09 22:17:46,271 basehttp 22260 123145570578432 "GET /admin/trading/tradingpair/ HTTP/1.1" 500 196910
+ERROR 2025-11-09 22:17:46,271 basehttp 22260 123145570578432 "GET /admin/trading/tradingpair/ HTTP/1.1" 500 196910
+ERROR 2025-11-10 13:06:35,881 log 47084 123145558536192 Internal Server Error: /admin/funds/deposit/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: funds_deposit.created_at
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2163, in changelist_view
+    "selection_note": _("0 of %(cnt)s selected") % {"cnt": len(cl.result_list)},
+                                                           ~~~^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 368, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 1954, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: funds_deposit.created_at
+ERROR 2025-11-10 13:06:35,887 basehttp 47084 123145558536192 "GET /admin/funds/deposit/ HTTP/1.1" 500 197627
+ERROR 2025-11-10 13:06:35,887 basehttp 47084 123145558536192 "GET /admin/funds/deposit/ HTTP/1.1" 500 197627
+ERROR 2025-11-11 01:35:12,573 log 72265 123145556279296 Internal Server Error: /admin/notifications/notificationpreference/
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: notifications_notificationpreference
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 2024, in changelist_view
+    cl = self.get_changelist_instance(request)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/options.py", line 867, in get_changelist_instance
+    return ChangeList(
+        request,
+    ...<12 lines>...
+        self.search_help_text,
+    )
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/views/main.py", line 146, in __init__
+    self.get_results(request)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/contrib/admin/views/main.py", line 313, in get_results
+    result_count = paginator.count
+                   ^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/core/paginator.py", line 110, in count
+    return c()
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/query.py", line 606, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/NETPHIX_DEV/Desktop/crypto-trading-broker/.venv/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: notifications_notificationpreference
+ERROR 2025-11-11 01:35:12,582 basehttp 72265 123145556279296 "GET /admin/notifications/notificationpreference/ HTTP/1.1" 500 203536
+ERROR 2025-11-11 01:35:12,582 basehttp 72265 123145556279296 "GET /admin/notifications/notificationpreference/ HTTP/1.1" 500 203536
