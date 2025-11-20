@@ -47,10 +47,11 @@ INSTALLED_APPS = [
     # Third party
     'rest_framework',
     'rest_framework_simplejwt',
-    'rest_framework.authtoken',  # Required by dj-rest-auth
+    'rest_framework.authtoken', 
     'corsheaders',
     'channels',
     'drf_spectacular',
+    'django_prometheus',
     
     # Local apps
     'users',
@@ -66,6 +67,22 @@ INSTALLED_APPS = [
     'realtime',
 ]
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn=os.environ.get('SENTRY_DSN'),
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=0.1,
+        send_default_pii=False
+    )
+
+# Prometheus metrics
+# INSTALLED_APPS += ['django_prometheus']
+# MIDDLEWARE = ['django_prometheus.middleware.PrometheusBeforeMiddleware'] + MIDDLEWARE
+# MIDDLEWARE += ['django_prometheus.middleware.PrometheusAfterMiddleware']
+
 # SITE_ID = 1
 
 
@@ -73,6 +90,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     # 'allauth.account.middleware.AccountMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -160,8 +178,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media files
 MEDIA_URL = config('MEDIA_URL', default='/media/')
@@ -236,7 +257,7 @@ from celery.schedules import crontab
 CELERY_BEAT_SCHEDULE = {
     'update-market-prices': {
         'task': 'tasks.update_market_prices',
-        'schedule': 5.0,  # Every 5 seconds
+        'schedule': 60.0,   # Every minute
     },
     'execute-pending-orders': {
         'task': 'tasks.execute_pending_orders',
@@ -314,6 +335,8 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='companybackup63@gmail.com')  
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='kmrg htaw akgi dblv') 
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='companybackup63@gmail.com')
+
+FRONTEND_URL = config('FRONTEND_URL', default='http://127.0.0.1:8000') 
 
 # Add timeout settings
 EMAIL_TIMEOUT = 10  # seconds
@@ -437,3 +460,31 @@ LOGGING = {
 # Create logs directory if it doesn't exist
 LOG_DIR = os.path.join(BASE_DIR, 'logs')
 os.makedirs(LOG_DIR, exist_ok=True)
+
+
+ETHEREUM_NODE_URL = config('ETHEREUM_NODE_URL', default='https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID')
+BSC_NODE_URL = config('BSC_NODE_URL', default='https://bsc-dataseed.binance.org/')
+# MASTER_SEED = config('MASTER_SEED', default='your-very-secure-master-seed')
+
+# Blockchain Node URLs
+ETHEREUM_NODE_URL = config(
+    'ETHEREUM_NODE_URL', 
+    default='https://mainnet.infura.io/v3/INFURA_PROJECT_ID'
+)
+BSC_NODE_URL = config(
+    'BSC_NODE_URL',
+    default='https://bsc-dataseed.binance.org/'
+)
+TRON_NODE_URL = config(
+    'TRON_NODE_URL',
+    default='https://api.trongrid.io'
+)
+
+ALPHA_VANTAGE_API_KEY = config('ALPHA_VANTAGE_API_KEY', default='your_alpha_vantage_api_key')
+
+# Master Seed for Wallet Generation (CRITICAL - KEEP SECURE!)
+MASTER_SEED = config('MASTER_SEED', default='your_very_secure_master_seed')
+
+
+# Encryption key for sensitive data
+FIELD_ENCRYPTION_KEY = config('FIELD_ENCRYPTION_KEY', default='your_field_encryption_key')

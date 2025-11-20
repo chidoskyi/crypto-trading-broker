@@ -5,7 +5,7 @@ from users.models import Profile, User, KYCDocument, Country
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = ['email', 'username', 'is_verified', 'kyc_status', 'created_at', 'is_active', 'is_staff']
+    list_display = ['email', 'username', 'is_verified', 'kyc_status', 'created_at', 'is_active', 'is_staff', 'first_name', 'last_name']  # FIXED: Added first_name and last_name for better identification
     list_filter = ['is_verified', 'kyc_status', 'is_staff', 'is_active']  # FIXED: Now these are actual fields
     search_fields = ['email', 'username', 'referral_code']
     ordering = ['-created_at']
@@ -13,7 +13,7 @@ class UserAdmin(BaseUserAdmin):
     
     # FIXED: Use proper fieldsets structure
     fieldsets = (
-        (None, {'fields': ('email', 'username', 'password')}),
+        (None, {'fields': ('first_name', 'last_name','email', 'username', 'password')}),
         ('Personal Info', {'fields': ('phone_number', 'country')}),
         ('Verification Status', {'fields': ('is_verified', 'kyc_status')}),
         ('Referral Info', {'fields': ('referral_code', 'referred_by')}),

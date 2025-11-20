@@ -18,6 +18,7 @@ class Country(models.Model):
     def __str__(self):
         return f"{self.name} (+{self.phone_code})"
 
+
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         if not username:
@@ -52,6 +53,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True
     )
     username = models.CharField(_('username'), max_length=150, unique=True)  # ADD THIS
+    first_name = models.CharField(_('first name'), max_length=150) 
+    last_name = models.CharField(_('last name'), max_length=150) 
     email = models.EmailField(_('email address'), unique=True)
     phone_number = models.CharField(max_length=20, blank=True)
     country = models.ForeignKey('Country', on_delete=models.SET_NULL, null=True, blank=True)
@@ -147,14 +150,29 @@ class Profile(models.Model):
         editable=False,
         unique=True
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     kyc = models.OneToOneField(KYCDocument, on_delete=models.SET_NULL, null=True, blank=True)
     bio = models.TextField(blank=True)
-    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
+    profile_picture = models.ImageField(
+        upload_to='profile_pictures/',
+        blank=True,
+        null=True,
+        help_text="User profile picture"
+    )
     location = models.CharField(max_length=100, blank=True)
     website = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Profile'
+        verbose_name_plural = 'Profiles'
+    
     def __str__(self):
-        return f"Profile of {self.user.email}"
+        return f"{self.user.email}'s Profile"
+
+    @property
+    def is_complete(self):
+        """Check if profile has required fields filled"""
+        return bool(self.bio and self.location)

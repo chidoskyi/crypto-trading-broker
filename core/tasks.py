@@ -3,19 +3,46 @@ from celery import shared_task
 from django.utils import timezone
 from datetime import timedelta
 
+# @shared_task
+# def update_market_prices():
+#     """Update market prices for all active trading pairs"""
+#     from trading.models import TradingPair
+#     from trading.services.market_service import MarketDataService
+    
+#     market_service = MarketDataService()
+#     active_pairs = TradingPair.objects.filter(is_active=True)
+    
+#     for pair in active_pairs:
+#         try:
+#             ticker = market_service.get_ticker(pair.symbol)
+#             # Update cached prices or database as needed
+#         except Exception as e:
+#             print(f"Error updating {pair.symbol}: {e}")
+
 @shared_task
 def update_market_prices():
     """Update market prices for all active trading pairs"""
     from trading.models import TradingPair
     from trading.services.market_service import MarketDataService
+    from django.utils import timezone
     
     market_service = MarketDataService()
     active_pairs = TradingPair.objects.filter(is_active=True)
     
     for pair in active_pairs:
         try:
-            ticker = market_service.get_ticker(pair.symbol)
-            # Update cached prices or database as needed
+            # FIXED: Pass the TradingPair object, not the symbol string
+            ticker = market_service.get_ticker(pair)  # NO .symbol here!
+            
+            # Update the TradingPair model with new data
+            if ticker and 'last_price' in ticker:
+                pair.last_price = ticker['last_price']
+                pair.price_change_24h = ticker.get('change_24h', 0)
+                pair.volume_24h = ticker.get('volume', 0)   
+                pair.market_cap = ticker.get('market_cap')
+                pair.last_updated = timezone.now()
+                pair.save()
+                
         except Exception as e:
             print(f"Error updating {pair.symbol}: {e}")
 
@@ -128,6 +155,7 @@ def process_referral_rewards():
         except Exception as e:
             print(f"Error processing reward {reward.id}: {e}")
 
+
 @shared_task
 def check_kyc_expiry():
     """Check for expired KYC documents"""
@@ -146,3 +174,36 @@ def check_kyc_expiry():
         kyc.user.kyc_status = 'not_submitted'
         kyc.user.save()
         # Send notification to user
+
+
+
+@shared_task
+def check_crypto_deposits():
+    """Check for new crypto deposits - runs every 2 minutes"""
+    from funds.services.deposit_detector import deposit_detector
+    
+    try:
+        deposit_detector.check_all_deposits()
+        return "Deposit check completed"
+    except Exception as e:
+        print(f"Error in check_crypto_deposits: {e}")
+        return f"Error: {e}"
+
+@shared_task
+def generate_missing_qr_codes():
+    """Generate QR codes for addresses that don't have them"""
+    from funds.models import CryptoWalletAddress
+    
+    addresses = CryptoWalletAddress.objects.filter(
+        qr_code='',
+        is_active=True
+    )
+    
+    for addr in addresses:
+        try:
+            addr.generate_qr_code()
+            addr.save()
+        except Exception as e:
+            print(f"Error generating QR for {addr.id}: {e}")
+    
+    return f"Generated QR codes for {addresses.count()} addresses"

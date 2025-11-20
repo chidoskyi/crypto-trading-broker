@@ -1,7 +1,7 @@
 # funds/serializers.py
 import uuid
 from rest_framework import serializers
-from funds.models import Wallet, Transaction, Deposit, Withdrawal
+from funds.models import Wallet, Transaction, Deposit, Withdrawal, CryptoWalletAddress, PendingDeposit, DepositMethod
 
 class WalletSerializer(serializers.ModelSerializer):
     available_balance = serializers.SerializerMethodField()
@@ -94,3 +94,77 @@ class WithdrawalSerializer(serializers.ModelSerializer):
         )
         
         return withdrawal
+
+class DepositMethodSerializer(serializers.ModelSerializer):
+    estimated_time = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = DepositMethod
+        fields = ['id', 'currency', 'network', 'name', 'min_deposit',
+                  'max_deposit', 'deposit_fee_percentage', 'deposit_fee_fixed',
+                  'required_confirmations', 'estimated_time', 'contract_address',
+                  'is_active']
+    
+    def get_estimated_time(self, obj):
+        """Calculate estimated confirmation time"""
+        total_seconds = obj.required_confirmations * obj.block_time_seconds
+        minutes = total_seconds // 60
+        return f"{minutes} minutes"
+
+class CryptoWalletAddressSerializer(serializers.ModelSerializer):
+    qr_code_url = serializers.SerializerMethodField()
+    network_name = serializers.CharField(source='get_network_display', read_only=True)
+    
+    class Meta:
+        model = CryptoWalletAddress
+        fields = ['id', 'currency', 'network', 'network_name', 'address',
+                  'qr_code', 'qr_code_url', 'total_received', 'total_deposits',
+                  'created_at']
+        read_only_fields = ['address', 'qr_code', 'total_received', 
+                           'total_deposits', 'created_at']
+    
+    def get_qr_code_url(self, obj):
+        if obj.qr_code:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.qr_code.url)
+        return None
+
+class PendingDepositSerializer(serializers.ModelSerializer):
+    wallet_address_detail = CryptoWalletAddressSerializer(
+        source='wallet_address', read_only=True
+    )
+    progress_percentage = serializers.SerializerMethodField()
+    estimated_completion = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = PendingDeposit
+        fields = ['id', 'currency', 'network', 'amount', 'tx_hash',
+                  'from_address', 'confirmations', 'required_confirmations',
+                  'status', 'progress_percentage', 'estimated_completion',
+                  'detected_at', 'completed_at', 'wallet_address_detail']
+    
+    def get_progress_percentage(self, obj):
+        if obj.required_confirmations == 0:
+            return 100
+        return min(100, (obj.confirmations / obj.required_confirmations) * 100)
+    
+    def get_estimated_completion(self, obj):
+        if obj.status == 'completed':
+            return None
+        
+        remaining = obj.required_confirmations - obj.confirmations
+        if remaining <= 0:
+            return "Completing now..."
+        
+        # Get block time from deposit method
+        try:
+            method = DepositMethod.objects.get(
+                currency=obj.currency,
+                network=obj.network
+            )
+            seconds = remaining * method.block_time_seconds
+            minutes = seconds // 60
+            return f"~{minutes} minutes"
+        except DepositMethod.DoesNotExist:
+            return "Unknown"
