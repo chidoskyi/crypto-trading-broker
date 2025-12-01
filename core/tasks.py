@@ -3,22 +3,6 @@ from celery import shared_task
 from django.utils import timezone
 from datetime import timedelta
 
-# @shared_task
-# def update_market_prices():
-#     """Update market prices for all active trading pairs"""
-#     from trading.models import TradingPair
-#     from trading.services.market_service import MarketDataService
-    
-#     market_service = MarketDataService()
-#     active_pairs = TradingPair.objects.filter(is_active=True)
-    
-#     for pair in active_pairs:
-#         try:
-#             ticker = market_service.get_ticker(pair.symbol)
-#             # Update cached prices or database as needed
-#         except Exception as e:
-#             print(f"Error updating {pair.symbol}: {e}")
-
 @shared_task
 def update_market_prices():
     """Update market prices for all active trading pairs"""
@@ -175,6 +159,48 @@ def check_kyc_expiry():
         kyc.user.save()
         # Send notification to user
 
+from celery import shared_task
+from copy_trading.services.copy_service import CopyTradingService
+from trading.models import Order
+import logging
+
+logger = logging.getLogger(__name__)
+
+@shared_task(bind=True, max_retries=3)
+def replicate_trade_task(self, order_id):
+    '''
+    Asynchronous task to replicate a master trader's order
+    '''
+    try:
+        order = Order.objects.get(id=order_id)
+        service = CopyTradingService()
+        results = service.replicate_trade(order)
+        
+        logger.info(f"Successfully replicated order {order_id}: {results}")
+        return results
+        
+    except Order.DoesNotExist:
+        logger.error(f"Order {order_id} not found")
+        return {'error': 'Order not found'}
+        
+    except Exception as e:
+        logger.error(f"Failed to replicate order {order_id}: {e}", exc_info=True)
+        # Retry with exponential backoff
+        raise self.retry(exc=e, countdown=60 * (2 ** self.request.retries))
+
+
+@shared_task
+def update_trader_statistics():
+    '''
+    Periodic task to update trader performance statistics
+    '''
+    from copy_trading.models import Trader
+    from django.db.models import Sum, Count, Avg
+    
+    for trader in Trader.objects.filter(is_active=True):
+        # Update statistics based on recent trades
+        # This is a placeholder - implement based on your requirements
+        pass
 
 
 @shared_task

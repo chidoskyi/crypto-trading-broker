@@ -1,7 +1,8 @@
 # users/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from users.models import Profile, User, KYCDocument, Country
+from unfold.admin import ModelAdmin
+from users.models import Profile, User, KYCDocument, Country, Account
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
@@ -43,8 +44,117 @@ class CountryAdmin(admin.ModelAdmin):
     search_fields = ['name', 'iso']
     
 @admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
+class ProfileAdmin(ModelAdmin):
     list_display = ['user', 'bio', 'location', 'website', 'created_at']
     search_fields = ['user__email', 'user__username', 'bio', 'location', 'website']
     readonly_fields = ['created_at']
     ordering = ['-created_at']
+    
+admin.site.register(Account)
+class AccountAdmin(ModelAdmin):
+    # List Display
+    list_display = (
+        'user',
+        'available_balance',
+        'total_earned',
+        'status',
+        'created_at',
+        'last_login',
+        'account_actions',
+        'active_investments'
+    )
+    
+    # Search Fields
+    search_fields = (
+        'user__username',
+        'user__email',
+        'status',
+    )
+    
+    # List Filter
+    list_filter = (
+        'status',
+        'created_at',
+        'last_login',
+    )
+    
+    # Editable Fields in List View
+    list_editable = (
+        'status',
+    )
+    
+    # Fieldsets for Detail View
+    fieldsets = (
+        ('User Information', {
+            'fields': ('user', 'status', 'created_at', 'updated_at', 'last_login'),
+        }),
+        ('Balances', {
+            'fields': (
+                'available_balance',
+            ),
+        }),
+        ('Investment Statistics', {
+            'fields': (
+                'active_investments',
+                'total_earned',
+            ),
+        }),
+        ('Transaction Statistics', {
+            'fields': (
+                'total_deposits',
+                'total_withdrawals',
+                'pending_withdrawals',
+            ),
+        }),
+        ('Referral System', {
+            'fields': (
+                'referral_balance',
+                'total_referral_earnings',
+            ),
+        }),
+        ('Withdrawal Limits', {
+            'fields': (
+                'withdrawal_limit',
+                'daily_withdrawal_limit',
+            ),
+        }),
+        ('Timestamps', {
+            'fields': (
+                'last_investment',
+                'last_withdrawal',
+            ),
+        }),
+    )
+    
+    # Read-Only Fields
+    readonly_fields = (
+        'created_at',
+        'updated_at',
+        'last_login',
+        'last_investment',
+        'last_withdrawal',
+    )
+    exclude = ('invested_balance', 'pending_balance', 'total_invested')
+    
+    # Custom Actions
+    actions = ['activate_accounts', 'suspend_accounts']
+    
+    def activate_accounts(self, request, queryset):
+        queryset.update(status=Account.STATUS_ACTIVE)
+    activate_accounts.short_description = "Activate selected accounts"
+    
+    def suspend_accounts(self, request, queryset):
+        queryset.update(status=Account.STATUS_SUSPENDED)
+    suspend_accounts.short_description = "Suspend selected accounts"
+    
+    # Custom Method for Admin Actions
+    def account_actions(self, obj):
+        return format_html(
+            '<a class="button" href="{}">View</a>&nbsp;'
+            '<a class="button" href="{}">Edit</a>',
+            f'/admin/users/account/{obj.id}/',
+            f'/admin/users/account/{obj.id}/change/',
+        )
+    account_actions.short_description = 'Actions'
+    account_actions.allow_tags = True
+

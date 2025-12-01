@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from users.models import Country, Profile, User, KYCDocument
+from users.models import Country, Profile, User, KYCDocument, Account
 import random
 import string
 from django.core.cache import cache
@@ -18,9 +18,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'username', 'first_name', 'last_name', 
-                  'phone_number', 'is_verified', 'kyc_status', 'referral_code',
+                  'phone_number', 'is_verified', 'kyc_status',
                   'created_at']
-        read_only_fields = ['id', 'is_verified', 'kyc_status', 'referral_code', 
+        read_only_fields = ['id', 'is_verified', 'kyc_status', 
                            'created_at']
         
 
@@ -113,22 +113,15 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     captcha_key = serializers.CharField(write_only=True)
     captcha_value = serializers.CharField(write_only=True)
     
-    # Optional referral code
-    referred_by_code = serializers.CharField(
-        required=False, 
-        allow_blank=True,
-        write_only=True
-    )
-    
     class Meta:
         model = User
         fields = [
             'id', 'username', 'email', 'password', 'password_confirmation',
             'first_name', 'last_name', 'phone_number', 'country', 
-            'country_details', 'referred_by_code', 'referral_code',
+            'country_details',
             'captcha_key', 'captcha_value', 'is_verified', 'kyc_status'
         ]
-        read_only_fields = ['id', 'referral_code', 'is_verified', 'kyc_status']
+        read_only_fields = ['id', 'is_verified', 'kyc_status']
         extra_kwargs = {
             'email': {'required': True},
             'username': {'required': True},
@@ -261,20 +254,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         # Extract country object (already validated and converted)
         country = validated_data.pop('country')
         
-        # Extract optional referral code
-        referred_by_code = validated_data.pop('referred_by_code', None)
-        
-        # Generate unique 8-character referral code
-        referral_code = self.generate_unique_referral_code()
-        
-        # Handle referral relationship
-        referred_by = None
-        if referred_by_code:
-            try:
-                referred_by = User.objects.get(referral_code=referred_by_code)
-            except User.DoesNotExist:
-                # Silently ignore invalid referral codes
-                pass
         
         # Extract password before creating user
         password = validated_data.pop('password')
@@ -283,8 +262,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user = User.objects.create(
             **validated_data,
             country=country,
-            referral_code=referral_code,
-            referred_by=referred_by,
             is_active=True,  # User can login immediately
             is_verified=False,  # Email not verified yet
             kyc_status='not_submitted'  # Default KYC status
@@ -295,19 +272,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.save()
         
         return user
-    
-    def generate_unique_referral_code(self):
-        """Generate a unique 8-character referral code"""
-        while True:
-            # Generate code with uppercase letters and digits
-            code = ''.join(random.choices(
-                string.ascii_uppercase + string.digits, 
-                k=8
-            ))
-            
-            # Check if it's unique
-            if not User.objects.filter(referral_code=code).exists():
-                return code
             
 class KYCDocumentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -403,15 +367,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
-            'phone_number', 'country', 'referral_code', 
+            'phone_number', 'country', 
             'referred_users_count', 'is_verified', 'kyc_status',
             'date_joined', 'updated_at'
         ]
-        read_only_fields = ['id', 'email', 'referral_code', 'date_joined']
-    
-    def get_referred_users_count(self, obj):
-        """Get count of users referred by this user"""
-        return obj.referrals.count()
+        read_only_fields = ['id', 'email', 'date_joined']
     
 
 class PasswordResetRequestSerializer(serializers.Serializer):
@@ -450,3 +410,43 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
             })
         
         return attrs
+    
+class AccountSerializer(serializers.ModelSerializer):
+    total_balance = serializers.DecimalField(
+        max_digits=20, 
+        decimal_places=2, 
+        read_only=True
+    )
+    available_trading_balance = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Account
+        fields = [
+            'id', 'user', 'status',
+            'deposit_balance', 'trading_balance', 'investment_balance',
+            'available_balance', 'invested_balance', 'pending_balance',
+            'total_balance', 'available_trading_balance',
+            'total_deposits', 'total_withdrawals', 'total_earned',
+            'active_investments', 'pending_withdrawals',
+            'created_at', 'updated_at', 'last_login',
+            'last_investment', 'last_withdrawal'
+        ]
+        read_only_fields = [
+            'id', 'user', 'total_balance', 'available_trading_balance',
+            'created_at', 'updated_at'
+        ]
+    
+    def get_available_trading_balance(self, obj):
+        """Calculate available trading balance excluding locked funds"""
+        from trading.models import Position
+        open_positions = Position.objects.filter(user=obj.user)
+        
+        if not open_positions.exists():
+            return obj.trading_balance
+        
+        total_margin_used = sum(
+            (pos.quantity * pos.entry_price) / pos.leverage 
+            for pos in open_positions
+        )
+        
+        return max(Decimal('0'), obj.trading_balance - Decimal(str(total_margin_used)))

@@ -16,16 +16,17 @@ from drf_spectacular.views import (
 
 # Import all viewsets
 from users.views import (
-    CountryListView, CustomLoginView, PasswordResetConfirmView, PasswordResetRequestView, PasswordResetValidateView, ProfileCompletionView, RefreshCaptchaView, UserLogoutView, UserRegistrationView, UserProfileView, KYCViewSet, CaptchaView
+    CountryListView, CustomLoginView, PasswordResetConfirmView, PasswordResetRequestView, PasswordResetValidateView, ProfileCompletionView, RefreshCaptchaView, UserLogoutView, UserRegistrationView, UserProfileView, KYCViewSet, CaptchaView, AccountViewSet
 )
-from funds.views import (
-    CryptoWalletViewSet, DepositMethodViewSet, PendingDepositViewSet, WalletViewSet, TransactionViewSet, DepositViewSet, 
-    WithdrawalViewSet, 
-    # CryptoDepositViewSet
-)
+# from funds.views import (
+#     CryptoWalletViewSet, DepositMethodViewSet, PendingDepositViewSet, WalletViewSet, TransactionViewSet, 
+#     # DepositViewSet, 
+#     # WithdrawalViewSet, 
+#     # CryptoDepositViewSet
+# )
 from trading.views import (
     TradingPairViewSet, OrderViewSet, PositionViewSet,
-    # TradeViewSet
+    TradeViewSet, AssetCategoryViewSet, trading_config, TransactionViewSet
 )
 from bots.views import TradingBotViewSet, BotTradeViewSet
 from copy_trading.views import (
@@ -40,6 +41,7 @@ from loans.views import (
 )
 from referrals.views import ReferralViewSet
 from notifications.views import NotificationViewSet
+from investment.views import WithdrawalViewSet, WithdrawalCodeViewSet, DepositViewSet, WalletViewSet, PaymentMethodViewSet, InvestmentViewSet, InvestmentPlanViewSet, InvestmentTransactionViewSet
 
 from django.http import JsonResponse
 from django.db import connection
@@ -74,20 +76,31 @@ router = DefaultRouter()
 router.register(r'kyc', KYCViewSet, basename='kyc')
 
 # Funds
-router.register(r'wallets', WalletViewSet, basename='wallet')
-router.register(r'transactions', TransactionViewSet, basename='transaction')
 router.register(r'deposits', DepositViewSet, basename='deposit')
+router.register(r'wallets', WalletViewSet, basename='wallet')
 router.register(r'withdrawals', WithdrawalViewSet, basename='withdrawal')
-router.register(r'deposit-methods', DepositMethodViewSet, basename='deposit-method')
-router.register(r'crypto-wallets', CryptoWalletViewSet, basename='crypto-wallet')
-router.register(r'pending-deposits', PendingDepositViewSet, basename='pending-deposit')
+router.register(r'withdrawal-codes', WithdrawalCodeViewSet, basename='withdrawal-code')
+router.register(r'payment-methods', PaymentMethodViewSet, basename='payment-method')
+router.register(r'investment', InvestmentViewSet, basename='investment')
+router.register(r'plans', InvestmentPlanViewSet, basename='plans')
+# router.register(r'accounts', AccountViewSet, basename='account')
+# router.register(r'transactions', InvestmentTransactionViewSet, basename='transaction')
+# router.register(r'wallets', WalletViewSet, basename='wallet')
+# router.register(r'transactions', TransactionViewSet, basename='transaction')
+# router.register(r'deposits', DepositViewSet, basename='deposit')
+# router.register(r'withdrawals', WithdrawalViewSet, basename='withdrawal')
+# router.register(r'deposit-methods', DepositMethodViewSet, basename='deposit-method')
+# router.register(r'crypto-wallets', CryptoWalletViewSet, basename='crypto-wallet')
+# router.register(r'pending-deposits', PendingDepositViewSet, basename='pending-deposit')
 # router.register(r'crypto-deposits', CryptoDepositViewSet, basename='crypto-deposit')
 
 # Trading
 router.register(r'trading-pairs', TradingPairViewSet, basename='trading-pair')
 router.register(r'orders', OrderViewSet, basename='order')
 router.register(r'positions', PositionViewSet, basename='position')
-# router.register(r'trades', TradeViewSet, basename='trade')
+router.register(r'trades', TradeViewSet, basename='trade')
+router.register(r'transactions', TransactionViewSet, basename='transaction')
+router.register(r'asset-categories', AssetCategoryViewSet, basename='asset-category')   
 
 # Bots
 router.register(r'bots', TradingBotViewSet, basename='bot')
@@ -121,18 +134,20 @@ router.register(r'referrals', ReferralViewSet, basename='referral')
 # Notifications
 router.register(r'notifications', NotificationViewSet, basename='notification')
 
+# User
+router.register(r'accounts', AccountViewSet, basename='account')
+
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
     path('', include('client.urls')),
+    path('api/v1/', include('investment.urls')),
     path('health/', health_check, name='health_check'),
     
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), 
-         name='swagger-ui'),
-    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), 
-         name='redoc'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     
     # Authentication
     path('api/v1/auth/register/', UserRegistrationView.as_view(), 
@@ -154,6 +169,13 @@ urlpatterns = [
     path('api/v1/auth/me/', UserProfileView.as_view(), name='user-profile'),
     path('api/v1/auth/logout/', UserLogoutView.as_view(), name='logout'),
     path('api/v1/auth/profile/complete/', ProfileCompletionView.as_view(), name='complete_profile'),
+    
+    # Trading Config
+    path('api/v1/trading/config/', trading_config, name='trading-config'),
+    
+    # path('api/v1/investment/cron/', process_matured_investments_webhook, name='investment-cron'),
+    
+    
     
     # API Routes
     path('api/v1/', include(router.urls)),

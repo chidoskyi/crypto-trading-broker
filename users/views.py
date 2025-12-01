@@ -17,13 +17,15 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from users.serializers import (
-    CustomTokenObtainPairSerializer, ProfileCompletionSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer, ProfileSerializer, UserProfileSerializer, UserSerializer, UserRegistrationSerializer, KYCDocumentSerializer
+    CustomTokenObtainPairSerializer, ProfileCompletionSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer, ProfileSerializer, UserProfileSerializer, UserSerializer, UserRegistrationSerializer, KYCDocumentSerializer, AccountSerializer
 )
+from decimal import Decimal
+from django.utils import timezone
 from django.db import transaction
 from django.conf import settings
 import logging
 logger = logging.getLogger(__name__)
-from users.models import KYCDocument, Profile
+from .models import KYCDocument, Profile, Account
 import random
 import string
 
@@ -518,3 +520,370 @@ class KYCViewSet(viewsets.ModelViewSet):
         kyc.save()
         
         return Response({'message': 'KYC rejected'})
+    
+    
+class AccountViewSet(viewsets.ReadOnlyModelViewSet):
+    """Account management endpoints"""
+    serializer_class = AccountSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        return Account.objects.filter(user=self.request.user)
+    
+    def get_object(self):
+        """Get the current user's account"""
+        return Account.objects.get(user=self.request.user)
+    
+    @action(detail=False, methods=['get'])
+    def balance(self, request):
+        """Get all account balances"""
+        try:
+            account = Account.objects.get(user=request.user)
+            
+            return Response({
+                'status': account.status,
+                'balances': {
+                    'deposit_balance': str(account.deposit_balance),
+                    'trading_balance': str(account.trading_balance),
+                    'investment_balance': str(account.investment_balance),
+                    'available_balance': str(account.available_balance),
+                    'invested_balance': str(account.invested_balance),
+                    'pending_balance': str(account.pending_balance),
+                    'total_balance': str(account.total_balance),
+                },
+                'statistics': {
+                    'total_deposits': str(account.total_deposits),
+                    'total_withdrawals': str(account.total_withdrawals),
+                    'total_earned': str(account.total_earned),
+                    'active_investments': str(account.active_investments),
+                }
+            })
+        except Account.DoesNotExist:
+            return Response(
+                {'error': 'Account not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+    
+    @action(detail=False, methods=['post'])
+    @transaction.atomic
+    def transfer_to_trading(self, request):
+        """
+        Transfer funds from deposit_balance to trading_balance
+        This is how users fund their trading account
+        """
+        amount = request.data.get('amount')
+        
+        # Validate amount
+        if not amount:
+            return Response(
+                {'error': 'Amount is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            amount = Decimal(str(amount))
+        except (ValueError, TypeError):
+            return Response(
+                {'error': 'Invalid amount format'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        if amount <= 0:
+            return Response(
+                {'error': 'Amount must be greater than zero'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            # Get user's account with row lock
+            account = Account.objects.select_for_update().get(user=request.user)
+            
+            # Check account status
+            if account.status != Account.STATUS_ACTIVE:
+                return Response(
+                    {'error': f'Account is {account.status}. Transfers not allowed.'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            
+            # Check sufficient balance
+            if account.deposit_balance < amount:
+                return Response(
+                    {
+                        'error': 'Insufficient deposit balance',
+                        'required': str(amount),
+                        'available': str(account.deposit_balance)
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Perform transfer
+            account.deposit_balance -= amount
+            account.trading_balance += amount
+            account.save()
+            
+            # Log the transfer
+            logger.info(
+                f"Balance transfer: User {request.user.id} transferred "
+                f"${amount} from deposit to trading balance"
+            )
+            
+            # Create transaction record (optional)
+            from funds.models import Transaction
+            Transaction.objects.create(
+                user=request.user,
+                transaction_type='transfer',
+                currency='USD',
+                amount=amount,
+                status='completed',
+                reference_id=f'TRANSFER-DEPOSIT-TO-TRADING-{timezone.now().timestamp()}',
+                # description='Transfer from deposit balance to trading balance',
+                completed_at=timezone.now()
+            )
+            
+            return Response({
+                'message': 'Transfer successful',
+                'amount_transferred': str(amount),
+                'balances': {
+                    'deposit_balance': str(account.deposit_balance),
+                    'trading_balance': str(account.trading_balance),
+                    'total_balance': str(account.total_balance),
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Account.DoesNotExist:
+            return Response(
+                {'error': 'Account not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            logger.error(f"Transfer failed for user {request.user.id}: {str(e)}")
+            return Response(
+                {'error': 'Transfer failed. Please try again.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    @transaction.atomic
+    def transfer_to_investment(self, request):
+        """
+        Transfer funds from deposit_balance to investment_balance
+        For users who want to invest in plans
+        """
+        amount = request.data.get('amount')
+        
+        if not amount:
+            return Response(
+                {'error': 'Amount is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            amount = Decimal(str(amount))
+        except (ValueError, TypeError):
+            return Response(
+                {'error': 'Invalid amount format'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        if amount <= 0:
+            return Response(
+                {'error': 'Amount must be greater than zero'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            account = Account.objects.select_for_update().get(user=request.user)
+            
+            if account.status != Account.STATUS_ACTIVE:
+                return Response(
+                    {'error': f'Account is {account.status}. Transfers not allowed.'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            
+            if account.deposit_balance < amount:
+                return Response(
+                    {
+                        'error': 'Insufficient deposit balance',
+                        'required': str(amount),
+                        'available': str(account.deposit_balance)
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Perform transfer
+            account.deposit_balance -= amount
+            account.investment_balance += amount
+            account.save()
+            
+            logger.info(
+                f"Balance transfer: User {request.user.id} transferred "
+                f"${amount} from deposit to investment balance"
+            )
+            
+            return Response({
+                'message': 'Transfer successful',
+                'amount_transferred': str(amount),
+                'balances': {
+                    'deposit_balance': str(account.deposit_balance),
+                    'investment_balance': str(account.investment_balance),
+                    'total_balance': str(account.total_balance),
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Account.DoesNotExist:
+            return Response(
+                {'error': 'Account not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            logger.error(f"Transfer failed for user {request.user.id}: {str(e)}")
+            return Response(
+                {'error': 'Transfer failed. Please try again.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    @transaction.atomic
+    def transfer_from_trading(self, request):
+        """
+        Transfer funds from trading_balance back to deposit_balance
+        Useful when user wants to withdraw profits or stop trading
+        """
+        amount = request.data.get('amount')
+        
+        if not amount:
+            return Response(
+                {'error': 'Amount is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            amount = Decimal(str(amount))
+        except (ValueError, TypeError):
+            return Response(
+                {'error': 'Invalid amount format'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        if amount <= 0:
+            return Response(
+                {'error': 'Amount must be greater than zero'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            account = Account.objects.select_for_update().get(user=request.user)
+            
+            if account.status != Account.STATUS_ACTIVE:
+                return Response(
+                    {'error': f'Account is {account.status}. Transfers not allowed.'},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+            
+            # Check if user has open positions
+            from trading.models import Position
+            open_positions = Position.objects.filter(user=request.user)
+            if open_positions.exists():
+                # Calculate total margin used
+                total_margin_used = sum(
+                    (pos.quantity * pos.entry_price) / pos.leverage 
+                    for pos in open_positions
+                )
+                
+                available_to_transfer = account.trading_balance - Decimal(str(total_margin_used))
+                
+                if amount > available_to_transfer:
+                    return Response(
+                        {
+                            'error': 'Cannot transfer funds. You have open positions.',
+                            'trading_balance': str(account.trading_balance),
+                            'margin_used': str(total_margin_used),
+                            'available_to_transfer': str(available_to_transfer)
+                        },
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            
+            if account.trading_balance < amount:
+                return Response(
+                    {
+                        'error': 'Insufficient trading balance',
+                        'required': str(amount),
+                        'available': str(account.trading_balance)
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Perform transfer
+            account.trading_balance -= amount
+            account.deposit_balance += amount
+            account.save()
+            
+            logger.info(
+                f"Balance transfer: User {request.user.id} transferred "
+                f"${amount} from trading to deposit balance"
+            )
+            
+            return Response({
+                'message': 'Transfer successful',
+                'amount_transferred': str(amount),
+                'balances': {
+                    'trading_balance': str(account.trading_balance),
+                    'deposit_balance': str(account.deposit_balance),
+                    'total_balance': str(account.total_balance),
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Account.DoesNotExist:
+            return Response(
+                {'error': 'Account not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            logger.error(f"Transfer failed for user {request.user.id}: {str(e)}")
+            return Response(
+                {'error': 'Transfer failed. Please try again.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def transfer_limits(self, request):
+        """
+        Get available transfer limits based on current balances and open positions
+        """
+        try:
+            account = Account.objects.get(user=request.user)
+            
+            # Calculate margin used in open positions
+            from trading.models import Position
+            open_positions = Position.objects.filter(user=request.user)
+            
+            total_margin_used = Decimal('0')
+            if open_positions.exists():
+                total_margin_used = sum(
+                    (pos.quantity * pos.entry_price) / pos.leverage 
+                    for pos in open_positions
+                )
+            
+            available_to_transfer_from_trading = max(
+                Decimal('0'),
+                account.trading_balance - total_margin_used
+            )
+            
+            return Response({
+                'deposit_balance': str(account.deposit_balance),
+                'trading_balance': str(account.trading_balance),
+                'investment_balance': str(account.investment_balance),
+                'limits': {
+                    'can_transfer_to_trading': str(account.deposit_balance),
+                    'can_transfer_to_investment': str(account.deposit_balance),
+                    'can_transfer_from_trading': str(available_to_transfer_from_trading),
+                    'margin_used_in_positions': str(total_margin_used),
+                },
+                'open_positions': open_positions.count()
+            })
+            
+        except Account.DoesNotExist:
+            return Response(
+                {'error': 'Account not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )

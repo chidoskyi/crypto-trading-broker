@@ -13,7 +13,7 @@ User = get_user_model()
 
 class Wallet(models.Model):
     """User wallet for multiple currencies"""
-    user = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='funds_wallets')
     currency = models.CharField(max_length=10)  # USD, EUR, BTC, ETH, etc.
     balance = models.DecimalField(
         max_digits=20,
@@ -64,6 +64,7 @@ class Transaction(models.Model):
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(null=True, blank=True)
+
 
 class Deposit(models.Model):
     """Deposit requests"""
@@ -279,3 +280,5 @@ class DepositMethod(models.Model):
     
     def __str__(self):
         return f"{self.currency} - {self.network}"
+
+        

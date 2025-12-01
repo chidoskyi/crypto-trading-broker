@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
 
@@ -35,6 +35,13 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
 
 INSTALLED_APPS = [
     'jazzmin',
+    # "unfold",  # before django.contrib.admin
+    # "unfold.contrib.filters",  # optional, if special filters are needed
+    # "unfold.contrib.forms",  # optional, if special form elements are needed
+    # "unfold.contrib.inlines",  # optional, if special inlines are needed
+    # "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    # "unfold.contrib.guardian",  # optional, if django-guardian package is used
+    # "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,6 +59,7 @@ INSTALLED_APPS = [
     'channels',
     'drf_spectacular',
     'django_prometheus',
+    "graphene_django",
     
     # Local apps
     'users',
@@ -65,6 +73,7 @@ INSTALLED_APPS = [
     'referrals',
     'notifications',
     'realtime',
+    'investment',
 ]
 
 import sentry_sdk
@@ -130,6 +139,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+GRAPHENE = {
+    "SCHEMA": "core.schema.schema"
+}
+
 
 # DATABASES = {
 #     'default': {
@@ -219,7 +233,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 50,
+    'PAGE_SIZE': 200,
+    'MAX_PAGE_SIZE': 2000,  # Allow up to 2000 items per page
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
@@ -350,6 +365,8 @@ EMAIL_SSL_KEYFILE = None
 # import certifi
 # EMAIL_SSL_CERTFILE = certifi.where()
 
+CRON_SECRET_TOKEN = config('CRON_SECRET_TOKEN', default='default-dev-token')
+
 
 LOGGING = {
     'version': 1,
@@ -456,6 +473,7 @@ LOGGING = {
         'level': 'WARNING',
     }
 }
+
 
 # Create logs directory if it doesn't exist
 LOG_DIR = os.path.join(BASE_DIR, 'logs')
