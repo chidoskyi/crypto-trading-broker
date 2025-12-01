@@ -1,0 +1,481 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% block title %}Trading View{% endblock title %}
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %}
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %}
+{% block content %}
+
+  <!-- Main content placeholder -->
+  <div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <!-- Your main dashboard content goes here -->
+    
+            <div class="container mx-auto px-4 py-8" x-data="tradingSingle()" x-cloak>
+                <!-- TradingView Ticker Tape Widget -->
+                <!--<div class="mb-6">-->
+                <!--    <div class="tradingview-widget-container">-->
+                <!--        <div class="tradingview-widget-container__widget"></div>-->
+                <!--        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>-->
+                <!--        {-->
+                <!--            "symbols": [-->
+                <!--                {"proName": "BINANCE:BTCUSDT", "title": "BTC/USDT"},-->
+                <!--                {"proName": "BINANCE:ETHUSDT", "title": "ETH/USDT"},-->
+                <!--                {"proName": "FX:EURUSD", "title": "EUR/USD"},-->
+                <!--                {"proName": "NASDAQ:AAPL", "title": "APPLE"},-->
+                <!--                {"proName": "NASDAQ:TSLA", "title": "TESLA"},-->
+                <!--                {"proName": "TVC:GOLD", "title": "GOLD"}-->
+                <!--            ],-->
+                <!--            "showSymbolLogo": true,-->
+                <!--            "colorTheme": "dark",-->
+                <!--            "isTransparent": true,-->
+                <!--            "displayMode": "adaptive",-->
+                <!--            "locale": "en"-->
+                <!--        }-->
+                <!--        </script>-->
+                <!--    </div>-->
+                <!--</div>-->
+
+
+                <!-- Flash Message -->
+
+            <!-- Validation Errors -->
+
+            <!-- Notify Alert -->
+
+            <!-- Signal Alert -->
+
+            <!-- Plan Alert -->
+                <div>
+                </div>
+    
+                    <!-- Back Button -->
+                    <div class="mb-6">
+                        <a href="https://www.isotradex.com/dashboard/trade"
+                        class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Back to Markets
+                        </a>
+                    </div>
+
+                    <!-- Trading Interface -->
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                        <!-- Chart Section (Left Side) -->
+                        <div class="xl:col-span-2 space-y-6">
+                            <!-- Instrument Header -->
+                            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                                                            <img src="https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400" alt="Bitcoin" class="w-10 h-10 rounded-full object-cover">
+                                                                    </div>
+                                        <div>
+                                            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Bitcoin</h1>
+                                            <p class="text-gray-600 dark:text-gray-400">BTC/USD</p>
+                                        </div>
+                                    </div>
+
+                    <!-- Price Info -->
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-white">
+                            $118,189.00
+                        </div>
+                        <div class="flex items-center gap-1 text-green-600 dark:text-green-400">
+                                                            <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                                        <span>0.02%</span>
+                            <span class="text-sm">(+$19.95)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Widget -->
+           <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+    <div class="mb-4">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Price Chart</h2>
+    </div>
+
+    <!-- TradingView Chart -->
+    <div class="tradingview-widget-container h-[600px]">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+            "height": 600,
+            "symbol": "BTC/USD",
+            "interval": "D",
+            "timezone": "Etc/UTC",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "allow_symbol_change": true,
+            "container_id": "tradingview_chart"
+        }
+        </script>
+    </div>
+</div>
+           <!-- Market Stats -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Market Statistics</h3>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">24h High</div>
+                        <div class="font-semibold text-gray-900 dark:text-white">
+                            $119,026.00
+                        </div>
+                    </div>
+
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">24h Low</div>
+                        <div class="font-semibold text-gray-900 dark:text-white">
+                            $117,498.00
+                        </div>
+                    </div>
+
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">24h Volume</div>
+                        <div class="font-semibold text-gray-900 dark:text-white">
+                                                            $40.0B
+                                                    </div>
+                    </div>
+
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Market Cap</div>
+                        <div class="font-semibold text-gray-900 dark:text-white">
+                                                            $2,351.3B
+                                                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trade History Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+
+
+
+
+                <!-- Trade History Tabs -->
+                <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-6">
+                    <button @click="activeTab = 'open'"
+                            :class="activeTab === 'open' ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400'"
+                            class="flex-1 py-2 px-4 rounded-md font-medium transition-colors text-sm">
+                        Open Trades (0)
+                    </button>
+                    <button @click="activeTab = 'closed'"
+                            :class="activeTab === 'closed' ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400'"
+                            class="flex-1 py-2 px-4 rounded-md font-medium transition-colors text-sm">
+                        Closed Trades (0)
+                    </button>
+                </div>
+
+                <!-- Open Trades -->
+                <div x-show="activeTab === 'open'" x-transition>
+                                            <div class="text-center py-12">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                                <i data-lucide="chart-line" class="w-8 h-8 text-gray-400"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Open Trades</h4>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">You don't have any open trades for BTC/USD</p>
+                            <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium">
+                                Start Trading
+                            </button>
+                        </div>
+                                    </div>
+
+                <!-- Closed Trades -->
+                <div x-show="activeTab === 'closed'" x-transition>
+                                            <div class="text-center py-12">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                                <i data-lucide="history" class="w-8 h-8 text-gray-400"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Trade History</h4>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">You haven't completed any trades for BTC/USD yet</p>
+                            <div class="space-y-3">
+                                <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium">
+                                    Start Trading
+                                </button>
+                                <div>
+                                    <a href="https://www.isotradex.com/user-trades-debug.php" class="text-sm text-blue-600 hover:underline">
+                                        View All Your Trades
+                                    </a>
+                                </div>
+                            </div>
+                                                    </div>
+                                    </div>
+            </div>
+        </div>
+
+        <!-- Trading Panel (Right Side) -->
+        <div class="xl:col-span-1">
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 sticky top-8">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Place Order</h3>
+
+                <!-- Order Type Tabs -->
+                <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-6">
+                    <button @click="orderType = 'Buy'"
+                            :class="orderType === 'Buy' ? 'bg-green-500 text-white' : 'text-gray-600 dark:text-gray-400'"
+                            class="flex-1 py-2 px-4 rounded-md font-medium transition-colors">
+                        Buy
+                    </button>
+                    <button @click="orderType = 'Sell'"
+                            :class="orderType === 'Sell' ? 'bg-red-500 text-white' : 'text-gray-600 dark:text-gray-400'"
+                            class="flex-1 py-2 px-4 rounded-md font-medium transition-colors">
+                        Sell
+                    </button>
+                </div>
+
+                <!-- Order Form -->
+                <form action="https://www.isotradex.com/dashboard/joinplan" method="POST" class="space-y-4" @submit.prevent="submitOrder">
+                    <input type="hidden" name="_token" value="lyVTSBtRjU7UiK9EUGnlZqRE9QglElP4U9M4x3gg">                    <!-- Hidden fields for instrument data -->
+                    <input type="hidden" name="plan_id" value="1">
+                    <input type="hidden" name="symbol" value="BTC/USD">
+                    <input type="hidden" name="asset" value="Bitcoin">
+                    <input type="hidden" name="instrument_price" value="118189.00000000">
+                    <input type="hidden" name="order_type" x-model="orderType">
+
+                    <!-- Order Type Selector -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Order Type</label>
+                        <select x-model="tradeType" name="trade_type" class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white">
+
+                            <option value="market">Market Order</option>
+                            <option value="limit">Limit Order</option>
+
+                            <option value="stop">Stop Order</option>
+                        </select>
+                    </div>
+
+                    <!-- Leverage Selector -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Leverage</label>
+                        <select name="leverage" id="leverage" required
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                            <option disabled selected value="">Leverage</option>
+                            <option value="10">1:10</option>
+                            <option value="20">1:20</option>
+                            <option value="30">1:30</option>
+                            <option value="40">1:40</option>
+                            <option value="50">1:50</option>
+                            <option value="60">1:60</option>
+                            <option value="70">1:70</option>
+                            <option value="80">1:80</option>
+                            <option value="90">1:90</option>
+                            <option value="100">1:100</option>
+                        </select>
+                    </div>
+
+                    <!-- Expiration Selector -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Expiration</label>
+                        <select name="expire" id="expire" required
+                                class="block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                            <option disabled selected value="">Expiration</option>
+                            <option value="3 Minutes">3 Minute</option>
+                            <option value="5 Minutes">5 Minutes</option>
+                            <option value="15 Minutes">15 Minutes</option>
+                            <option value="30 Minutes">30 Minutes</option>
+                            <option value="60 Minutes">1 Hour</option>
+                            <option value="4 Hours">4 Hours</option>
+                            <option value="1 Days">1 Day</option>
+                            <option value="2 Days">2 Days</option>
+                            <option value="7 Days">7 Days</option>
+                        </select>
+                    </div>
+
+                    <!-- Price Input (for limit/stop orders) -->
+                    <div >
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Price ($)</label>
+                        <input type="number"
+                               x-model="price"
+                               name="price"
+                               step="any"
+                               min="0"
+                               placeholder="118189.00000000"
+                               class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white">
+                    </div>
+
+                    <!-- Amount Input (Total Investment) -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Investment Amount ($)</label>
+                        <input type="number"
+                               x-model="amount"
+                               name="amount"
+                               step="0.01"
+                               min="0"
+                               placeholder="0.00"
+                               required
+                               class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white">
+                    </div>                    <!-- Investment Summary -->
+                    <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Investment Amount:</span>
+                            <span class="font-semibold text-gray-900 dark:text-white" x-text="formatAmount()"></span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Units:</span>
+                            <span class="text-sm text-gray-900 dark:text-white" x-text="formatUnits()"></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Available Balance:</span>
+                            <span class="text-sm text-gray-900 dark:text-white">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                            :disabled="!amount || amount <= 0 || loading"
+                            :class="orderType === 'Buy' ? 'bg-green-600 hover:bg-green-700 disabled:bg-green-300' : 'bg-red-600 hover:bg-red-700 disabled:bg-red-300'"
+                            class="w-full py-3 px-4 text-white font-semibold rounded-lg transition-colors disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                        <template x-if="loading">
+                            <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        </template>
+                        <span x-text="loading ? 'Processing...' : (orderType === 'Buy' ? 'Buy ' + 'BTC/USD' : 'Sell ' + 'BTC/USD')"></span>
+                    </button>
+                </form>
+
+                <!-- Quick Amount Buttons -->
+                <div class="mt-4">
+                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-2">Quick amounts:</div>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button @click="setQuickAmount(25)" class="py-1 px-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">25%</button>
+                        <button @click="setQuickAmount(50)" class="py-1 px-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">50%</button>
+                        <button @click="setQuickAmount(75)" class="py-1 px-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">75%</button>
+                        <button @click="setQuickAmount(100)" class="py-1 px-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">Max</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function tradingSingle() {
+    return {
+        instrument: {"id":1,"symbol":"BTC\/USD","name":"Bitcoin","type":"crypto","open":null,"high":"119026.00000000","low":"117498.00000000","close":"118189.00000000","percent_change_24h":"0.0169","change":"19.95000000","market_cap":"2351318452138.00","volume":"39985706996.00","logo":"https:\/\/coin-images.coingecko.com\/coins\/images\/1\/large\/bitcoin.png?1696501400","created_at":"2025-06-15T21:29:24.000000Z","updated_at":"2025-07-29T13:43:32.000000Z","price":"118189.00000000"},
+        orderType: 'Buy',
+        tradeType: 'market',
+        amount: '',
+        price: '',
+        loading: false,
+        activeTab: 'open', // Add tab state to the main Alpine component
+
+        formatAmount() {
+            if (!this.amount) return '$0.00';
+            const amount = parseFloat(this.amount);
+            return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        },
+
+        formatUnits() {
+            if (!this.amount) return '0';
+            const amount = parseFloat(this.amount);
+            const price = this.tradeType === 'market' ? this.instrument.price : (this.price || this.instrument.price);
+            const units = amount / parseFloat(price);
+            return units.toLocaleString('en-US', { minimumFractionDigits: 6, maximumFractionDigits: 6 });
+        },
+
+        setQuickAmount(percentage) {
+            const balance = 0;
+            this.amount = (balance * percentage / 100).toFixed(2);
+        },
+
+        submitOrder() {
+            if (!this.amount || this.amount <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Amount',
+                    text: 'Please enter a valid amount to trade.',
+                    confirmButtonColor: '#3B82F6'
+                });
+                return;
+            }
+
+            const leverage = document.getElementById('leverage').value;
+            const expire = document.getElementById('expire').value;
+
+            if (!leverage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Select Leverage',
+                    text: 'Please select a leverage ratio.',
+                    confirmButtonColor: '#3B82F6'
+                });
+                return;
+            }
+
+            if (!expire) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Select Expiration',
+                    text: 'Please select an expiration time.',
+                    confirmButtonColor: '#3B82F6'
+                });
+                return;
+            }
+
+            const total = this.formatAmount();
+            const units = this.formatUnits();
+            const action = this.orderType.toUpperCase();
+
+            Swal.fire({
+                title: `Confirm ${action} Order`,
+                html: `
+                    <div class="text-left space-y-2">
+                        <p><strong>Instrument:</strong> ${this.instrument.symbol}</p>
+                        <p><strong>Action:</strong> ${action}</p>
+                        <p><strong>Investment Amount:</strong> ${total}</p>
+                        <p><strong>Units:</strong> ${units}</p>
+                        <p><strong>Leverage:</strong> 1:${leverage}</p>
+                        <p><strong>Expiration:</strong> ${expire}</p>
+                    </div>
+                `,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: this.orderType === 'Buy' ? '#10B981' : '#EF4444',
+                cancelButtonColor: '#6B7280',
+                confirmButtonText: `Yes, ${action}!`,
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.loading = true;
+
+                    // Show processing message
+                    Swal.fire({
+                        title: 'Processing Order...',
+                        text: 'Please wait while we process your trade.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Submit the form
+                    this.$el.closest('form').submit();
+                }
+            });
+        },        init() {
+            // Initialize price for limit/stop orders
+            this.price = this.instrument.price;
+
+            // Initialize Lucide icons
+            this.$nextTick(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            });
+        }
+    }
+}
+
+// Re-initialize icons after Alpine updates
+document.addEventListener('alpine:updated', () => {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+});
+</script>
+
+  </div>
+</div>
+{% endblock %}

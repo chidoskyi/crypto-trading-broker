@@ -1,0 +1,131 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %} 
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %} 
+
+{% block content %}
+ <!-- Main content placeholder -->
+  <div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <!-- Your main dashboard content goes here -->
+    
+    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-4 px-4 sm:py-8" x-data="{ showCodeInfo: false, selectedMethod: '' }">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 sm:mb-8 gap-4">
+            <div class="text-center sm:text-left">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">Fund Withdrawals</h1>
+                <p class="text-gray-600 dark:text-gray-400 mt-2 text-sm sm:text-base">Securely withdraw your funds using various payment methods</p>
+            </div>
+            <a href="https://www.isotradex.com/dashboard"
+               class="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm text-sm sm:text-base">
+                <i data-lucide="arrow-left" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                <span class="hidden sm:inline">Back to Dashboard</span>
+                <span class="sm:hidden">Back</span>
+            </a>
+        </div>
+
+        <!-- Alert Messages -->
+        <div>
+    </div>
+        
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-4 sm:mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="https://www.isotradex.com/dashboard" class="inline-flex items-center text-xs sm:text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">
+                        <i data-lucide="home" class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2"></i>
+                        Home
+                    </a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i data-lucide="chevron-right" class="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 mx-1"></i>
+                        <span class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Withdrawals</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+                    <!-- Withdrawal Code Required Section -->
+            <div class="bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-700/50 max-w-6xl mx-auto backdrop-blur-sm">
+                <div class="p-4 sm:p-6 lg:p-8 border-b border-gray-700/50">
+                    <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                        <div class="p-3 sm:p-4 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-xl backdrop-blur-sm">
+                            <i data-lucide="shield-check" class="w-6 h-6 sm:w-8 sm:h-8 text-amber-400"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-bold text-white">Security Verification Required</h2>
+                            <p class="text-gray-300 mt-1 text-sm sm:text-base">Additional verification needed to process your withdrawal</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 sm:p-6 lg:p-8">
+                    <!-- Enhanced Warning Message -->
+                    <div class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-l-4 border-amber-500 p-4 sm:p-6 mb-6 sm:mb-8 rounded-lg backdrop-blur-sm">
+                        <div class="flex flex-col sm:flex-row">
+                            <div class="flex-shrink-0 mb-3 sm:mb-0">
+                                <i data-lucide="info" class="h-5 w-5 sm:h-6 sm:w-6 text-amber-400" aria-hidden="true"></i>
+                            </div>
+                            <div class="sm:ml-4 flex-1">
+                                <div class="text-sm sm:text-base font-medium text-amber-300 mb-2">
+                                    Withdrawal Code Required
+                                </div>
+                                <p class="text-xs sm:text-sm text-amber-200 leading-relaxed">
+                                    For your security, this withdrawal requires a verification code. Please contact our customer support team via live chat or email at
+                                    <a href="/cdn-cgi/l/email-protection#9bf2e8f4efe9fafffee3dbf5fee3e1aab5f8f4f6" class="font-semibold underline hover:text-amber-100 transition-colors"><span class="__cf_email__" data-cfemail="721b011d06001316170a321c170a08435c111d1f">[email&#160;protected]</span></a>
+                                    to obtain your withdrawal verification code.
+                                </p>
+                                <button @click="showCodeInfo = !showCodeInfo" class="mt-3 flex items-center text-xs sm:text-sm font-medium text-amber-300 hover:text-amber-200 transition-colors">
+                                    <span x-text="showCodeInfo ? 'Hide security details' : 'Learn about withdrawal security'"></span>
+                                    <i x-bind:data-lucide="showCodeInfo ? 'chevron-up' : 'chevron-down'" class="ml-1 w-3 h-3 sm:w-4 sm:h-4"></i>
+                                </button>
+                                <div x-show="showCodeInfo" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" class="mt-3 p-3 sm:p-4 bg-amber-500/10 rounded-lg text-xs sm:text-sm text-amber-200" style="display: none;">
+                                    <p class="font-medium mb-2">Why withdrawal codes are required:</p>
+                                    <ul class="space-y-1 text-xs">
+                                        <li>• Enhanced security to protect your account from unauthorized access</li>
+                                        <li>• Verification that all withdrawal requests are legitimate and authorized</li>
+                                        <li>• Additional layer of protection against fraudulent transactions</li>
+                                        <li>• Compliance with financial security regulations and best practices</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Withdrawal Code Form -->
+                    <div class="bg-gray-800/50 rounded-xl p-4 sm:p-6 backdrop-blur-sm">
+                        <form action="https://www.isotradex.com/dashboard/userwithdrawal" method="post" class="space-y-4 sm:space-y-6">
+                            <input type="hidden" name="_token" value="4nEZIqGM1W8X6agVpelM2QcopOxwKKkW9bzphYjC">                            <div>
+                                <label for="withdrawal_code" class="block text-sm font-semibold text-gray-200 mb-3">
+                                    Enter Withdrawal Verification Code
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i data-lucide="shield-check" class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"></i>
+                                    </div>
+                                    <input type="text"
+                                           name="withdrawal_code"
+                                           id="withdrawal_code"
+                                           required
+                                           placeholder="Enter your verification code here"
+                                           class="pl-10 sm:pl-12 block w-full rounded-xl border-gray-600/50 bg-gray-800/50 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-white text-sm sm:text-base py-3 sm:py-4 transition-all duration-200 backdrop-blur-sm"
+                                    />
+                                </div>
+                                <p class="mt-2 text-xs text-gray-400">This code was provided by our customer support team</p>
+                            </div>
+
+                            <button type="submit" class="w-full inline-flex justify-center items-center gap-2 py-3 sm:py-4 px-4 sm:px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] text-sm sm:text-base">
+                                <i data-lucide="check-circle" class="h-4 w-4 sm:h-5 sm:w-5"></i>
+                                <span>Verify & Continue</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+  </div> 
+  {% endblock content %}
+
+

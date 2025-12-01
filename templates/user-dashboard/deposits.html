@@ -1,0 +1,330 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% comment %} {% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %}  {% endcomment %}
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %} 
+
+{% block content %}
+
+<!-- Main content placeholder -->
+  <div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <!-- Your main dashboard content goes here -->
+    
+      <!-- Simple Header -->
+      <div class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800" x-cloak>
+          <div class="px-4 py-8 mx-auto container sm:px-6 lg:px-8">
+              <div class="text-center">
+                  <h1 class="text-2xl font-medium text-gray-900 dark:text-white">
+                      Fund Your Account
+                  </h1>
+                  <p class="mt-2 text-gray-600 dark:text-gray-400">
+                      Secure deposits to start trading
+                  </p>
+              </div>
+          </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="px-4 py-8 mx-auto container sm:px-6 lg:px-8">
+        <!-- Alerts -->
+        <div class="space-y-4 mb-6">
+            <div>
+        </div>
+                </div>
+
+        <!-- Quick Amount Selector -->
+        <div class="mb-8 text-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Quick amounts:</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                                            <button onclick="setAmount(100)"
+                            class="px-4 py-2 text-sm bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700
+                                  text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-gray-700
+                                  transition-colors">
+                        $100
+                    </button>
+                                <button onclick="setAmount(500)"
+                            class="px-4 py-2 text-sm bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700
+                                  text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-gray-700
+                                  transition-colors">
+                        $500
+                    </button>
+                                <button onclick="setAmount(1000)"
+                            class="px-4 py-2 text-sm bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700
+                                  text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-gray-700
+                                  transition-colors">
+                        $1,000
+                    </button>
+                                <button onclick="setAmount(5000)"
+                            class="px-4 py-2 text-sm bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700
+                                  text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-gray-700
+                                  transition-colors">
+                        $5,000
+                    </button>
+                        </div>
+        </div>
+
+        <!-- Main Grid Layout -->
+        <div class="grid lg:grid-cols-3 gap-6">
+            <!-- Deposit Form Card -->
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-800 p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+                            Make a Deposit
+                        </h2>
+                        <div class="flex items-center gap-2 px-3 py-1 bg-green-50 dark:bg-green-900/20 rounded-full">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-green-600 dark:text-green-400"></i>
+                            <span class="text-sm text-green-600 dark:text-green-400">Secure</span>
+                        </div>
+                    </div>
+
+<form method="POST" action="{% url 'deposits' %}" id="deposit-form" class="space-y-6">
+    {% csrf_token %}
+    <input type="hidden" name="asset" value=" ">
+
+    <!-- Payment Method Selection -->
+    <div class="space-y-2">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Payment Method <span class="text-red-500">*</span>
+        </label>
+        <select name="payment_method" id="payment_methods" required
+                class="block w-full cursor-pointer px-3 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
+                      rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </select>
+    </div>
+
+    <!-- Amount Input -->
+    <div class="space-y-2">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            Amount to Deposit <span class="text-red-500">*</span>
+        </label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <span class="text-gray-500 dark:text-gray-400">$</span>
+            </div>
+            <input type="number"
+                  id="amount"
+                  name="amount"
+                  required
+                  min="1"
+                  step="0.01"
+                  placeholder="0.00"
+                  class="block w-full pl-8 pr-3 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
+                          rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+            Enter the amount you wish to deposit
+        </p>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-4">
+        <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors">
+            Proceed with Deposit
+        </button>
+    </div>
+</form>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="space-y-6">
+                <!-- Payment Methods Card -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-800 p-6">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                        Payment Methods
+                    </h3>
+                    <div class="space-y-3 payment_methods">
+                    </div>
+                </div>
+
+                <!-- Deposit Guide Card -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-800 p-6">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                        How to Deposit
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 flex-shrink-0">
+                                <span class="text-xs font-medium text-gray-600 dark:text-gray-400">1</span>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Choose your payment method
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 flex-shrink-0">
+                                <span class="text-xs font-medium text-gray-600 dark:text-gray-400">2</span>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Enter deposit amount
+                            </p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 flex-shrink-0">
+                                <span class="text-xs font-medium text-gray-600 dark:text-gray-400">3</span>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Complete secure payment
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <script src="{% static 'assets/scripts/scripts.js' %}"></script>
+<script>
+async function loadPaymentMethods() {
+    const select = document.getElementById('payment_methods');
+    const visualContainer = document.querySelector('.payment_methods'); // Container for visual cards
+    
+    if (!select || !visualContainer) {
+        console.error('Required elements not found');
+        return;
+    }
+    
+    try {
+        // Show loading state
+        select.innerHTML = '<option value="">Loading payment methods...</option>';
+        select.disabled = true;
+        visualContainer.innerHTML = '<div class="text-center text-gray-500 dark:text-gray-400">Loading payment methods...</div>';
+        
+        const response = await APIClient.getPaymentMethods();
+        console.log('Payment methods loaded:', response);
+        
+        // Access the results array
+        const methods = response.results || [];
+        console.log('Methods array:', methods);
+        
+        // Clear and populate select dropdown
+        select.innerHTML = '<option value="">Select Payment Method</option>';
+        
+        // Clear and populate visual cards
+        visualContainer.innerHTML = '';
+        
+        methods.forEach(method => {
+            // Add to select dropdown
+            const option = document.createElement('option');
+            option.value = method.code; // Use 'code' field (BTC, ETH, USDT)
+            option.textContent = method.name; // Use 'name' field
+            select.appendChild(option);
+            
+            // Add to visual cards
+            const card = document.createElement('div');
+            card.className = 'flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors';
+            card.setAttribute('data-payment-code', method.code);
+            card.innerHTML = `
+                <i data-lucide="credit-card" class="w-4 h-4 text-gray-500 dark:text-gray-400"></i>
+                <span class="text-sm text-gray-700 dark:text-gray-300">${method.name}</span>
+            `;
+            
+            // Add click event to select this payment method
+            card.addEventListener('click', () => {
+                // Update select dropdown
+                select.value = method.code;
+                
+                // Remove active state from all cards
+                document.querySelectorAll('[data-payment-code]').forEach(c => {
+                    c.classList.remove('border-2', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                });
+                
+                // Add active state to clicked card
+                card.classList.add('border-2', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                
+                // Trigger change event
+                select.dispatchEvent(new Event('change'));
+            });
+            
+            visualContainer.appendChild(card);
+        });
+        
+        select.disabled = false;
+        
+        // Initialize Lucide icons for the new elements
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        
+    } catch (error) {
+        console.error('Failed to load payment methods:', error);
+        
+        // Fallback options
+        const fallbackMethods = [
+            { code: 'BTC', name: 'Bitcoin' },
+            { code: 'ETH', name: 'Ethereum' },
+            { code: 'USDT', name: 'USDT' },
+            { code: 'LTC', name: 'Litecoin' },
+            { code: 'BNB', name: 'BNB' }
+        ];
+        
+        // Populate select dropdown
+        select.innerHTML = '<option value="">Select Payment Method</option>';
+        fallbackMethods.forEach(method => {
+            const option = document.createElement('option');
+            option.value = method.code;
+            option.textContent = method.name;
+            select.appendChild(option);
+        });
+        
+        // Populate visual cards
+        visualContainer.innerHTML = '';
+        fallbackMethods.forEach(method => {
+            const card = document.createElement('div');
+            card.className = 'flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors';
+            card.setAttribute('data-payment-code', method.code);
+            card.innerHTML = `
+                <i data-lucide="credit-card" class="w-4 h-4 text-gray-500 dark:text-gray-400"></i>
+                <span class="text-sm text-gray-700 dark:text-gray-300">${method.name}</span>
+            `;
+            
+            card.addEventListener('click', () => {
+                select.value = method.code;
+                document.querySelectorAll('[data-payment-code]').forEach(c => {
+                    c.classList.remove('border-2', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                });
+                card.classList.add('border-2', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                select.dispatchEvent(new Event('change'));
+            });
+            
+            visualContainer.appendChild(card);
+        });
+        
+        select.disabled = false;
+        
+        // Initialize Lucide icons
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+}
+
+// Also sync select changes to visual cards
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.getElementById('payment_methods');
+    if (select) {
+        select.addEventListener('change', function() {
+            const selectedCode = this.value;
+            // Remove active state from all cards
+            document.querySelectorAll('[data-payment-code]').forEach(card => {
+                card.classList.remove('border-2', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+            });
+            
+            // Add active state to matching card
+            if (selectedCode) {
+                const matchingCard = document.querySelector(`[data-payment-code="${selectedCode}"]`);
+                if (matchingCard) {
+                    matchingCard.classList.add('border-2', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                }
+            }
+        });
+    }
+});
+
+// Load when DOM is ready
+document.addEventListener('DOMContentLoaded', loadPaymentMethods);
+</script>
+  </div> 
+  {% endblock content %}
+
+

@@ -1,0 +1,86 @@
+{% extends "client/base.html" %} 
+{% load static %}
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+
+{% block content %}
+    <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <div>
+            <section class="blockElement space pb-0 needHelp">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h1 class="bold mb-md-4 f-30">How Can We Help?</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement needMoreHelp">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card-body h-100 bg-white"><span
+                                    class="d-flex align-items-center justify-content-center mb-3 need help1"><img
+                                        src="{% static 'assets/img/businessman.svg' %}"
+                                        class="d-block h-70 v-lazy-image v-lazy-image-loaded" alt="About ZuluTrade"
+                                        title="You can chat with our Support in all languages"></span>
+                                <h4 class="bold f-18 mb-0"><a href="user-guide.html" class="">Investor Guide</a></h4>
+                                <p class="f-13 mb-0 neutralGrey">Read the full guide for your Investor Account</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card-body h-100 bg-white"><span
+                                    class="d-flex align-items-center justify-content-center mb-3 need help2"><img
+                                        src="{% static 'assets/img/traderGuide.svg' %}"
+                                        class="d-block h-70 v-lazy-image v-lazy-image-loaded" alt="A. Our History"
+                                        title="Read the full guide for your Leader Account"></span>
+                                <h4 class="bold f-18 mb-0"><a href="leader-guide.html" class="">Leader Guide</a></h4>
+                                <p class="f-13 mb-0 neutralGrey">Read the full guide for your Leader Account</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="blockElement needMoreHelp space pt-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card-body h-100 bg-white"><span
+                                    class="d-flex align-items-center justify-content-center mb-3 need help3"><img
+                                        src="{% static 'assets/img/emailHelp.svg' %}"
+                                        class="d-block h-70 v-lazy-image v-lazy-image-loaded" alt="A. Our History"
+                                        title="Read the full guide for your Leader Account"></span>
+                                <h4 class="bold f-18 mb-0"><a
+                                        href="cdn-cgi/l/email-protection.html#cbb8bebbbba4b9bf8bb1bea7bebfb9aaafaee5a8a4a6">Email
+                                        Support</a></h4>
+                                <p class="f-13 mb-0 neutralGrey">You can mail with our Support in all languages</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card-body h-100 bg-white"><span
+                                    class="d-flex align-items-center justify-content-center mb-3 need help1"><img
+                                        src="{% static 'assets/img/phonecallhelp.svg' %}"
+                                        class="d-block h-70 v-lazy-image v-lazy-image-loaded"
+                                        alt="ZuluTrade was founded in 2007 by Leon Yohai, and created in response to the non-existence of a web-based platform that could audit Leaders globally and at the same time; enable Leaders to share their knowledge with people interested in their strategies."
+                                        title="Read the full guide for your Affiliate Account"></span>
+                                <h4 class="bold f-18 mb-0">
+                                    {% comment %} <a href="tel:Premium members">Premium members</a> {% endcomment %}
+                                    <a href="https://wa.me/15551234567?text=Hi%2C%20I%20need%20help%20with%20my%20Premium%20account" 
+   target="_blank">
+   Chat on WhatsApp
+</a>
+                                </h4>
+                                <p class="f-13 mb-0 neutralGrey">Central Support Hotline</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+ {% endblock content %}
+
+{% block footer %}
+    {% include "client/footer.html" %}
+{% endblock footer %}

@@ -1,0 +1,612 @@
+{% extends "client/base.html" %} 
+{% load static %}
+
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+
+
+{% block content %}
+    <style>
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 10px;
+        }
+
+        .card {
+            min-width: 250px;
+        }
+    </style>
+    <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <section class="blockElement bg-white newLeaders"></section>
+        <section class="blockElement fiveColumn pt-3 tab-content indexTop">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between flex-wrap mt-3 pb-1 mb-4">
+                    <div class="d-flex align-items-center">
+                        <h1 class="d-flex align-items-center bold f-30 mb-0 line-1 tag"><img
+                                src="{% static 'assets/img/Leaders-icon.png' %}" height="23" width="28"
+                                class="me-2 v-lazy-image v-lazy-image-loaded" alt="Leaders"> Leaders</h1>
+                        <div class="tooltipbutton d-flex ms-2"><span class="tooltiptext">
+                                <p class="mb-2 medium line-4 f-17">What is a Leader?</p>
+                                <p class="mb-0 line-4 f-15">A ‘Leader’ is a Isotradex user, who shares his/her trades on
+                                    a
+                                    real account. Each trading action performed in the Leader’s account is copied to all
+                                    the
+                                    Investor accounts who follow him/her in the form of a broadcasted signal.</p>
+                            </span>
+                            <p class="f-12 d-flex align-items-center justify-content-center mb-0"><i
+                                    class="vue-feather vue-feather--alert-circle smallSize" data-name="alert-circle"
+                                    data-tags="warning,alert,danger" data-type="alert-circle"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-alert-circle vue-feather__content">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<section id="tab1" class="blockElement fiveColumn space overflow-hidden pt-0 tab-content">
+  <div class="container-fluid mb-4">
+    <div class="row align-items-center g-0 mb-4">
+      <div class="col-12">
+        <div class="d-flex align-items-center mb-1">
+          <h6 class="mb-0 bold f-22 me-2">Top Performing</h6>
+          <div class="tooltipbutton mt-0 d-flex me-3">
+            <span class="tooltiptext f-12">
+              <p class="mb-0 line-4 f-14">Strategies that have positive momentum and move near ATHs (All Time Highs)</p>
+            </span>
+            <p class="f-12 d-flex align-items-center justify-content-center mb-0">
+              <i class="vue-feather vue-feather--alert-circle smallSize" data-name="alert-circle" data-tags="warning,alert,danger" data-type="alert-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle vue-feather__content">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </i>
+            </p>
+          </div>
+          <a href="traders/list/75932.html" class="viewAll medium f-14 d-flex align-items-center">
+            View All
+            <i class="vue-feather vue-feather--chevron-right ms-1" data-name="chevron-right" data-tags="" data-type="chevron-right">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right vue-feather__content">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="newAddLeader">
+      <section class="carousel mt-0" dir="ltr" aria-label="Gallery" id="topTraders"></section>
+    </div>
+  </div>
+
+  <div class="container-fluid leaderUnderAmount mb-3 py-md-5">
+    <div class="row g-3">
+
+      <!-- Column 1 -->
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="card-body vueCard element">
+          <div class="card-header bg-white flex-between">
+            <div class="d-flex align-items-center">
+              <p class="f-20 medium mb-0"><span class="elips" title="Amount Copying">Amount Copying</span></p>
+              <div class="tooltipbutton mt-0 d-flex ms-2">
+                <span class="tooltiptext f-12">
+                  <p class="mb-0 line-4 f-14">Strategies that have the highest number of total Investors’ funds invested</p>
+                </span>
+                <p class="f-12 d-flex align-items-center justify-content-center mb-0">
+                  <i class="vue-feather vue-feather--alert-circle smallSize" data-name="alert-circle" data-tags="warning,alert,danger" data-type="alert-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle vue-feather__content">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                  </i>
+                </p>
+              </div>
+            </div>
+            <a href="traders/list/82181.html" class="roundArrow">
+              <i data-name="chevron-right" data-tags="" data-type="chevron-right" class="vue-feather vue-feather--chevron-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right vue-feather__content">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </i>
+            </a>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/415776/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar3.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="Trade Professor 7" title="Trade Professor 7">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/415776/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="Trade Professor 7">Trade Professor 7</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+28252.38%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/404656/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="ReVeR273" title="ReVeR273">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/404656/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="ReVeR273">ReVeR273</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+992.61%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/425666/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="Zix Power" title="Zix Power">
+                  <span class="count position-absolute pinkBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">5</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/425666/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="Zix Power">Zix Power</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+104.37%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/416568/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="FIRE GC" title="FIRE GC">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/416568/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="FIRE GC">FIRE GC</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+818.23%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/410467/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar3.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="SKICMARKETS669" title="SKICMARKETS669">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/410467/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="SKICMARKETS669">SKICMARKETS669</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+1000.66%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="card-body vueCard element">
+          <div class="card-header bg-white flex-between">
+            <div class="d-flex align-items-center">
+              <p class="f-20 medium mb-0"><span class="elips" title="Top Performing 1 Year">Top Performing 1 Year</span></p>
+              <div class="tooltipbutton mt-0 d-flex ms-2">
+                <span class="tooltiptext f-12">
+                  <p class="mb-0 line-4 f-14">Strategies that have a track record above 52 weeks, and MaxDD&lt;30%</p>
+                </span>
+                <p class="f-12 d-flex align-items-center justify-content-center mb-0">
+                  <i class="vue-feather vue-feather--alert-circle smallSize" data-name="alert-circle" data-tags="warning,alert,danger" data-type="alert-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle vue-feather__content">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                  </i>
+                </p>
+              </div>
+            </div>
+            <a href="traders/list/82235.html" class="roundArrow">
+              <i data-name="chevron-right" data-tags="" data-type="chevron-right" class="vue-feather vue-feather--chevron-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right vue-feather__content">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </i>
+            </a>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/415776/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar1.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="Trade Professor 7" title="Trade Professor 7">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/415776/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="Trade Professor 7">Trade Professor 7</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+28252.38%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/410467/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="SKICMARKETS669" title="SKICMARKETS669">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/410467/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="SKICMARKETS669">SKICMARKETS669</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+1000.66%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/416568/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="FIRE GC" title="FIRE GC">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/416568/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="FIRE GC">FIRE GC</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+818.23%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/428320/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="WK-CROSS" title="WK-CROSS">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/428320/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="WK-CROSS">WK-CROSS</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+679.39%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/426381/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="Safe Own Way" title="Safe Own Way">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/426381/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-0 roiTestSmall" title="Safe Own Way">Safe Own Way</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+388.16%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="card-body vueCard element">
+          <div class="card-header bg-white flex-between">
+            <div class="d-flex align-items-center">
+              <p class="f-20 medium mb-0"><span class="elips" title="Monthly Rising Stars">Monthly Rising Stars</span></p>
+              <div class="tooltipbutton mt-0 d-flex ms-2">
+                <span class="tooltiptext f-12">
+                  <p class="mb-0 line-4 f-14">Strategies that have a track record above 8 weeks, MaxDD &lt;30% and positive Roi the last month</p>
+                </span>
+                <p class="f-12 d-flex align-items-center justify-content-center mb-0">
+                  <i class="vue-feather vue-feather--alert-circle smallSize" data-name="alert-circle" data-tags="warning,alert,danger" data-type="alert-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle vue-feather__content">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                  </i>
+                </p>
+              </div>
+            </div>
+            <a href="traders/list/86691.html" class="roundArrow">
+              <i data-name="chevron-right" data-tags="" data-type="chevron-right" class="vue-feather vue-feather--chevron-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right vue-feather__content">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </i>
+            </a>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/429827/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="Standard Holdings Fund Serie B" title="Standard Holdings Fund Serie B">
+                  <span class="count position-absolute pinkBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">5</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/429827/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-1 dark-text line-1 roiTestSmall" title="Standard Holdings Fund Serie B">Standard Holdings Fund Serie B</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+383.50%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/430062/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="BaseGrowth" title="BaseGrowth">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/430062/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-1 dark-text line-1 roiTestSmall" title="BaseGrowth">BaseGrowth</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+185.85%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/408444/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="Tachyon1" title="Tachyon1">
+                  <span class="count position-absolute yellowBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">3</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/408444/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-1 dark-text line-1 roiTestSmall" title="Tachyon1">Tachyon1</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+1331.58%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/417743/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="TOL LANGIT V10" title="TOL LANGIT V10">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/417743/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-1 dark-text line-1 roiTestSmall" title="TOL LANGIT V10">TOL LANGIT V10</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+80.19%</p>
+          </div>
+
+          <div class="flex-between px-3 mb-2">
+            <div class="d-flex align-items-center">
+              <a href="trader/430016/tradingd6e3.html%3Ft=10000&amp;m=1.html">
+                <span class="me-3 position-relative">
+                  <img src="{% static 'assets/img/avatar2.jpg' %}" width="40" height="40" class="rounded-circle v-lazy-image v-lazy-image-loaded" alt="TpTrading" title="TpTrading">
+                  <span class="count position-absolute blueBtn" title="Indicates how risky is the Leader's Strategy. Calculated using Sharpe Ratio formula, inverted and normalized on 1-5 scale (1 Low Risk &amp; 5 High Risk)">1</span>
+                </span>
+              </a>
+              <div class="flex-shrink-0">
+                <a href="trader/430016/tradingd6e3.html%3Ft=10000&amp;m=1.html"><p class="medium f-14 mb-1 dark-text line-1 roiTestSmall" title="TpTrading">TpTrading</p></a>
+              </div>
+            </div>
+            <p class="mb-0 px-1 bold d-inline-flex greenView">+330.23%</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- === DYNAMIC % UPDATER (robust: waits for rows, first tick in seconds) === -->
+<script>
+(function(){
+  const CARD_SEL = '.card-body.vueCard.element';
+  const ROW_SEL = '.flex-between.px-3.mb-2';
+  const VALUE_SEL = 'p.bold.d-inline-flex'; // % element on the right
+
+  const GREEN = '#16a34a';
+  const RED   = '#dc2626';
+
+  // cadence bounds
+  const MIN_MS = 60_000;   // 1 min
+  const MAX_MS = 300_000;  // 5 min
+
+  // safety bounds for % values
+  const MAX_UP = 50000;    // avoid insane +%
+  const MIN_DN = -99.99;   // avoid going below -100%
+
+  // --- helpers ---
+  function parsePctText(t){
+    if (!t) return 0;
+    const cleaned = t.replace(/,/g,'').replace(/[^\d.\-+]/g,'');
+    const n = parseFloat(cleaned);
+    return isNaN(n) ? 0 : n;
+  }
+  function fmtPct(n){
+    const sign = n >= 0 ? '+' : '';
+    return `${sign}${n.toFixed(2)}%`;
+  }
+  function setColor(el, value){
+    if (!el) return;
+    if (value >= 0){
+      el.classList.add('greenView'); el.classList.remove('redView');
+      el.style.color = GREEN;
+    } else {
+      el.classList.add('redView'); el.classList.remove('greenView');
+      el.style.color = RED;
+    }
+  }
+  function nextDelay(index, total){
+    const base = (total > 1)
+      ? MIN_MS + (MAX_MS - MIN_MS) * (index / (total - 1))  // top faster, bottom slower
+      : (MIN_MS + MAX_MS)/2;
+    const jitter = 0.6 + Math.random()*0.8; // 0.6x–1.4x
+    return Math.round(base * jitter);
+  }
+  function randomDelta(cur){
+    // 1.5%–6% of |current|; minimum step 0.15
+    const mag = Math.max(0.15, Math.abs(cur) * (0.015 + Math.random()*0.045));
+    return (Math.random()<0.5 ? -1 : 1) * mag;
+  }
+
+  function resortCard(card){
+    const rows = Array.from(card.querySelectorAll(ROW_SEL));
+    rows.sort((a,b)=> (parseFloat(b.dataset.pct || '0') - parseFloat(a.dataset.pct || '0')));
+    // append in new order (header stays put)
+    rows.forEach(r => card.appendChild(r));
+  }
+
+  function scheduleRow(row, idx, total, card){
+    const delay = nextDelay(idx, total);
+    row._tvTimer && clearTimeout(row._tvTimer);
+    row._tvTimer = setTimeout(()=> updateRow(row, card), delay);
+  }
+
+  function updateRow(row, card){
+    const valEl = row.querySelector(VALUE_SEL);
+    if (!valEl) return;
+    let cur = (row.dataset && row.dataset.pct != null)
+      ? parseFloat(row.dataset.pct)
+      : parsePctText(valEl.textContent);
+
+    let next = cur + randomDelta(cur);
+    next = Math.max(MIN_DN, Math.min(MAX_UP, next));
+
+    // paint
+    valEl.textContent = fmtPct(next);
+    setColor(valEl, next);
+    row.dataset.pct = String(next);
+
+    // reorder & reschedule
+    resortCard(card);
+    const rows = Array.from(card.querySelectorAll(ROW_SEL));
+    const newIdx = rows.indexOf(row);
+    scheduleRow(row, newIdx, rows.length, card);
+  }
+
+  function initCard(card){
+    if (card._tvInited) return; // avoid double init
+    const rows = Array.from(card.querySelectorAll(ROW_SEL));
+    if (!rows.length) return;
+
+    // seed values & colors
+    rows.forEach(r=>{
+      const vEl = r.querySelector(VALUE_SEL);
+      const v = parsePctText(vEl ? vEl.textContent : '');
+      r.dataset.pct = String(v);
+      setColor(vEl, v);
+    });
+
+    // normalize sort once
+    resortCard(card);
+
+    // immediate first tick (so user sees movement quickly)
+    const sorted = Array.from(card.querySelectorAll(ROW_SEL));
+    sorted.forEach((r,i)=>{
+      // quick first update in 2–6s
+      setTimeout(()=> updateRow(r, card), 2000 + Math.random()*4000);
+      // then regular cadence
+      scheduleRow(r, i, sorted.length, card);
+    });
+
+    card._tvInited = true;
+  }
+
+  function tryInitAll(){
+    document.querySelectorAll(CARD_SEL).forEach(initCard);
+  }
+
+  // run now if rows are already in DOM
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', tryInitAll);
+  } else {
+    tryInitAll();
+  }
+
+  // observe for late-rendered content (Vue/async)
+  const tab = document.getElementById('tab1') || document.body;
+  const mo = new MutationObserver(()=> tryInitAll());
+  mo.observe(tab, {childList:true, subtree:true});
+})();
+</script>
+
+                    <div class="col-12 col-lg-12 col-xl-3">
+                        <div
+                            class="h-100 bg-white radius20 boxed border d-flex flex-column justify-content-evenly px-3 py-4 mx-0">
+                            <div class="text-center">
+                                <h5 class="mb-4 f-30 bold secondary">Simulator</h5>
+                                <p class="f-18 gray pb-3">Check how much you could earn by investing in our Leaders and
+                                    trying out different combinations!</p>
+                            </div>
+                            <div class="d-inline-flex justify-content-center largeDek"><a
+                                    href="https://app.Isotradex.com/register"
+                                    class="button fillBtn smdButton zulu_btn px-md-5">Try now</a></div>
+                        </div>
+                      </div>
+            </div>
+            </div>
+            <div class="container-fluid mb-4 pb-md-3">
+                <div class="row align-items-center g-0 mb-4">
+                    <div class="col-12 d-flex align-items-center">
+                        <h6 class="mb-0 bold f-22 me-2">Top Performing 2 Years</h6>
+                        <div class="tooltipbutton mt-0 d-flex me-3"><span class="tooltiptext f-12">
+                                <p class="mb-0 line-4 f-14">Strategies that have a track record above 104 weeks, and
+                                    MaxDD&lt;30%</p>
+                            </span>
+                            <p class="f-12 d-flex align-items-center justify-content-center mb-0"><i
+                                    class="vue-feather vue-feather--alert-circle smallSize" data-name="alert-circle"
+                                    data-tags="warning,alert,danger" data-type="alert-circle"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-alert-circle vue-feather__content">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg></i></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row newAddLeader">
+                    <div class="col-12">
+                        <section class="carousel mt-0" dir="ltr" aria-label="Gallery" id="topExperts">
+                        </section>
+                    </div>
+                </div>
+            </div><!----><!----><!---->
+            <div class="container pb-3">
+                <div class="row align-items-center">
+                    <div class="col-12 text-center">
+                        <p class="mb-0">We do not recommend or make any implications about the future performance of any
+                             of these systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section><!---->
+    </div>
+
+
+    {% endblock content %}
+
+{% block footer %}
+    {% include "client/footer.html" %}
+{% endblock footer %}

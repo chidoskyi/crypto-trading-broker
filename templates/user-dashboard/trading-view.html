@@ -1,0 +1,698 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% block title %}Trading View{% endblock title %}
+
+<!-- Add TradingView Library in head -->
+{% block extra_head %}
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+{% endblock %}
+
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %}
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %}
+{% block content %}
+
+
+<div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <div class="container mx-auto px-4 py-8" x-data="tradingSingle()" x-cloak>
+        
+        <!-- Loading State -->
+        <div x-show="loadingData" class="flex items-center justify-center py-24">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mx-auto mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-400 text-lg">Loading instrument data...</p>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div x-show="error && !loadingData" class="max-w-2xl mx-auto">
+            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-8 text-center">
+                <i data-lucide="alert-circle" class="w-16 h-16 text-red-500 mx-auto mb-4"></i>
+                <h3 class="text-xl font-semibold text-red-900 dark:text-red-200 mb-2">Error Loading Instrument</h3>
+                <p class="text-red-700 dark:text-red-300 mb-4" x-text="error"></p>
+                <a href="/dashboard/trading" class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    Back to Markets
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content (shown when data is loaded) -->
+        <div x-show="!loadingData && !error && instrument" class="pl-8">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="/dashboard/trad"
+                   class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    Back to Markets
+                </a>
+            </div>
+
+            <!-- Trading Interface -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <!-- Chart Section (Left Side) -->
+                <div class="xl:col-span-2 space-y-6">
+                    <!-- Instrument Header -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                    <template x-if="instrument?.logo_url">
+                                        <img :src="instrument.logo_url" :alt="instrument.name" class="w-10 h-10 rounded-full object-cover">
+                                    </template>
+                                    <template x-if="!instrument?.logo_url">
+                                        <span class="text-xl font-bold text-gray-500 dark:text-gray-400" x-text="instrument?.symbol?.substring(0, 2)"></span>
+                                    </template>
+                                </div>
+                                <div>
+                                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white" x-text="instrument?.name"></h1>
+                                    <p class="text-gray-600 dark:text-gray-400" x-text="instrument?.symbol"></p>
+                                </div>
+                            </div>
+
+                            <!-- Price Info -->
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-gray-900 dark:text-white" x-text="formatPrice(instrument?.last_price || instrument?.price)"></div>
+                                <div class="flex items-center gap-1" 
+                                     :class="(instrument?.percent_change_24h || 0) >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+                                    <template x-if="(instrument?.percent_change_24h || 0) >= 0">
+                                        <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                    </template>
+                                    <template x-if="(instrument?.percent_change_24h || 0) < 0">
+                                        <i data-lucide="trending-down" class="w-4 h-4"></i>
+                                    </template>
+                                    <span x-text="formatPercentage(instrument?.percent_change_24h)"></span>
+                                    <span class="text-sm" x-text="`(${formatPrice(instrument?.price_change_24h || 0)})`"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Widget -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                        <div class="mb-4">
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Price Chart</h2>
+                        </div>
+                        <!-- TradingView Chart Container -->
+                        <div id="tradingview_chart" style="height: 600px; width: 100%;"></div>
+                    </div>
+
+                    <!-- Market Stats -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Market Statistics</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">24h High</div>
+                                <div class="font-semibold text-gray-900 dark:text-white" x-text="formatPrice(instrument?.high)"></div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">24h Low</div>
+                                <div class="font-semibold text-gray-900 dark:text-white" x-text="formatPrice(instrument?.low)"></div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">24h Volume</div>
+                                <div class="font-semibold text-gray-900 dark:text-white" x-text="formatVolume(instrument?.volume_24h)"></div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <div class="text-sm text-gray-600 dark:text-gray-400 mb-1">Market Cap</div>
+                                <div class="font-semibold text-gray-900 dark:text-white" x-text="formatVolume(instrument?.market_cap)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trade History Section -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                        <!-- Tab Buttons -->
+                        <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-6">
+                            <button @click="activeTab = 'open'"
+                                    :class="activeTab === 'open' ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400'"
+                                    class="flex-1 py-2 px-4 rounded-md font-medium transition-colors text-sm">
+                                Open Positions (<span x-text="openPositions.length">0</span>)
+                            </button>
+                            <button @click="activeTab = 'closed'"
+                                    :class="activeTab === 'closed' ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400'"
+                                    class="flex-1 py-2 px-4 rounded-md font-medium transition-colors text-sm">
+                                Orders (<span x-text="openOrders.length">0</span>)
+                            </button>
+                            <button @click="activeTab = 'transactions'"
+                                    :class="activeTab === 'transactions' ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400'"
+                                    class="flex-1 py-2 px-4 rounded-md font-medium transition-colors text-sm">
+                                Transactions (<span x-text="transactions.length">0</span>)
+                            </button>
+                        </div>
+
+                    <!-- Open Positions Tab -->
+                    <div x-show="activeTab === 'open'">
+                            <template x-if="openPositions.length === 0">
+                                <div class="text-center py-12">
+                                    <i data-lucide="chart-line" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Open Positions</h4>
+                                    <p class="text-gray-600 dark:text-gray-400" x-text="`You don't have any open positions for ${instrument?.symbol}`"></p>
+                                </div>
+                            </template>
+
+                            <template x-if="openPositions.length > 0">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full">
+                                        <thead class="bg-gray-50 dark:bg-gray-700/50">
+                                            <tr>
+                                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Side</th>
+                                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Quantity</th>
+                                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Entry</th>
+                                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Current</th>
+                                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">P&L</th>
+                                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                            <template x-for="position in openPositions" :key="position.id">
+                                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                                    <td class="px-4 py-3">
+                                                        <span :class="position.side === 'long' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'" 
+                                                            class="px-2 py-1 rounded text-xs font-medium uppercase"
+                                                            x-text="position.side"></span>
+                                                    </td>
+                                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-white" x-text="parseFloat(position.quantity).toFixed(6)"></td>
+                                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-white" x-text="formatPrice(position.entry_price)"></td>
+                                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-white" x-text="formatPrice(position.current_price)"></td>
+                                                    <td class="px-4 py-3">
+                                                        <span :class="parseFloat(position.unrealized_pnl) >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'" 
+                                                            class="text-sm font-semibold"
+                                                            x-text="formatPrice(position.unrealized_pnl)"></span>
+                                                    </td>
+                                                    <td class="px-4 py-3">
+                                                        <button @click="closePosition(position.id)" 
+                                                                class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-lg transition-colors">
+                                                            Close
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </template>
+                    </div>
+
+                    <!-- Open Orders Tab -->
+                    <div x-show="activeTab === 'closed'"> <!-- Consider renaming this to 'orders' -->
+                        <template x-if="openOrders.length === 0">
+                            <div class="text-center py-12">
+                                <i data-lucide="file-text" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Pending Orders</h4> <!-- Updated message -->
+                                <p class="text-gray-600 dark:text-gray-400" x-text="`You don't have any pending orders for ${instrument?.symbol}`"></p> <!-- Updated message -->
+                            </div>
+                        </template>
+
+                        <template x-if="openOrders.length > 0">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50 dark:bg-gray-700/50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Type</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Side</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Quantity</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Price</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Filled</th> <!-- Added -->
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Status</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                        <template x-for="order in openOrders" :key="order.id">
+                                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                                <td class="px-4 py-3 text-sm text-gray-900 dark:text-white uppercase" x-text="order.order_type"></td>
+                                                <td class="px-4 py-3">
+                                                    <span :class="order.side === 'buy' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'" 
+                                                        class="px-2 py-1 rounded text-xs font-medium uppercase"
+                                                        x-text="order.side"></span>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-gray-900 dark:text-white" x-text="parseFloat(order.quantity).toFixed(6)"></td>
+                                                <td class="px-4 py-3 text-sm text-gray-900 dark:text-white" x-text="order.price ? formatPrice(order.price) : 'Market'"></td>
+                                                <td class="px-4 py-3 text-sm text-gray-900 dark:text-white" 
+                                                    x-text="order.filled_quantity ? parseFloat(order.filled_quantity).toFixed(6) + ' / ' + parseFloat(order.quantity).toFixed(6) : '0'"></td> <!-- Added -->
+                                                <td class="px-4 py-3">
+                                                    <span :class="getOrderStatusClass(order.status)" 
+                                                        class="px-2 py-1 rounded text-xs font-medium uppercase"
+                                                        x-text="order.status"></span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <!-- ✅ CONDITIONAL: Only show cancel button for cancellable orders -->
+                                                    <template x-if="isOrderCancellable(order.status)">
+                                                        <button @click="cancelOrder(order.id)" 
+                                                                class="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white text-xs rounded-lg transition-colors">
+                                                            Cancel
+                                                        </button>
+                                                    </template>
+                                                    <template x-if="!isOrderCancellable(order.status)">
+                                                        <span class="text-xs text-gray-500 dark:text-gray-400">Completed</span>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Transactions Tab -->
+                    <div x-show="activeTab === 'transactions'">
+                        <!-- Loading State -->
+                        <template x-if="loadingTransactions">
+                            <div class="text-center py-12">
+                                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                                <p class="text-gray-600 dark:text-gray-400">Loading transactions...</p>
+                            </div>
+                        </template>
+
+                        <!-- Transactions List -->
+                        <template x-if="!loadingTransactions && transactions.length > 0">
+                            <div class="space-y-3">
+                                <!-- Show only first 6 transactions using slice -->
+                                <template x-for="transaction in transactions.slice(0, 6)" :key="transaction.id">
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors">
+                                        <!-- Left: Icon and Details -->
+                                        <div class="flex items-start gap-3">
+                                            <!-- Icon -->
+                                            <div :class="getTransactionColor(transaction.transaction_type, transaction.amount)"
+                                                class="p-2 rounded-lg bg-white dark:bg-gray-800">
+                                                <i :data-lucide="getTransactionIcon(transaction.transaction_type)" class="w-5 h-5"></i>
+                                            </div>
+                                            
+                                            <!-- Details -->
+                                            <div>
+                                                <h5 class="font-medium text-gray-900 dark:text-white text-sm" 
+                                                    x-text="transaction.description || transaction.transaction_type_display || transaction.transaction_type"></h5>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5" 
+                                                    x-text="formatDate(transaction.created_at)"></p>
+                                                
+                                                <!-- Order/Position Reference - FIXED FIELD NAMES -->
+                                                <div class="flex gap-2 mt-1">
+                                                    <template x-if="transaction.order_id">
+                                                        <span class="text-xs text-gray-400 dark:text-gray-500">
+                                                            Order #<span x-text="transaction.order_id"></span>
+                                                        </span>
+                                                    </template>
+                                                    <template x-if="transaction.position_id">
+                                                        <span class="text-xs text-gray-400 dark:text-gray-500">
+                                                            Position #<span x-text="transaction.position_id"></span>
+                                                        </span>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Right: Amount -->
+                                        <div class="text-right">
+                                            <div :class="getTransactionColor(transaction.transaction_type, transaction.amount)"
+                                                class="font-semibold text-sm"
+                                                x-text="formatTransactionAmount(transaction.amount)"></div>
+                                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                                                Balance: <span x-text="formatPrice(transaction.balance_after)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+
+                                {% comment %} <!-- Show "View All" button if there are more than 6 transactions -->
+                                <template x-if="transactions.length > 6">
+                                    <div class="mt-4 text-center">
+                                        <a href="/dashboard/transactions" 
+                                        class="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
+                                            View All Transactions
+                                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                        </a>
+                                    </div>
+                                </template> {% endcomment %}
+                            </div>
+                        </template>
+
+                         <!-- Show All Transactions Button -->
+                        <template x-if="transactions.length > 0">
+                            <div class="mt-4 text-center">
+                                <a href="/dashboard/transactions" 
+                                    class="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium">
+                                    View All Transactions
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </template> 
+
+                        <!-- Empty State -->
+                        <template x-if="!loadingTransactions && transactions.length === 0">
+                            <div class="text-center py-12">
+                                <i data-lucide="receipt" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Transactions</h4>
+                                <p class="text-gray-600 dark:text-gray-400">No transaction history for this instrument yet</p>
+                            </div>
+                        </template>
+                    </div>
+                    </div>
+                    {% comment %} <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+                        <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-6">
+                            <button @click="activeTab = 'open'"
+                                    :class="activeTab === 'open' ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400'"
+                                    class="flex-1 py-2 px-4 rounded-md font-medium transition-colors text-sm">
+                                Open Trades (0)
+                            </button>
+                            <button @click="activeTab = 'closed'"
+                                    :class="activeTab === 'closed' ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400'"
+                                    class="flex-1 py-2 px-4 rounded-md font-medium transition-colors text-sm">
+                                Closed Trades (0)
+                            </button>
+                        </div>
+
+                        <div x-show="activeTab === 'open'" class="text-center py-12">
+                            <i data-lucide="chart-line" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Open Trades</h4>
+                            <p class="text-gray-600 dark:text-gray-400" x-text="`You don't have any open trades for ${instrument?.symbol}`"></p>
+                        </div>
+
+                        <div x-show="activeTab === 'closed'" class="text-center py-12">
+                            <i data-lucide="history" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Trade History</h4>
+                            <p class="text-gray-600 dark:text-gray-400" x-text="`You haven't completed any trades for ${instrument?.symbol} yet`"></p>
+                        </div>
+                    </div> {% endcomment %}
+                </div>
+
+                <!-- Trading Panel (Right Side) -->
+<div class="xl:col-span-1">
+    <!-- Main Order Form -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 sticky top-8">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Place Order</h3>
+
+        <!-- Order Type Tabs -->
+        <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 mb-6">
+            <button @click="orderType = 'Buy'"
+                    :class="orderType === 'Buy' ? 'bg-green-500 text-white' : 'text-gray-600 dark:text-gray-400'"
+                    class="flex-1 py-2 px-4 rounded-md font-medium transition-colors">
+                Buy
+            </button>
+            <button @click="orderType = 'Sell'"
+                    :class="orderType === 'Sell' ? 'bg-red-500 text-white' : 'text-gray-600 dark:text-gray-400'"
+                    class="flex-1 py-2 px-4 rounded-md font-medium transition-colors">
+                Sell
+            </button>
+        </div>
+
+        <!-- Order Form -->
+        <form action="/dashboard/place-order" method="POST" class="space-y-4" @submit.prevent="submitOrder">
+            {% csrf_token %}
+            <input type="hidden" name="instrument_id" :value="instrument?.id">
+            <input type="hidden" name="symbol" :value="instrument?.symbol">
+            <input type="hidden" name="instrument_price" :value="instrument?.last_price || instrument?.price">
+            <input type="hidden" name="order_type" x-model="orderType">
+
+            <!-- Your order form fields here -->
+            <!-- Order Type (Market/Limit/Stop) -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Order Type
+                </label>
+                <select x-model="tradeType" 
+                        class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white">
+                    <template x-for="option in orderTypeOptions" :key="option.value">
+                        <option :value="option.value" x-text="option.label"></option>
+                    </template>
+                </select>
+                <!-- Description -->
+                <template x-for="option in orderTypeOptions" :key="option.value">
+                    <p x-show="tradeType === option.value" 
+                      x-text="option.description"
+                      class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
+                </template>
+            </div>
+
+            <!-- Leverage (Dynamic) -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Leverage
+                </label>
+                <select x-model="selectedLeverage" 
+                        id="leverage"
+                        required 
+                        class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white">
+                    <option value="">Select Leverage</option>
+                      <template x-for="option in leverageOptions" :key="option.value">
+                          <option :value="option.value" x-text="option.label"></option>
+                      </template>
+                  </select>
+                  <!-- Risk Warning -->
+                  <div x-show="selectedLeverage >= 50" class="mt-2 p-2 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
+                      <div class="flex items-start gap-2">
+                          <i data-lucide="alert-triangle" class="w-4 h-4 text-orange-600 dark:text-orange-400 mt-0.5"></i>
+                          <p class="text-xs text-orange-800 dark:text-orange-200">
+                              <strong>High Risk:</strong> Using <span x-text="`${selectedLeverage}x`"></span> leverage significantly increases both potential gains and losses.
+                          </p>
+                      </div>
+                  </div>
+            </div>
+
+            <!-- Expiration (Dynamic) -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Expiration
+                </label>
+                <select x-model="selectedExpiration" 
+                    id="expire"
+                    class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white">
+                <option value="">Select Expiration</option>
+                <template x-for="option in expirationOptions" :key="option.value">
+                    <option :value="option.value" x-text="option.label"></option>
+                </template>
+                  </select>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      Position will auto-close after this duration
+                  </p>
+            </div>
+
+              <!-- Price (for limit/stop orders) -->
+              <div x-show="tradeType !== 'market'" 
+                  x-transition:enter="transition ease-out duration-200"
+                  x-transition:enter-start="opacity-0 transform scale-95"
+                  x-transition:enter-end="opacity-100 transform scale-100">
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      <span x-text="tradeType === 'limit' ? 'Limit Price ($)' : 'Stop Price ($)'"></span>
+                  </label>
+                  <input type="number" 
+                        x-model="price" 
+                        step="any" 
+                        min="0"
+                        :placeholder="formatPrice(instrument?.last_price || instrument?.price)"
+                        class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white">
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      Current market price: <span x-text="formatPrice(instrument?.last_price || instrument?.price)"></span>
+                  </p>
+              </div>
+
+            <!-- Amount -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Investment Amount ($)</label>
+                <input type="number" x-model="amount" name="amount" step="0.01" min="0" placeholder="0.00" required
+                       class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white">
+            </div>
+
+            <!-- Summary & Transfer Button -->
+            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-600 dark:text-gray-400">Investment:</span>
+                    <span class="font-semibold text-gray-900 dark:text-white" x-text="formatAmount()"></span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-600 dark:text-gray-400">Units:</span>
+                    <span class="text-gray-900 dark:text-white" x-text="formatUnits()"></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Deposit Balance:</span>
+                    <span class="font-semibold text-gray-900 dark:text-white" x-text="formatPrice(depositBalance)"></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Trading Balance:</span>
+                    <span class="font-semibold text-gray-900 dark:text-white" x-text="formatPrice(tradingBalance)"></span>
+                </div>
+                
+                <!-- Transfer Button -->
+                <button 
+                    type="button"
+                    @click="showTransferModal = true"
+                    class="w-full mt-2 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="arrow-right-left" class="w-4 h-4"></i>
+                    Transfer Funds
+                </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-2">
+                <!-- Standard Order Button -->
+                <button type="button"
+                        @click="submitOrder()"
+                        :disabled="!amount || amount <= 0 || !selectedLeverage || loading"
+                        :class="orderType === 'Buy' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'"
+                        class="w-full py-3 px-4 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    <i :data-lucide="orderType === 'Buy' ? 'trending-up' : 'trending-down'" class="w-5 h-5"></i>
+                    <span x-text="loading ? 'Processing...' : `${orderType} ${instrument?.symbol || ''}`"></span>
+                </button>
+
+                <!-- Auto Trade with Risk Management Button -->
+                <button type="button"
+                        @click="executeAutomatedTrade()"
+                        :disabled="!amount || amount <= 0 || !selectedLeverage || loading"
+                        class="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
+                    <span>Auto Trade with Risk Management</span>
+                </button>
+                <p class="text-xs text-center text-gray-500 dark:text-gray-400">
+                    Automatically sets 5% stop loss & 10% take profit
+                </p>
+            </div>
+
+            <!-- Quick Amounts -->
+            <div class="grid grid-cols-4 gap-2">
+                <button type="button" @click="setQuickAmount(25)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded">25%</button>
+                <button type="button" @click="setQuickAmount(50)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded">50%</button>
+                <button type="button" @click="setQuickAmount(75)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded">75%</button>
+                <button type="button" @click="setQuickAmount(100)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded">Max</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- TRANSFER MODAL - MOVED OUTSIDE THE MAIN ORDER FORM -->
+<div x-show="showTransferModal" 
+     x-cloak
+     @click.self="showTransferModal = false"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
+     style="display: none;">
+    
+    <div @click.stop
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform scale-90"
+         x-transition:enter-end="opacity-100 transform scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 transform scale-100"
+         x-transition:leave-end="opacity-0 transform scale-90"
+         class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full p-6">
+        
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Transfer Funds</h3>
+            <button @click="showTransferModal = false" 
+                    class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Transfer Form -->
+        <form @submit.prevent="submitTransfer">
+            <!-- Direction Selector -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Transfer Direction</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button"
+                            @click="transferDirection = 'deposit-to-trading'"
+                            :class="transferDirection === 'deposit-to-trading' ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'"
+                            class="py-3 px-4 rounded-lg font-medium transition-colors">
+                        <div class="text-xs mb-1">From</div>
+                        <div class="font-semibold">Deposit</div>
+                        <i data-lucide="arrow-down" class="w-4 h-4 mx-auto mt-1"></i>
+                        <div class="text-xs mt-1">To</div>
+                        <div class="font-semibold">Trading</div>
+                    </button>
+                    
+                    <button type="button"
+                            @click="transferDirection = 'trading-to-deposit'"
+                            :class="transferDirection === 'trading-to-deposit' ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'"
+                            class="py-3 px-4 rounded-lg font-medium transition-colors">
+                        <div class="text-xs mb-1">From</div>
+                        <div class="font-semibold">Trading</div>
+                        <i data-lucide="arrow-down" class="w-4 h-4 mx-auto mt-1"></i>
+                        <div class="text-xs mt-1">To</div>
+                        <div class="font-semibold">Deposit</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Balances -->
+            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 mb-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Deposit Balance:</span>
+                    <span class="font-semibold text-gray-900 dark:text-white" x-text="formatPrice(depositBalance)"></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Trading Balance:</span>
+                    <span class="font-semibold text-gray-900 dark:text-white" x-text="formatPrice(tradingBalance)"></span>
+                </div>
+            </div>
+
+            <!-- Amount Input -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Transfer Amount ($)
+                </label>
+                <input type="number"
+                       x-model="transferAmount"
+                       step="0.01"
+                       min="0.01"
+                       :max="transferDirection === 'deposit-to-trading' ? depositBalance : tradingBalance"
+                       placeholder="0.00"
+                       required
+                       class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white">
+                
+                <!-- Available amount note -->
+                <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    Available: 
+                    <span class="font-semibold" x-text="formatPrice(transferDirection === 'deposit-to-trading' ? depositBalance : tradingBalance)"></span>
+                </div>
+            </div>
+
+            <!-- Quick Amount Buttons -->
+            <div class="mb-6">
+                <div class="text-xs text-gray-600 dark:text-gray-400 mb-2">Quick amounts:</div>
+                <div class="grid grid-cols-4 gap-2">
+                    <button type="button" @click="setTransferQuickAmount(25)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">25%</button>
+                    <button type="button" @click="setTransferQuickAmount(50)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">50%</button>
+                    <button type="button" @click="setTransferQuickAmount(75)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">75%</button>
+                    <button type="button" @click="setTransferQuickAmount(100)" class="py-2 text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded text-gray-700 dark:text-gray-300 transition-colors">Max</button>
+                </div>
+            </div>
+
+            <!-- Transfer Summary -->
+            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+                <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="info" class="w-4 h-4 text-blue-600 dark:text-blue-400"></i>
+                    <span class="text-sm font-medium text-blue-900 dark:text-blue-200">Transfer Summary</span>
+                </div>
+                <div class="text-sm text-blue-800 dark:text-blue-300">
+                    <template x-if="transferDirection === 'deposit-to-trading'">
+                        <p>Transfer <strong x-text="formatPrice(transferAmount || 0)"></strong> from Deposit to Trading Balance</p>
+                    </template>
+                    <template x-if="transferDirection === 'trading-to-deposit'">
+                        <p>Transfer <strong x-text="formatPrice(transferAmount || 0)"></strong> from Trading to Deposit Balance</p>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-3">
+                <button type="button"
+                        @click="showTransferModal = false"
+                        class="flex-1 py-3 px-4 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg font-medium transition-colors">
+                    Cancel
+                </button>
+                <button type="submit"
+                        :disabled="!transferAmount || transferAmount <= 0 || transferLoading"
+                        class="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                    <template x-if="transferLoading">
+                        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    </template>
+                    <span x-text="transferLoading ? 'Processing...' : 'Confirm Transfer'"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'assets/scripts/order-handler.js' %}"></script>
+<script src="{% static 'assets/scripts/trading-single.js' %}"></script>
+{% endblock %}

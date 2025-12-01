@@ -1,0 +1,484 @@
+{% extends "client/base.html" %} 
+{% load static %}
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+
+{% block content %}
+
+
+
+    <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <div class="mainWrapper pb-0">
+            <section class="blockElement space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 mb-3 mobSticky">
+                            <div class="getStart bg-white boxed box-shadow guide_lines mobScroll" id="getstarted">
+                                <div class="repeatListFlex">
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="user-guide.html#Onboarding">Onboarding</a></div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="user-guide.html#Dashboard">Dashboard</a>
+                                    </div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex" href="user-guide.html#Leaders">Leaders</a>
+                                    </div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex" href="user-guide.html#Markets">Markets</a>
+                                    </div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="user-guide.html#Community">Community</a>
+                                    </div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex" href="user-guide.html#Account">Account</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <div class="bg-white boxed box-shadow p-md-4">
+                                <section class="inner-box fullList" id="Onboarding">
+                                    <h1 class="f-25 tag medium border-bottom pb-1 mb-2">Onboarding</h1>
+                                    <div class="selected support_sec">
+                                        <h4>A. Login</h4>
+                                        <p>You can login to your account by entering your Isotradex Username or your
+                                            Isotradex registered email address, together with your Isotradex password
+                                        </p>
+                                        <h4> B. Register</h4>
+                                        <p>Upon your registration, a free Demo account will be automatically created for
+                                            you, with exactly the same functionality as a Live account. This means that
+                                            you
+                                            can try out Isotradex risk-free and experiment with different CopyTrading
+                                            strategies before investing any real funds!</p>
+                                        <ul class="dotList">
+                                            <li>Demo is designed to provide the same experience as your Real account,
+                                                irrespective to your selected Broker</li>
+                                            <li>Rates accurately represent the market at all times</li>
+                                            <li>Comprehensive Stop Out level at your desired level</li>
+                                        </ul>
+                                        <div class="mb-3"><span>Try now!</span></div>
+                                        <div class="inText">
+                                            <h5>a. Personal Details</h5>
+                                            <p>After registration you will be prompted to complete your account. The
+                                                first
+                                                step is to enter your personal details, like name, country and phone
+                                                number.
+                                                Please note that it is not possible to change your e-mail address later,
+                                                but
+                                                we can change it for you with a simple e-mail request to:
+                                                <a href="cdn-cgi/l/email-protection.html" class="__cf_email__"
+                                                    data-cfemail="f784828787988583b79998938385969392d994989a"><span class="__cf_email__" data-cfemail="6108120e151300050419210f04191b504f020e0c">[email&#160;protected]</span></a>
+                                            </p>
+                                            <p>In order to ensure smooth connectivity please note that your e-mail
+                                                address
+                                                at Isotradex should be the same as in your broker(s).</p>
+                                            <h5>b. Setup Broker Account</h5>
+                                            <p>After that you will be prompted to add a Live trading account. You can
+                                                create
+                                                a new trading account with one of our supported brokerage firms,</p>
+                                            <div class="inText">
+                                                <h6>Connect an existing broker account</h6>
+                                                <p>You can connect any MT4, MT5, ActTrader, XOH account you already own
+                                                    from
+                                                    any broker by following the on-screen instructions.</p>
+                                                <p>In case your broker is not on our list you may select “Other Brokers”
+                                                    and
+                                                    you will be asked to provide the brokers IP in addition to your
+                                                    Broker
+                                                    Account Username and Password.</p>
+                                                <p>Please note that the required password is the MT4, MT5, ActTrader,
+                                                    XOH
+                                                    Master password, and not the Read-Only (Investor) password. If you
+                                                    provide the Read-Only (Investor) password, although your Isotradex
+                                                    account will be connected to your Broker account, you will not be
+                                                    able
+                                                    to receive any signals as it will be set to read-only mode.</p>
+                                                <p>If you do not have the Broker Account Username, Broker Account
+                                                    Password
+                                                    available, then please contact your Broker as they can remind/reset
+                                                    them
+                                                    for you – unfortunately, Isotradex does not have access to this
+                                                    information and thus cannot provide it.</p>
+                                                <h6>Create a new broker account</h6>
+                                                <p>You can also create a new Trading Account through Isotradex with our
+                                                    supported brokerage firms. In order to do so, please follow the
+                                                    on-screen instructions for each broker account.</p>
+                                                <p>Keep in mind that for some brokers you will be directed to the
+                                                    broker’s
+                                                    website to create your trading account. After that you will need to
+                                                    return to Isotradex to eventually connect your new trading account.
+                                                    You
+                                                    will be provided with instructions (on-screen or via email) that you
+                                                    need to follow for the specific broker.</p>
+                                                <p><i>Note: Please remember that if you ever change your Broker
+                                                        Password,
+                                                        connectivity with your Isotradex account will be lost, so you
+                                                        will
+                                                        need to repeat this process, and re-connect your Broker account
+                                                        to
+                                                        Isotradex using the updated Broker Password.</i></p>
+                                            </div>
+                                            <h5>c. Applicable Fees</h5>
+                                            <p>In order to be able to CopyTrade with a Live Trading Account you do not
+                                                need
+                                                to pay any subscription fee. The Isotradex Platform is available to all
+                                                End
+                                                - Users holding a linked trading account with a Co-operating Broker.</p>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="Dashboard">
+                                    <h3 class="border-bottom pb-3 mb-3">Dashboard</h3>
+                                    <div class="selected support_sec">
+                                        <h4>A. Basic Information</h4>
+                                        <p>On the Home/Dashboard you will find information like your accounts’ Equity,
+                                            PnL,
+                                            ROI and performance chart, as well as the Leaders you are CopyTrading and
+                                            your
+                                            trades.</p>
+                                        <p>In case you have multiple trading accounts, you can select the account of
+                                            your
+                                            choice to display the relevant information, by using the account selector.
+                                        </p>
+                                        <h4>B. My Trades</h4>
+                                        <p>This is where executed signals that Leaders place in your account and trades
+                                            that
+                                            you have placed on your own will show up. Here you can see what your current
+                                            earnings or losses are at the moment for each trade. Trades are organised in
+                                            open, pending orders and closed trades.</p>
+                                        <div class="inText">
+                                            <h5>a. Trade Details</h5>
+                                            <p>Clicking on any trade will show additional information for the specific
+                                                trade/order. Here you can also find the Trader Ticket and Broker Ticket,
+                                                which are essential IDs if you wish to contact Isotradex over specific
+                                                trades.</p>
+                                            <h5>1. Update an open trade or a pending order:</h5>
+                                            <p>By clicking “Update” on an open trade, you will bring up a popup window
+                                                where
+                                                you can change the Stop Loss or Take Profit rates.</p>
+                                            <p>On a pending order you can update the Stop Loss, Take Profit Rates, as
+                                                well
+                                                as the BUY or SELL rates that were previously set.</p>
+                                            <p>When updating copied trades, you will overwrite any Stop Loss, Take
+                                                Profit or
+                                                BUY/SELL rates previously set by the Leader or by yourself. Please note
+                                                that
+                                                after you have updated any of these rates, any new updates on copied
+                                                trades
+                                                will be received normally at your account.</p>
+                                            <h5>2. Close an open trade:</h5>
+                                            <p>By choosing to close a trade you will then be prompted to a confirmation
+                                                window, where you can either confirm or cancel your Close request. Upon
+                                                confirmation the trade will close and should no longer appear in your
+                                                trades.</p>
+                                            <p>Take into consideration that sometimes there may be a brief delay of a
+                                                few
+                                                seconds between closing the trades and displaying that on your trades;
+                                                if
+                                                you notice a delay, please try using the Refresh option.</p>
+                                            <h5>3. Cancel a pending order:</h5>
+                                            <p>By choosing to cancel a pending order you will then be prompted to a
+                                                confirmation window. Upon confirmation the order will close and should
+                                                no
+                                                longer appear in your orders. If you notice a delay, please try using
+                                                the
+                                                Refresh option.</p>
+                                        </div>
+                                        <h4>C. My Leaders</h4>
+                                        <p>This is where the Leaders that you already copy will appear. By clicking on
+                                            any
+                                            Leader you will see your PnL, ROI and the investment you have made on a
+                                            specific
+                                            Leader, as well as all the trades that have been copied by the specific
+                                            Leader.
+                                        </p>
+                                        <div class="inText">
+                                            <h5>a. Copied Trades</h5>
+                                            <p>Copied trades are organised in open, pending orders and closed trades
+                                                exactly
+                                                like your own (manual) trades. You can also update any open trade or
+                                                pending
+                                                order, in the same way you can do it for your own trades.</p>
+                                            <p>By updating copied trades, you will overwrite any Stop Loss, Take Profit
+                                                or
+                                                BUY/SELL rates previously set by the Leader or by yourself. Please note
+                                                that
+                                                after you have updated any of these rates, any new updates on copied
+                                                trades
+                                                will be received normally at your account.</p>
+                                            <h5>b. Update Strategy</h5>
+                                            <p>You can update the CopyTrading settings of a specific Leader’s strategy
+                                                by
+                                                clicking/tapping on “Update” next to the Leader’s name. On the web app
+                                                this
+                                                option is under the context menu (3 dots). A new window will open where
+                                                you
+                                                can change the “Investment amount”, “Copy ratio”, “Take Profit amount”,
+                                                as
+                                                well as set or remove the “Trailing Stop” for the whole strategy.</p>
+                                            <p> Learn more on</p>
+                                            <h5>c. Stop Copying Strategy</h5>
+                                            <p>From the “Update Strategy” window you can also stop copying a Leader’s
+                                                strategy. Once you stop copying a Leader you will stop receiving new
+                                                trades
+                                                by this specific Leader.</p>
+                                            <p>In case you have open trades at the time you stop copying a Leader you
+                                                will
+                                                be asked if you want to keep or close all the open trades by this
+                                                Leader’s
+                                                strategy as well.</p>
+                                            <p>If you choose to keep all open trades from a strategy you are stop
+                                                copying,
+                                                you will still receive signals for these trades until you close them
+                                                manually or get closed by the Leader. New trades will not get copied
+                                                though.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="Leaders">
+                                    <h3 class="border-bottom pb-3 mb-3">Leaders</h3>
+                                    <div class="selected support_sec">
+                                        <p>If you click on the “See all Leaders” button, you will be directed to the
+                                            Leaders’ page to check the Leaders and select which you wish to copy. </p>
+                                        <p> To copy a Leader, follow the steps below:</p>
+                                        <ul class="numaricList">
+                                            <li><strong>Navigate to the Leaders’ tab.</strong> Here you can explore all
+                                                of
+                                                the Leader’s that are available for copytrading in Isotradex. You can
+                                                click/tap on any of the Leaders to open their profiles, where you can
+                                                view
+                                                all of the Leader’s trading statistics.</li>
+                                            <li><strong>Click/tap the “Copy Strategy” button</strong> - A pop-up will
+                                                open
+                                            </li>
+                                            <li><strong>Select a trading account</strong> - In case you have multiple
+                                                trading accounts make sure you have selected the one with which you want
+                                                to
+                                                invest.</li>
+                                            <li><strong>Specify the funds you wish to invest</strong> <a
+                                                    href="autoprotect-your-account.html" target="_blank"
+                                                    class="secondary">
+                                                    AutoGuard™</a> – This is the amount you wish to invest by following
+                                                this
+                                                Leader. You may adjust the amount according to your balance. In case you
+                                                experience a loss equal to your investment amount, <a
+                                                    href="autoprotect-your-account.html" target="_blank"
+                                                    class="secondary">
+                                                    AutoGuard™</a> will automatically get activated to safeguard your
+                                                invested capital.</li>
+                                            <li>Advanced Settings (optional):</li>
+                                            <ul class="inText">
+                                                <li><strong>Custom Copy Ratio:</strong> By setting a “Custom Copy Ratio”
+                                                    you
+                                                    will override our algorithm and the Leader’s trades will be copied
+                                                    with
+                                                    the ratio you set. </li>
+                                                <li><strong>Take Profit:</strong> When you make this amount of profit by
+                                                    the
+                                                    copied trades from this Leader, you will automatically stop copying
+                                                    the
+                                                    Leader and all of the open copied trades will get closed.</li>
+                                                <li><strong>Trailing Stop Loss: </strong> If you set Capital Protection
+                                                    to
+                                                    $500, in case the Leader is losing $500 in your account, AutoGuard™
+                                                    will
+                                                    step in. However, this mode will move up exactly like a trailing
+                                                    stop
+                                                    for the whole strategy. If the Leader has closed trades that have a
+                                                    PnL
+                                                    of $2,000 in your account and his next trade has floating losses of
+                                                    -$500, then AutoGuard™ will step in, and secure profits of $1,500!
+                                                </li>
+                                                <li><strong>Copy Open Trades:</strong> Enabling this will copy all of
+                                                    the
+                                                    Leader’s open trades at market price at the time you copy the
+                                                    Leader.
+                                                </li>
+                                            </ul>
+                                            <p><i>By default all your CopyTrading investment is protected by <a
+                                                        href="autoprotect-your-account.html" target="_blank"
+                                                        class="secondary">
+                                                        AutoGuard™</a> , which creates a protection shield for your
+                                                    investment capital. AutoGuard™ monitors each Leader’s trading
+                                                    behaviour
+                                                    and automatically takes action when a radical change in his trading
+                                                    strategy is detected.</i></p>
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="Markets">
+                                    <h3 class="border-bottom pb-3 mb-3">Markets</h3>
+                                    <div class="selected support_sec">
+                                        <p>Here you can place manual trades as you see fit. The rates displayed are
+                                            received
+                                            directly from your broker, so it is the same as if you were trading from
+                                            your
+                                            broker platform. You will see the BUY price per instrument as well as the
+                                            change
+                                            percentage since the previous market close.</p>
+                                        <p>When the market is open, rates will be constantly highlighted alternating
+                                            between
+                                            green and red, indicating whether market tendencies are currently up or
+                                            downwards for this pair.</p>
+                                        <p>You can click/tap on any of the available instruments to open its page and
+                                            see
+                                            its chart as well as useful statistics and news.</p>
+                                        <p>If you wish to place a manual trade, simply click on either Buy or Sell. A
+                                            popup
+                                            window will then appear. This window will consist of the current market
+                                            price
+                                            and some options that you can set to place your trade/order.</p>
+                                        <p>You may open a trade at market price or set a specific price to place a
+                                            pending
+                                            order by selecting the “Limit Order” option and then setting your desired
+                                            price.
+                                        </p>
+                                        <p>The investment amount can be set by entering the amount of Lots, Units or
+                                            Margin
+                                            (in your trading account’s currency).</p>
+                                        <p>You may also amend the default Stop and Limit, and it is possible to set a
+                                            Trailing Stop as well. Please note that if you select the Trailing Stop
+                                            option,
+                                            the Stop will start trailing immediately as soon as the trade is opened. For
+                                            example, a BUY EUR/USD trade is set with -30 pips Trailing Stop and opened
+                                            at
+                                            1.383. The trade is opened with a Stop of -30 pips (at 1.380), and if it
+                                            starts
+                                            winning even by one pip, the Trailing Stop will be updated accordingly. So
+                                            when
+                                            the trade reaches a High of 5 pips (rate 1.3835) , the Stop will be updated
+                                            30
+                                            pips away from this new rate, at 1.3805 (-25 pips away from the trade's
+                                            opening
+                                            price). After a Trailing Stop is set, it is updated automatically as
+                                            described
+                                            above without the need to remain logged in the account. Once you have
+                                            entered
+                                            the information you wish, simply click on OK and the trade will appear
+                                            either in
+                                            your open positions or pending orders accordingly.</p>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="Community">
+                                    <h3 class="border-bottom pb-3 mb-3">Community</h3>
+                                    <div class="selected support_sec">
+                                        <p>Here you can learn what is happening in the Isotradex community and
+                                            participate
+                                            in discussions about investment topics. This is where Isotradex’s users are
+                                            sharing their thoughts about the markets.</p>
+                                        <ul class="dotList">
+                                            <li>You can follow any hashtag of your interest so that you can stay
+                                                up-to-date
+                                                on a specific topic.</li>
+                                            <li>You can create your own posts to initiate a discussion in the community.
+                                            </li>
+                                            <li>You can upload media (pictures and images) on your posts.</li>
+                                            <li>You can like and comment on any post.</li>
+                                        </ul>
+                                        <p>Follow a Leader:</p>
+                                        <p>In order to stay updated about specific Leaders’ posts, you can add them to
+                                            your
+                                            watchlist, by visiting their profiles and tapping the “Star” button (on
+                                            mobile)
+                                            or by clicking the “Add to watchlist” button (on web). Once you add a Leader
+                                            to
+                                            your watchlist you automatically “Follow” him/her so that you can see what
+                                            they
+                                            are posting in the community.</p>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="Account">
+                                    <h3 class="border-bottom pb-3 mb-3">Account</h3>
+                                    <div class="selected support_sec">
+                                        <h4> A. My Profile</h4>
+                                        <p>“My Profile” is available only on our mobile apps.</p>
+                                        <p>On “My Profile” you will find an overview of your accounts with information
+                                            like
+                                            your accounts’ Equity, PnL, ROI and performance chart, as well as the
+                                            Leaders
+                                            you are CopyTrading and your trades.</p>
+                                        <ul class="dotList">
+                                            <li>Learn more about <a href="leaders.html" class="secondary">My Trades.</a>
+                                            </li>
+                                            <li>Learn more about <a href="leaders.html" class="secondary">My
+                                                    Leaders.</a></li>
+                                        </ul>
+                                        <p>In case you have multiple trading accounts, you can select the account of
+                                            your
+                                            choice to display the relevant information, by using the account selector.
+                                        </p>
+                                        <p>Additionally you can see all of your community posts in one place under the
+                                            tab
+                                            “Posts”.</p>
+                                        <h4>B. Watchlist</h4>
+                                        <p>The watchlist allows you to easily keep an eye on the market assets and
+                                            Leaders
+                                            that you're interested in. You can add any asset or leader to your watchlist
+                                            by
+                                            using the star icon on asset’s and Leader profiles, and then easily monitor
+                                            their performance in real-time.</p>
+                                        <p>Whether you're a seasoned trader or just getting started, the watchlist is an
+                                            invaluable tool for keeping track of the market and staying up-to-date on
+                                            the
+                                            latest trends. You can use it to quickly identify trading opportunities,
+                                            track
+                                            your favorite leaders.</p>
+                                        <p>With the watchlist, you're always in control. You can add and remove assets
+                                            and
+                                            leaders as you see fit, and customize your watchlist to suit your specific
+                                            investing style, so you can easily access all the information you need to
+                                            make
+                                            informed trading decisions.</p>
+                                        <h4>C. Settings</h4>
+                                        <div class="inText">
+                                            <h5>a. Security</h5>
+                                            <div class="inText">
+                                                <h6>1. Change Password</h6>
+                                                <p>You can also change your password for logging into your Isotradex
+                                                    account
+                                                    – in order to do that you will need your Current Password. If you
+                                                    have
+                                                    forgotten your Current Password, you can always reset it by clicking
+                                                    on
+                                                    the Forgot Password.</p>
+                                                <h6>2. Biometrics</h6>
+                                                <p>Only available on Mobile devices.</p>
+                                            </div>
+                                            <h5>b. Display Currency</h5>
+                                            <p>Here you can select a display currency to view your (total) balance and
+                                                stats
+                                                (of all your live trading accounts).</p>
+                                            <ul class="inText dotList">
+                                                <li>This currency will be used on your statistics when "All accounts" is
+                                                    selected in your home/dashboard or profile.</li>
+                                                <li>Specific account portfolios, trades and statistics will still be
+                                                    displayed in each account currency as set by your broker.</li>
+                                                <li>Transactions will always be executed in each account’s currency as
+                                                    set
+                                                    by your broker.</li>
+                                            </ul>
+                                            <h5>C. Delete Account</h5>
+                                            <p>In order to process the deletion of your account please send an email to
+                                                <a href="cdn-cgi/l/email-protection.html" class="__cf_email__"
+                                                    data-cfemail="6d1e181d1d021f192d030209191f0c0908430e0200"><span class="__cf_email__" data-cfemail="1a7369756e687b7e7f625a747f62602b34797577">[email&#160;protected]</span></a>
+                                                with the title 'Delete Account'. Kindly note that due
+                                                to regulatory obligations Isotradex is legally obliged to maintain data
+                                                for
+                                                Live accounts for a period of time as per respective licences for EU and
+                                                Global regions.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+ {% endblock content %}
+
+{% block footer %}
+    {% include "client/footer.html" %}
+{% endblock footer %}

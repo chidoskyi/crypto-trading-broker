@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark red-theme">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Isotradex - Complete Your Profile</title>
+
+    <!-- Favicon -->
+    <link href="{% static 'assets/img/XoR8MfdPTzQDfF4JVKuMIQhGj8HmCdPoBxveN4vK.png' %}" rel="icon" type="image/x-icon" />
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+            document.documentElement.classList.add('dark');
+        }
+
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: {
+                            50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5',
+                            400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c',
+                            800: '#991b1b', 900: '#7f1d1d',
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        body { overflow-x: hidden; }
+        [x-cloak] { display: none !important; }
+        .red-theme {
+            --brand-300: #fca5a5; --brand-400: #f87171; --brand-500: #ef4444;
+            --brand-600: #dc2626; --brand-700: #b91c1c;
+        }
+        .red-theme .text-blue-400, .red-theme .text-cyan-400 { color: var(--brand-400) !important; }
+        .red-theme .hover\:text-blue-300:hover, .red-theme .hover\:text-cyan-300:hover { color: var(--brand-300) !important; }
+        .red-theme .border-blue-400 { border-color: var(--brand-400) !important; }
+        .red-theme .hover\:border-blue-400\/50:hover, .red-theme .hover\:border-cyan-400\/50:hover { 
+            border-color: rgba(239, 68, 68, 0.5) !important; 
+        }
+        .red-theme .focus\:border-blue-400:focus { border-color: var(--brand-400) !important; }
+        .red-theme .focus\:ring-blue-400\/20:focus { --tw-ring-color: rgba(239, 68, 68, 0.2) !important; }
+        .red-theme .from-blue-500 { --tw-gradient-from: var(--brand-500) !important; }
+        .red-theme .to-cyan-500 { --tw-gradient-to: var(--brand-700) !important; }
+        .red-theme .hover\:from-blue-600:hover { --tw-gradient-from: var(--brand-600) !important; }
+        .red-theme .hover\:to-cyan-600:hover { --tw-gradient-to: var(--brand-800) !important; }
+    </style>
+</head>
+
+<body class="h-full bg-gray-300 font-sans antialiased transition-colors duration-300 text-gray-900" 
+      x-data="{ darkMode: localStorage.theme === 'dark' || !localStorage.theme }" 
+      :class="{ 'dark': darkMode }" 
+      x-cloak>
+
+    <!-- Main Content -->
+    <div class="relative min-h-screen overflow-hidden">
+        <div class="relative z-10">
+            <div class="min-h-screen bg-gray-900 relative overflow-hidden">
+                <div class="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
+                    <div class="w-full max-w-2xl">
+                        <div class="relative bg-gray-900 border border-gray-700 rounded-3xl p-8 sm:p-10 shadow-2xl">
+                            
+                            <!-- Header -->
+                            <div class="text-center mb-8">
+                                <div class="flex items-center justify-center mb-6">
+                                    <img src="{% static 'assets/img/ZJbORQRpj7N096KoQ4Mbs3lqj6JOvqka6pVrlBUL.png' %}" class="h-16 w-auto" alt="Isotradex" />
+                                </div>
+
+                                <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">Complete Your Profile</h1>
+                                <p class="text-gray-300 text-sm sm:text-base">Tell us more about yourself to get started with trading</p>
+
+                                <!-- Progress Steps -->
+                                <div class="flex items-center justify-center mt-8 mb-6">
+                                    <div class="flex items-center">
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-semibold">
+                                            1
+                                        </div>
+                                        <div class="w-16 h-1 bg-blue-500 mx-2"></div>
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-semibold">
+                                            2
+                                        </div>
+                                        <div class="w-16 h-1 bg-gray-600 mx-2"></div>
+                                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 text-gray-400 font-semibold">
+                                            3
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-400">Step 2 of 3: Profile Setup</p>
+                            </div>
+
+                            <!-- Profile Completion Form -->
+                            <form method="POST" class="space-y-6" id="profile-form" x-data="{ imagePreview: null }">
+                                {% csrf_token %}
+                                
+                                <!-- Profile Picture -->
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-gray-200">
+                                        Profile Picture (Optional)
+                                    </label>
+                                    <div class="flex items-center space-x-6">
+                                        <div class="relative">
+                                            <div class="w-20 h-20 rounded-full border-2 border-dashed border-gray-600 bg-gray-800 flex items-center justify-center overflow-hidden">
+                                                <template x-if="imagePreview">
+                                                    <img :src="imagePreview" class="w-full h-full object-cover" alt="Profile preview">
+                                                </template>
+                                                <template x-if="!imagePreview">
+                                                    <i data-lucide="user" class="h-8 w-8 text-gray-400"></i>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <input 
+                                                type="file" 
+                                                name="profile_picture" 
+                                                id="profile_picture"
+                                                accept="image/*"
+                                                @change="
+                                                    const file = $event.target.files[0];
+                                                    if (file) {
+                                                        const reader = new FileReader();
+                                                        reader.onload = (e) => imagePreview = e.target.result;
+                                                        reader.readAsDataURL(file);
+                                                    }
+                                                "
+                                                class="hidden"
+                                            />
+                                            <button 
+                                                type="button"
+                                                onclick="document.getElementById('profile_picture').click()"
+                                                class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-600 bg-gray-800 text-white hover:bg-gray-700 transition-colors text-sm font-medium"
+                                            >
+                                                <i data-lucide="upload" class="h-4 w-4"></i>
+                                                Upload Photo
+                                            </button>
+                                            <p class="text-xs text-gray-400 mt-1">JPG, PNG up to 2MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bio -->
+                                <div class="space-y-2">
+                                    <label for="bio" class="block text-sm font-semibold text-gray-200">
+                                        Bio <span class="text-red-400">*</span>
+                                    </label>
+                                    <div class="relative group">
+                                        <div class="absolute inset-y-0 left-0 flex items-start pt-4 pl-4">
+                                            <i data-lucide="user" class="h-5 w-5 text-gray-400 group-focus-within:text-blue-400 transition-colors duration-200"></i>
+                                        </div>
+                                        <textarea 
+                                            name="bio" 
+                                            id="bio" 
+                                            required
+                                            rows="4"
+                                            class="block w-full rounded-2xl border border-gray-600 bg-gray-900 pl-12 pr-4 py-4 text-white placeholder-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 focus:bg-gray-800 transition-all duration-200 text-sm font-medium resize-none"
+                                            placeholder="Tell us about yourself and your trading experience (minimum 10 characters)..."
+                                        ></textarea>
+                                    </div>
+                                    <p class="text-xs text-gray-400">This helps us personalize your trading experience</p>
+                                </div>
+
+                                <!-- Location -->
+                                <div class="space-y-2">
+                                    <label for="location" class="block text-sm font-semibold text-gray-200">
+                                        Location <span class="text-red-400">*</span>
+                                    </label>
+                                    <div class="relative group">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                                            <i data-lucide="map-pin" class="h-5 w-5 text-gray-400 group-focus-within:text-blue-400 transition-colors duration-200"></i>
+                                        </div>
+                                        <input 
+                                            type="text" 
+                                            name="location" 
+                                            id="location" 
+                                            required
+                                            class="block w-full rounded-2xl border border-gray-600 bg-gray-900 pl-12 pr-4 py-4 text-white placeholder-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 focus:bg-gray-800 transition-all duration-200 text-sm font-medium"
+                                            placeholder="Your city and country"
+                                        />
+                                    </div>
+                                </div>
+
+                                <!-- Website -->
+                                <div class="space-y-2">
+                                    <label for="website" class="block text-sm font-semibold text-gray-200">
+                                        Website (Optional)
+                                    </label>
+                                    <div class="relative group">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                                            <i data-lucide="globe" class="h-5 w-5 text-gray-400 group-focus-within:text-blue-400 transition-colors duration-200"></i>
+                                        </div>
+                                        <input 
+                                            type="url" 
+                                            name="website" 
+                                            id="website"
+                                            class="block w-full rounded-2xl border border-gray-600 bg-gray-900 pl-12 pr-4 py-4 text-white placeholder-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 focus:bg-gray-800 transition-all duration-200 text-sm font-medium"
+                                            placeholder="https://yourwebsite.com"
+                                        />
+                                    </div>
+                                </div>
+
+                                <!-- Submit Buttons -->
+                                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                                    <button 
+                                        type="button"
+                                        onclick="window.location.href='/dashboard'"
+                                        class="flex-1 py-4 px-6 rounded-2xl border border-gray-600 bg-gray-800 text-white hover:bg-gray-700 transition-all duration-200 text-base font-bold text-center"
+                                    >
+                                        Skip for Now
+                                    </button>
+                                    <button 
+                                        type="submit"
+                                        class="flex-1 group relative flex justify-center items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 px-6 py-4 text-base font-bold text-white transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+                                    >
+                                        <i data-lucide="user-check" class="h-5 w-5"></i>
+                                        <span>Complete Profile</span>
+                                        <i data-lucide="arrow-right" class="h-4 w-4 group-hover:translate-x-1 transition-transform"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Footer -->
+                            <div class="mt-8 text-center">
+                                <p class="text-xs text-gray-500">© 2025 Isotradex. All rights reserved.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Scripts -->
+    <script src="{% static 'assets/scripts/api.js' %}"></script>
+    <script src="{% static 'assets/scripts/auth-utils.js' %}"></script>
+    <script src="{% static 'assets/scripts/auth.js' %}"></script>
+
+    <!-- Initialize -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
+        // Reinitialize icons after Alpine updates
+        document.addEventListener('alpine:updated', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %} 
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %} 
+
+{% block content %}
+
+<!-- Main content placeholder -->
+<div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+  <div
+    class="container bg-gray-50 dark:bg-gray-900 py-8"
+    x-data="myPlansManager()"
+  >
+    <div class="container mx-auto px-4 pl-0 md:pl-12">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+            My Investment Plans
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">
+            Track and manage your active investment portfolios
+          </p>
+        </div>
+
+        <a
+          href="https://www.isotradex.com/dashboard/buy-plan"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            ></path>
+          </svg>
+          New Investment
+        </a>
+      </div>
+
+      <!-- Loading State -->
+      <template x-if="loading">
+        <div class="text-center py-12">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <p class="mt-4 text-gray-600 dark:text-gray-400">Loading your investments...</p>
+        </div>
+      </template>
+
+      <!-- Investment Plans Grid -->
+      <div class="space-y-6" x-show="!loading">
+        <!-- Active Investments -->
+        <template x-for="investment in investments" :key="investment.id">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+            <!-- Investment Header -->
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
+                  <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white" x-text="investment.plan_name"></h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    <span x-text="investment.plan_interest_rate + '% ROI'"></span>
+                    • Started <span x-text="new Date(investment.start_date).toLocaleDateString()"></span>
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300" x-show="investment.is_running && !investment.completed">
+                  Active
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300" x-show="investment.completed">
+                  Completed
+                </span>
+              </div>
+            </div>
+
+            <!-- Investment Details -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+              <!-- Amount Invested -->
+              <div class="text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">Amount Invested</p>
+                <p class="text-xl font-bold text-gray-900 dark:text-white" x-text="'$' + investment.amount"></p>
+              </div>
+
+              <!-- Expected ROI -->
+              <div class="text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">Expected ROI</p>
+                <p class="text-xl font-bold text-green-600 dark:text-green-400" x-text="'$' + investment.roi"></p>
+              </div>
+
+              <!-- Total Return -->
+              <div class="text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">Total Return</p>
+                <p class="text-xl font-bold text-blue-600 dark:text-blue-400" 
+                   x-text="'$' + (parseFloat(investment.amount) + parseFloat(investment.roi)).toFixed(2)"></p>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-4" x-show="investment.is_running && !investment.completed">
+              <div class="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
+                <span>Progress</span>
+                <span x-text="investment.progress_percentage.toFixed(1) + '%'"></span>
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                     :style="'width: ' + Math.min(investment.progress_percentage, 100) + '%'"></div>
+              </div>
+            </div>
+
+            <!-- Time Information -->
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <div>
+                <span x-text="'Ends: ' + new Date(investment.end_date).toLocaleDateString()"></span>
+              </div>
+      <div x-data="{
+          remainingSeconds: investment.remaining_seconds,
+          init() {
+              // Start countdown if investment is active
+              if (this.remainingSeconds > 0 && investment.is_running && !investment.completed) {
+                  this.startCountdown();
+              }
+          },
+          startCountdown() {
+              const timer = setInterval(() => {
+                  if (this.remainingSeconds > 0) {
+                      this.remainingSeconds--;
+                  } else {
+                      clearInterval(timer);
+                      // Optionally refresh data when timer completes
+                      // setTimeout(() => $root.loadInvestments(), 1000);
+                  }
+              }, 1000);
+          }
+      }" x-show="investment.is_running && !investment.completed">
+          <span x-text="formatRemainingTime(remainingSeconds)"></span>
+      </div>
+            </div>
+          </div>
+        </template>
+
+        <!-- Empty State -->
+        <div
+          x-show="!loading && investments.length === 0"
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+        >
+          <div class="text-center py-16">
+            <div
+              class="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <svg
+                class="w-10 h-10 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              No Investment Plans Found
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8">
+              You don't have any investment plans at the moment or no plans
+              match your current filter criteria.
+            </p>
+            <a
+              href="https://www.isotradex.com/dashboard/buy-plan"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                ></path>
+              </svg>
+              Start Your First Investment
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'assets/scripts/scripts.js' %}"></script>
+<script>
+  // Make function available globally for Alpine.js
+  window.myPlansManager = function () {
+    return {
+      selectedFilter: "All",
+      investments: [],
+      loading: true,
+      error: null,
+
+      async init() {
+        console.log("Initializing myPlansManager...");
+        
+        // Set initial filter value based on current URL if needed
+        const urlParts = window.location.pathname.split("/");
+        const currentFilter = urlParts[urlParts.length - 1];
+        
+        if (["All", "yes", "expired"].includes(currentFilter)) {
+          this.selectedFilter = currentFilter;
+        } else if (urlParts[urlParts.length - 2] === "myplans") {
+          this.selectedFilter = "All";
+        }
+
+        // Load investments
+        await this.loadInvestments();
+      },
+
+      async loadInvestments() {
+        try {
+          this.loading = true;
+          this.error = null;
+          
+          console.log("Loading investments from API...");
+          const response = await APIClient.getActiveInvestments();
+          console.log("API Response:", response);
+          
+          // Assuming the API returns an array of investments
+          this.investments = response.results || response || [];
+          console.log("Loaded investments:", this.investments);
+          
+        } catch (error) {
+          console.error("Failed to load investments:", error);
+          this.error = "Failed to load investments. Please try again.";
+          this.investments = [];
+        } finally {
+          this.loading = false;
+        }
+      },
+
+      formatRemainingTime(seconds) {
+        if (!seconds || seconds <= 0) return "Completed";
+        
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        
+        if (hours > 0) {
+          return `${hours}h ${minutes}m ${secs}s`;
+        } else if (minutes > 0) {
+          return `${minutes}m ${secs}s`;
+        } else {
+          return `${secs}s`;
+        }
+      },
+
+      updateFilter() {
+        console.log("Updating filter to:", this.selectedFilter);
+        const baseUrl = "https://www.isotradex.com/dashboard/sort-plans";
+        const targetUrl = `${baseUrl}/${this.selectedFilter}`;
+
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 100);
+      }
+    };
+  };
+
+  // Debug Alpine.js initialization
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM loaded, Alpine.js should initialize soon");
+  });
+
+  document.addEventListener("alpine:init", () => {
+    console.log("Alpine.js initialized successfully");
+  });
+</script>
+{% endblock content %}

@@ -1,0 +1,122 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %} 
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %} 
+
+{% block content %}
+<!-- Main content placeholder -->
+  <div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <!-- Your main dashboard content goes here -->
+    
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+        <div class="container mx-auto px-6">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8 px-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Transfer Funds</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">Send funds securely to other platform users</p>
+                </div>
+                <a href="https://www.isotradex.com/dashboard"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    Back to Dashboard
+                </a>
+            </div>
+
+            <!-- Alert Messages -->
+            <div>
+        </div>
+            
+            <!-- Balance Card -->
+            <div class="mb-8">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 max-w-lg mx-auto">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
+                            <i data-lucide="wallet" class="w-8 h-8 text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Available Balance</p>
+                            <p class="text-3xl font-bold text-gray-900 dark:text-white">
+                                $0.00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfer Form -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 max-w-5xl mx-auto p-6 md:p-8">
+                <div class="flex items-center mb-6">
+                    <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl mr-4">
+                        <i data-lucide="send" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white">Send Funds</h2>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Transfer funds to another user account</p>
+                    </div>
+                </div>
+
+                <form method="post" action="javascript:void(0)" id="transferform" class="space-y-6">
+                    <input type="hidden" name="_token" value="4nEZIqGM1W8X6agVpelM2QcopOxwKKkW9bzphYjC">                <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Recipient Email or Username <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <input type="text" name="email" id="email"
+                                class="block w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                                placeholder="Enter recipient's email or username"
+                                required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="amount" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Amount ($) <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i data-lucide="banknote" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <input type="number" name="amount" id="amount"
+                                min="50"
+                                class="block w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                                placeholder="Enter amount to transfer"
+                                required>
+                        </div>
+                        <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                            Minimum transfer amount: $50.00
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i data-lucide="info" class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-blue-800 dark:text-blue-300">Transfer Information</h3>
+                                <div class="mt-2 text-sm text-blue-700 dark:text-blue-400">
+                                    <p>Transfer fee: <span class="font-semibold">0%</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="password" id="acntpass">
+
+                    <button type="submit" id="subbtn"
+                        class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        <span>Transfer Funds</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div> 
+  {% endblock content %}
+
+

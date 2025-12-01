@@ -1,0 +1,475 @@
+{% load static %}
+
+<!-- Sidebar -->
+<aside
+                x-cloak
+                :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+                class="fixed z-50 md:z-40 top-0 left-0 w-72 h-full bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out md:translate-x-0 overflow-y-auto"
+                x-data="{
+                    currentPath: window.location.pathname,
+                    isActive(href) {
+                        return this.currentPath.includes(href.replace(/^https?:\/\/[^\/]+/, ''));
+                    }
+                }"
+                >
+  <!-- User Profile Section -->
+  <div class="relative p-4 border-b border-gray-200 dark:border-gray-700">
+    <div class="flex items-center gap-4">
+      <div class="relative">
+        <div
+          class="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 text-lg font-medium mx-auto mb-3"
+        >
+          C
+        </div>
+        <div
+          class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-900"
+        ></div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <h2
+          class="text-sm font-semibold text-gray-900 dark:text-white truncate"
+        >
+          cursor ride
+        </h2>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+          Account Balance: $0.00
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Market Prices -->
+  <div
+    class="p-4 bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-900/20"
+    x-cloak
+  >
+    <div class="flex items-center justify-between mb-3">
+      <h3
+        class="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase"
+      >
+        Live Market
+      </h3>
+      <span
+        class="flex items-center text-xs text-green-600 dark:text-green-400"
+      >
+        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+        <span class="font-medium">LIVE</span>
+      </span>
+    </div>
+    <div class="space-y-2">
+      <coingecko-coin-price-marquee-widget
+        coin-ids="bitcoin,ethereum,eos,ripple,litecoin"
+        currency="usd"
+        background-color="transparent"
+        locale="en"
+        font-color="#333"
+      >
+      </coingecko-coin-price-marquee-widget>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="p-4 space-y-6 text-sm pb-20" x-cloak>
+    <!-- Overview Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+        <span>Overview</span>
+      </div>
+      <ul class="space-y-1">
+            <li>
+                <a href="{% url 'dashboard' %}" 
+                   class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/dashboard' in request.path and not '/dashboard/' in request.path or request.path == '/' %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'account-history' %}" 
+                   class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/account-history' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}">
+                    <i data-lucide="receipt" class="w-5 h-5 mr-3"></i>
+                    Account Statement
+                </a>
+            </li>
+      </ul>
+    </div>
+
+    <!-- Portfolio & Investments Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="briefcase" class="w-4 h-4"></i>
+        <span>Portfolio & Investments</span>
+      </div>
+      <ul class="space-y-1">
+ <li>
+                <a href="{% url 'buy-plan' %}" 
+                   class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/buy-plan' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}">
+                    <i data-lucide="target" class="w-5 h-5 mr-3"></i>
+                    Investment Plans
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'portfolio' %}" 
+                   class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/portfolio' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}">
+                    <i data-lucide="pie-chart" class="w-5 h-5 mr-3"></i>
+                    My Portfolio
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'investment-history' %}" 
+                   class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/investment-history' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}">
+                    <i data-lucide="activity" class="w-5 h-5 mr-3"></i>
+                    Investment History
+                </a>
+        </li>
+            <li>
+                <a href="{% url 'trading-history' %}" 
+                   class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/trading-history' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}">
+                    <i data-lucide="activity" class="w-5 h-5 mr-3"></i>
+                    Performance History
+                </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Trading & Markets Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="trending-up" class="w-4 h-4"></i>
+        <span>Trading & Markets</span>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="{% url 'trading' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/trading' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="candlestick-chart" class="w-5 h-5 mr-3"></i>
+            Live Markets
+            <span
+              class="ml-auto flex items-center px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-green-600 rounded-full"
+            >
+              <div
+                class="w-1.5 h-1.5 bg-white rounded-full animate-pulse mr-1.5"
+              ></div>
+              Live
+            </span>
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              Real-time market trading
+            </div>
+          </a>
+        </li>
+        <li>
+          <a
+            href="{% url 'copy-trading' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/copy-trading' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="users-2" class="w-5 h-5 mr-3"></i>
+            Copy Trading
+            <span
+              class="ml-auto px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
+              >Pro</span
+            >
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              Follow expert traders
+            </div>
+          </a>
+        </li>
+        <li>
+          <a
+            href="{% url 'bot-trading' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/bot-trading' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="bot" class="w-5 h-5 mr-3"></i>
+            AI Trading Bots
+            <span
+              class="ml-auto px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
+              >AI</span
+            >
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              Automated trading algorithms
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Trading Signals Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="radio" class="w-4 h-4"></i>
+        <span>Market Intelligence</span>
+      </div>
+
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="{% url 'signal' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/signals' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="zap" class="w-5 h-5 mr-3"></i>
+            Premium Signals
+            <span
+              class="ml-auto px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full"
+              >Premium</span
+            >
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              Expert trading insights
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Wallet & Funds Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="wallet" class="w-4 h-4"></i>
+        <span>Wallet & Funds</span>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="{% url 'deposits' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/deposits' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="plus-circle" class="w-5 h-5 mr-3"></i>
+            Deposit Funds
+          </a>
+        </li>
+        <li>
+          <a
+            href="{% url 'withdrawals' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/withdrawals' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="minus-circle" class="w-5 h-5 mr-3"></i>
+            Withdraw Funds
+          </a>
+        </li>
+        <li>
+          <a
+            href="{% url 'transfer-funds' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/transfer-funds' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="arrow-left-right" class="w-5 h-5 mr-3"></i>
+            Internal Transfer
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Credit & Financing Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="credit-card" class="w-4 h-4"></i>
+        <span>Credit & Financing</span>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="{% url 'loans' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/loans' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="file-plus" class="w-5 h-5 mr-3"></i>
+            Apply for Credit
+            <span
+              class="ml-auto px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-green-600 rounded-full"
+              >Fast</span
+            >
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              Apply for loans and credit facilities
+            </div>
+          </a>
+        </li>
+        <li>
+          <a
+            href="{% url 'loan-history' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/loan-history' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="file-text" class="w-5 h-5 mr-3"></i>
+            Credit History
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              View your loan applications and status
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Account Management Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="user-circle" class="w-4 h-4"></i>
+        <span>Account Management</span>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="{% url 'account-settings' %}"
+            class="flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/account-settings' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="user" class="w-5 h-5 mr-3"></i>
+            Profile Settings
+          </a>
+        </li>
+        <li x-data="{ kycOpen: false }" x-cloak>
+          <!-- KYC Dropdown -->
+          <div class="relative">
+            <button
+              @click="kycOpen = !kycOpen"
+              class="flex items-center w-full px-3 py-2 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200flex items-center px-3 py-2 rounded-lg transition-colors duration-150 {% if '/tradinghistory' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+            >
+              <i data-lucide="shield-alert" class="w-5 h-5 mr-3"></i>
+              <span class="flex-1 text-left">Identity Verification</span>
+              <i
+                data-lucide="chevron-down"
+                :class="kycOpen ? 'rotate-180' : 'rotate-0'"
+                class="w-4 h-4 transition-transform duration-200"
+              ></i>
+            </button>
+
+            <!-- Dropdown Content -->
+            <div
+              x-show="kycOpen"
+              x-transition:enter="transition ease-out duration-200"
+              x-transition:enter-start="opacity-0 -translate-y-2"
+              x-transition:enter-end="opacity-100 translate-y-0"
+              x-transition:leave="transition ease-in duration-150"
+              x-transition:leave-start="opacity-100 translate-y-0"
+              x-transition:leave-end="opacity-0 -translate-y-2"
+              class="mt-2 ml-8 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700 shadow-sm"
+              x-cloak
+            >
+              <h4
+                class="text-sm font-medium text-gray-900 dark:text-white mb-3"
+              >
+                Identity Verification
+              </h4>
+
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Complete your identity verification to unlock full trading
+                features
+              </p>
+              <a
+                href="{% url 'verify-account' %}"
+                class="inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 {% if '/verify-account' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+              >
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                <span>Verify Now</span>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Growth & Referrals Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="trending-up" class="w-4 h-4"></i>
+        <span>Growth & Rewards</span>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="{% url 'refer-user' %}"
+            class="group relative flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 {% if '/refer-user' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="users" class="w-5 h-5 mr-3"></i>
+            Referral Program
+            <span
+              class="ml-auto px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full"
+              >5%</span
+            >
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              Earn 5% commission on referrals
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Support & Help Section -->
+    <div class="space-y-2">
+      <div
+        class="flex items-center gap-2 px-2 mt-6 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase"
+      >
+        <i data-lucide="help-circle" class="w-4 h-4"></i>
+        <span>Support & Help</span>
+      </div>
+      <ul class="space-y-1">
+        <li>
+          <a
+            href="{% url 'support' %}"
+            class="group relative flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 {% if '/support' in request.path %}bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium{% else %}text-gray-700 dark:text-gray-200 hover:bg-primary-50 dark:hover:bg-primary-900/50{% endif %}"
+          >
+            <i data-lucide="headphones" class="w-5 h-5 mr-3"></i>
+            Support Center
+            <div
+              class="hidden group-hover:block absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded whitespace-nowrap"
+            >
+              Get help from our support team
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Account Actions -->
+    <div class="mt-6 p-4 border-t border-gray-200 dark:border-gray-700">
+      <form method="POST" action="https://www.isotradex.com/logout">
+        <input
+          type="hidden"
+          name="_token"
+          value="4nEZIqGM1W8X6agVpelM2QcopOxwKKkW9bzphYjC"
+        />
+        <button
+          type="submit"
+          class="flex items-center w-full px-3 py-2 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/50 transition-colors duration-150"
+        >
+          <i data-lucide="log-out" class="w-5 h-5 mr-3"></i>
+          <span>Sign Out</span>
+        </button>
+      </form>
+    </div>
+  </nav>
+</aside>
+
+
+<!-- Sidebar overlay for mobile -->
+<div
+  x-show="sidebarOpen"
+  @click="sidebarOpen = false"
+  class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+  x-cloak
+></div>
+

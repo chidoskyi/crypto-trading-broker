@@ -1,0 +1,1944 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+
+
+{% block nav %}
+  {% include 'user-dashboard/nav.html' %}
+{% endblock nav %}
+
+
+{% block sidebar %}
+  {% include 'user-dashboard/sidebar.html' %}
+{% endblock sidebar %}
+  
+{% block content %}
+<main class="pl-0 md:pl-6">
+  <!-- Main content placeholder -->
+  <div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <!-- Your main dashboard content goes here -->
+    <div
+      class="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8"
+      x-data="{ showCopied: false }"
+    >
+      <div></div>
+      <!-- Flash Message -->
+
+      <!-- Validation Errors -->
+
+      <!-- Notify Alert -->
+
+      <!-- Signal Alert -->
+
+      <!-- Plan Alert -->
+
+      <!-- Dashboard Header -->
+      <div
+          class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 sm:mb-8 gap-4"
+        >
+        <div class="text-center lg:text-left">
+          <h1
+            class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white"
+          >
+            Welcome, cursor ride!
+          </h1>
+
+          <p class="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-1">
+            Your investment dashboard overview
+          </p>
+        </div>
+        <div class="hidden sm:flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <a
+            href="{% url 'connect-wallet' %}"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:py-3 bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-lg shadow hover:from-indigo-700 transition animate-pulse text-sm sm:text-base"
+          >
+            <i data-lucide="link" class="w-4 h-4 sm:w-5 sm:h-5"></i> Connect
+            Wallet
+          </a>
+          <a
+            href="https://www.isotradex.com/dashboard/buy-plan"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 sm:py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition text-sm sm:text-base"
+          >
+            <i data-lucide="trending-up" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            Invest Now
+          </a>
+        </div>
+      </div>
+
+      <!-- Signal Strength -->
+
+      <!-- Investment Dashboard - Clean Modern Layout -->
+      <div
+          class="grid grid-cols-1 xl:grid-cols-5 gap-4 sm:gap-6 items-stretch mb-6 sm:mb-8"
+        >
+        <!-- Account Balance -->
+        <div
+          class="xl:col-span-2 h-full rounded-2xl bg-white dark:bg-gray-900 p-4 sm:p-5 lg:p-6 shadow-sm ring-1 ring-gray-200 dark:ring-gray-800 transition-all group"
+          id="balanceCard"
+        >
+          <div class="flex justify-between items-start mb-4">
+            <div class="text-center sm:text-left w-full sm:w-auto">
+              <h2
+                class="text-base sm:text-lg font-semibold text-gray-800 dark:text-white flex items-center justify-center sm:justify-start"
+              >
+                <i
+                  data-lucide="wallet"
+                  class="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-gray-500 dark:text-gray-300"
+                ></i>
+                Account Balance
+              </h2>
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                Your available funds
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col">
+            <div class="flex items-center justify-center sm:justify-start mb-3">
+              <h3
+                id="balanceAmount"
+                class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mr-2 break-all"
+              >
+                $0.00
+              </h3>
+              <h3
+                id="hiddenBalance"
+                class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mr-2 hidden"
+              >
+                ••••••
+              </h3>
+            </div>
+
+            <div
+              class="inline-flex items-center px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 mb-4 w-fit mx-auto sm:mx-0"
+            >
+              <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
+              Available for Withdrawal
+            </div>
+
+            <!-- KYC Status Notification -->
+            <div class="mb-3 w-fit mx-auto sm:mx-0">
+              <div
+                class="inline-flex items-center px-2 py-1 text-xs rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 animate-pulse"
+              >
+                <i data-lucide="alert-circle" class="w-3 h-3 mr-1"></i>
+                <span class="font-medium">Unverified</span>
+              </div>
+            </div>
+
+            <p
+              class="text-xs text-gray-500 dark:text-gray-400 mb-4 text-center sm:text-left"
+            >
+              Last updated: Oct 27, 2025 07:34 PM
+            </p>
+
+            <div class="mt-auto flex flex-col sm:flex-row gap-2">
+              <a
+                href="https://www.isotradex.com/dashboard/deposits"
+                class="flex items-center justify-center w-full gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition"
+              >
+                <i data-lucide="plus-circle" class="w-4 h-4"></i> Deposit
+              </a>
+              <a
+                href="https://www.isotradex.com/dashboard/withdrawals"
+                class="flex items-center justify-center w-full gap-1 text-xs sm:text-sm font-medium px-3 sm:px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition"
+              >
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                Withdraw
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Metrics -->
+        <div
+          class="xl:col-span-3 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-2 gap-3 sm:gap-4"
+        >
+          <div
+            class="rounded-2xl bg-white dark:bg-gray-900 p-3 sm:p-4 shadow-sm ring-1 ring-gray-200 dark:ring-gray-800 flex flex-col"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs sm:text-sm text-gray-600 dark:text-gray-400"
+                >Total Profit</span
+              >
+              <div
+                class="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+              >
+                <i
+                  data-lucide="dollar-sign"
+                  class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 dark:text-gray-300"
+                ></i>
+              </div>
+            </div>
+
+            <h3
+              class="text-sm sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 truncate"
+            >
+              $0.00
+            </h3>
+
+            <div
+              class="text-xs text-gray-500 dark:text-gray-400 mt-auto flex items-center gap-1"
+            >
+              <i data-lucide="calendar" class="w-3 h-3"></i>
+              <span>Last period</span>
+            </div>
+          </div>
+          <div
+            class="rounded-2xl bg-white dark:bg-gray-900 p-3 sm:p-4 shadow-sm ring-1 ring-gray-200 dark:ring-gray-800 flex flex-col"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs sm:text-sm text-gray-600 dark:text-gray-400"
+                >Total Deposit</span
+              >
+              <div
+                class="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+              >
+                <i
+                  data-lucide="arrow-down"
+                  class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 dark:text-gray-300"
+                ></i>
+              </div>
+            </div>
+
+            <h3
+              class="text-sm sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 truncate"
+            >
+              $0.00
+            </h3>
+
+            <div
+              class="text-xs text-gray-500 dark:text-gray-400 mt-auto flex items-center gap-1"
+            >
+              <i data-lucide="calendar" class="w-3 h-3"></i>
+              <span>All time</span>
+            </div>
+          </div>
+          <div
+            class="rounded-2xl bg-white dark:bg-gray-900 p-3 sm:p-4 shadow-sm ring-1 ring-gray-200 dark:ring-gray-800 flex flex-col"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs sm:text-sm text-gray-600 dark:text-gray-400"
+                >Total Withdrawal</span
+              >
+              <div
+                class="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+              >
+                <i
+                  data-lucide="arrow-up"
+                  class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 dark:text-gray-300"
+                ></i>
+              </div>
+            </div>
+
+            <h3
+              class="text-sm sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 truncate"
+            >
+              $0.00
+            </h3>
+
+            <div
+              class="text-xs text-gray-500 dark:text-gray-400 mt-auto flex items-center gap-1"
+            >
+              <i data-lucide="calendar" class="w-3 h-3"></i>
+              <span>All time</span>
+            </div>
+          </div>
+          <div
+            class="rounded-2xl bg-white dark:bg-gray-900 p-3 sm:p-4 shadow-sm ring-1 ring-gray-200 dark:ring-gray-800 flex flex-col"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs sm:text-sm text-gray-600 dark:text-gray-400"
+                >Bonus</span
+              >
+              <div
+                class="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800"
+              >
+                <i
+                  data-lucide="gift"
+                  class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 dark:text-gray-300"
+                ></i>
+              </div>
+            </div>
+
+            <h3
+              class="text-sm sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 truncate"
+            >
+              $0.00
+            </h3>
+
+            <div
+              class="text-xs text-gray-500 dark:text-gray-400 mt-auto flex items-center gap-1"
+            >
+              <i data-lucide="calendar" class="w-3 h-3"></i>
+              <span>All time</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KYC Verification Component -->
+      <div class="mb-6 sm:mb-8" x-data="{ kycDropdownOpen: false }" x-cloak>
+        <!-- KYC Verification Needed -->
+        <div
+          class="bg-white dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-800 shadow-sm"
+        >
+          <!-- Header -->
+          <div class="p-4 sm:p-6 border-b border-gray-100 dark:border-gray-800">
+            <div
+              class="flex flex-col sm:flex-row items-center justify-between gap-4"
+            >
+              <div
+                class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left"
+              >
+                <div
+                  class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center"
+                >
+                  <i
+                    data-lucide="shield-check"
+                    class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400"
+                  ></i>
+                </div>
+                <div>
+                  <h3
+                    class="text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-1"
+                  >
+                    Identity Verification
+                  </h3>
+                  <p class="text-gray-500 dark:text-gray-400 text-sm">
+                    Complete verification to access all features
+                  </p>
+                </div>
+              </div>
+
+              <!-- Toggle Button -->
+              <button
+                @click="kycDropdownOpen = !kycDropdownOpen"
+                class="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+              >
+                <span class="flex items-center justify-center gap-2">
+                  <span>View Details</span>
+                  <i
+                    data-lucide="chevron-down"
+                    :class="kycDropdownOpen ? 'rotate-180' : 'rotate-0'"
+                    class="w-4 h-4 transition-transform"
+                  ></i>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dropdown Content -->
+          <div
+            x-show="kycDropdownOpen"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            class="p-4 sm:p-6 border-t border-gray-100 dark:border-gray-800"
+          >
+            <!-- Verification Needed State -->
+            <div class="text-center space-y-6">
+              <div
+                class="w-16 h-16 mx-auto bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center"
+              >
+                <i
+                  data-lucide="user-plus"
+                  class="w-8 h-8 text-gray-600 dark:text-gray-400"
+                ></i>
+              </div>
+
+              <div>
+                <h4
+                  class="text-lg font-medium text-gray-900 dark:text-white mb-2"
+                >
+                  Complete Your Verification
+                </h4>
+                <p
+                  class="text-gray-500 dark:text-gray-400 text-sm max-w-md mx-auto mb-6"
+                >
+                  Verify your identity to unlock higher limits and enhanced
+                  security features.
+                </p>
+              </div>
+
+              <!-- Benefits -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-sm mx-auto mb-6"
+              >
+                <div
+                  class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                >
+                  <i
+                    data-lucide="shield"
+                    class="w-5 h-5 mx-auto mb-2 text-gray-600 dark:text-gray-400"
+                  ></i>
+                  <span class="text-xs text-gray-600 dark:text-gray-400"
+                    >Enhanced Security</span
+                  >
+                </div>
+                <div
+                  class="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                >
+                  <i
+                    data-lucide="trending-up"
+                    class="w-5 h-5 mx-auto mb-2 text-gray-600 dark:text-gray-400"
+                  ></i>
+                  <span class="text-xs text-gray-600 dark:text-gray-400"
+                    >Higher Limits</span
+                  >
+                </div>
+              </div>
+
+              <!-- Verify Button -->
+              <a
+                href="https://www.isotradex.com/dashboard/verify-account"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+              >
+                <i data-lucide="user-check" class="w-4 h-4"></i>
+                <span>Start Verification</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wallet Connection Prompt -->
+      <div class="mb-6 sm:mb-8">
+        <div
+          class="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-2xl p-4 sm:p-6 border border-indigo-200 dark:border-indigo-700"
+        >
+          <div class="flex flex-col sm:flex-row items-start gap-4">
+            <div
+              class="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl mx-auto sm:mx-0"
+            >
+              <i
+                data-lucide="wallet"
+                class="w-6 h-6 sm:w-8 sm:h-8 text-indigo-600 dark:text-indigo-400"
+              ></i>
+            </div>
+            <div class="flex-1 text-center sm:text-left">
+              <h3
+                class="text-base sm:text-lg font-semibold text-indigo-900 dark:text-indigo-100 mb-2"
+              >
+                Connect Your Wallet to Start Earning
+              </h3>
+              <p class="text-indigo-700 dark:text-indigo-300 text-sm mb-4">
+                Connect your cryptocurrency wallet to unlock daily earning
+                opportunities of up to
+                <span class="font-semibold">$3000</span> per day.
+              </p>
+              <a
+                href="https://www.isotradex.com/dashboard/connect-wallet"
+                class="inline-flex items-center gap-2 px-4 py-2 sm:py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all duration-200 transform hover:scale-[1.02] text-sm sm:text-base"
+              >
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                Connect Wallet Now
+              </a>
+            </div>
+            <button
+              onclick="this.parentElement.parentElement.parentElement.style.display='none'"
+              class="text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300 absolute top-2 right-2 sm:relative sm:top-auto sm:right-auto"
+            >
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions Grid (Tinker UI, Mature/Neutral) -->
+
+      <!-- Trading Chart & Quick Actions -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div
+          class="xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow p-4 sm:p-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2"
+          >
+            <h3
+              class="font-semibold text-base sm:text-lg text-gray-900 dark:text-white"
+            >
+              Market Overview
+            </h3>
+            <a
+              href="https://www.isotradex.com/dashboard/tradinghistory"
+              class="text-blue-600 hover:underline text-sm text-center sm:text-left"
+              >View History</a
+            >
+          </div>
+          <!-- Asset Tickers -->
+          <div class="mb-4">
+            <div class="flex flex-wrap gap-2">
+              <!-- Crypto Assets -->
+              <div
+                class="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+              >
+                <img
+                  src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png"
+                  class="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
+                  alt="BTC"
+                />
+                <span
+                  class="text-xs text-gray-700 dark:text-gray-200 font-semibold"
+                  >BTC/USDT</span
+                >
+                <span
+                  id="btc-price"
+                  class="text-xs text-green-600 dark:text-green-400 font-bold"
+                  >$--</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+              >
+                <img
+                  src="https://assets.coingecko.com/coins/images/279/small/ethereum.png"
+                  class="w-3 h-3 sm:w-4 sm:h-4 rounded-full"
+                  alt="ETH"
+                />
+                <span
+                  class="text-xs text-gray-700 dark:text-gray-200 font-semibold"
+                  >ETH/USDT</span
+                >
+                <span
+                  id="eth-price"
+                  class="text-xs text-green-600 dark:text-green-400 font-bold"
+                  >$--</span
+                >
+              </div>
+              <!-- Forex Assets -->
+              <div
+                class="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+              >
+                <span
+                  class="text-xs text-gray-700 dark:text-gray-200 font-semibold"
+                  >EUR/USD</span
+                >
+                <span
+                  id="eurusd-price"
+                  class="text-xs text-blue-600 dark:text-blue-400 font-bold"
+                  >--</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+              >
+                <span
+                  class="text-xs text-gray-700 dark:text-gray-200 font-semibold"
+                  >GBP/USD</span
+                >
+                <span
+                  id="gbpusd-price"
+                  class="text-xs text-blue-600 dark:text-blue-400 font-bold"
+                  >--</span
+                >
+              </div>
+              <!-- Stock Assets -->
+              <div
+                class="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+              >
+                <span
+                  class="text-xs text-gray-700 dark:text-gray-200 font-semibold"
+                  >AAPL</span
+                >
+                <span
+                  id="aapl-price"
+                  class="text-xs text-yellow-600 dark:text-yellow-400 font-bold"
+                  >--</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+              >
+                <span
+                  class="text-xs text-gray-700 dark:text-gray-200 font-semibold"
+                  >TSLA</span
+                >
+                <span
+                  id="tsla-price"
+                  class="text-xs text-yellow-600 dark:text-yellow-400 font-bold"
+                  >--</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Advanced TradingView Chart Widget -->
+          <div
+            id="tradingview_advanced"
+            class="w-full"
+            style="height: 300px; min-height: 300px"
+          ></div>
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/tv.js"
+          ></script>
+          <script type="text/javascript">
+            new TradingView.widget({
+              autosize: true,
+              symbol: "BINANCE:BTCUSDT",
+              interval: "30",
+              timezone: "Etc/UTC",
+              theme: document.documentElement.classList.contains("dark")
+                ? "dark"
+                : "light",
+              style: "1",
+              locale: "en",
+              toolbar_bg: "#f1f3f6",
+              enable_publishing: false,
+              allow_symbol_change: true,
+              hide_side_toolbar: false,
+              container_id: "tradingview_advanced",
+            });
+            // Fetch live prices for tickers (using CoinGecko and public APIs)
+            async function fetchCryptoPrices() {
+              try {
+                const res = await fetch(
+                  "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd"
+                );
+                const data = await res.json();
+                document.getElementById("btc-price").textContent =
+                  "$" + data.bitcoin.usd.toLocaleString();
+                document.getElementById("eth-price").textContent =
+                  "$" + data.ethereum.usd.toLocaleString();
+              } catch {}
+            }
+            async function fetchForexPrices() {
+              try {
+                const res = await fetch(
+                  "https://api.exchangerate.host/latest?base=EUR&symbols=USD,GBP"
+                );
+                const data = await res.json();
+                document.getElementById("eurusd-price").textContent =
+                  data.rates.USD.toFixed(4);
+                document.getElementById("gbpusd-price").textContent = (
+                  data.rates.USD / data.rates.GBP
+                ).toFixed(4);
+              } catch {}
+            }
+            async function fetchStockPrices() {
+              // Free stock APIs are limited; demo with static values or integrate with a paid API for production
+              document.getElementById("aapl-price").textContent = "195.10";
+              document.getElementById("tsla-price").textContent = "850.20";
+            }
+            fetchCryptoPrices();
+            fetchForexPrices();
+            fetchStockPrices();
+            setInterval(fetchCryptoPrices, 60000);
+            setInterval(fetchForexPrices, 60000);
+            setInterval(fetchStockPrices, 60000);
+          </script>
+        </div>
+        <div class="xl:col-span-1 flex flex-col gap-4 sm:gap-6">
+          <div
+            class="bg-gradient-to-br from-indigo-600 to-blue-500 text-white rounded-xl shadow p-4 sm:p-6 text-center flex flex-col items-center justify-center min-h-[120px]"
+          >
+            <i data-lucide="zap" class="w-8 h-8 sm:w-10 sm:h-10 mb-2"></i>
+            <h3 class="text-base sm:text-lg font-semibold mb-1">Quick Trade</h3>
+            <p class="text-xs sm:text-sm mb-3">
+              Start a new trade instantly or explore investment plans.
+            </p>
+          </div>
+          <form
+            method="POST"
+            action="https://www.isotradex.com/dashboard/joinplan"
+            id="createTrade"
+            class="bg-white dark:bg-gray-900 rounded-2xl shadow ring-1 ring-gray-200 dark:ring-gray-700 p-4 sm:p-6 space-y-4 sm:space-y-6"
+          >
+            <input
+              type="hidden"
+              name="_token"
+              value="4nEZIqGM1W8X6agVpelM2QcopOxwKKkW9bzphYjC"
+            />
+            <h4
+              class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2"
+            >
+              <i
+                data-lucide="bar-chart-3"
+                class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400"
+              ></i>
+              Place a Trade
+            </h4>
+            <div id="notifiAlert"></div>
+            <!-- Asset Select -->
+            <div>
+              <label
+                for="select_assetss"
+                class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >Asset</label
+              >
+              <select
+                id="select_assetss"
+                name="asset"
+                required
+                class="block w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+              >
+                <optgroup label="Bond">
+                  <option value="DE10Y" data-logo="" data-name="DE10Y" selected>
+                    DE10Y
+                  </option>
+                  <option value="FR10Y" data-logo="" data-name="FR10Y">
+                    FR10Y
+                  </option>
+                  <option value="JP10Y" data-logo="" data-name="JP10Y">
+                    JP10Y
+                  </option>
+                  <option value="UK10Y" data-logo="" data-name="UK10Y">
+                    UK10Y
+                  </option>
+                  <option value="US10Y" data-logo="" data-name="US10Y">
+                    US10Y
+                  </option>
+                  <option value="US2Y" data-logo="" data-name="US2Y">
+                    US2Y
+                  </option>
+                  <option value="US30Y" data-logo="" data-name="US30Y">
+                    US30Y
+                  </option>
+                </optgroup>
+                <optgroup label="Commodities">
+                  <option value="BRENT" data-logo="" data-name="BRENT">
+                    BRENT
+                  </option>
+                  <option value="COCOA" data-logo="" data-name="COCOA">
+                    COCOA
+                  </option>
+                  <option value="COFFEE" data-logo="" data-name="COFFEE">
+                    COFFEE
+                  </option>
+                  <option value="COPPER" data-logo="" data-name="COPPER">
+                    COPPER
+                  </option>
+                  <option value="CORN" data-logo="" data-name="CORN">
+                    CORN
+                  </option>
+                  <option value="COTTON" data-logo="" data-name="COTTON">
+                    COTTON
+                  </option>
+                  <option value="NGAS" data-logo="" data-name="NGAS">
+                    NGAS
+                  </option>
+                  <option value="PALLADIUM" data-logo="" data-name="PALLADIUM">
+                    PALLADIUM
+                  </option>
+                  <option value="PLATINUM" data-logo="" data-name="PLATINUM">
+                    PLATINUM
+                  </option>
+                  <option value="SOYBEAN" data-logo="" data-name="SOYBEAN">
+                    SOYBEAN
+                  </option>
+                  <option value="SUGAR" data-logo="" data-name="SUGAR">
+                    SUGAR
+                  </option>
+                  <option value="WHEAT" data-logo="" data-name="WHEAT">
+                    WHEAT
+                  </option>
+                  <option
+                    value="WTI"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/WTI.png"
+                    data-name="WTI"
+                  >
+                    WTI
+                  </option>
+                  <option value="XAGUSD" data-logo="" data-name="XAGUSD">
+                    XAGUSD
+                  </option>
+                  <option value="XAUUSD" data-logo="" data-name="XAUUSD">
+                    XAUUSD
+                  </option>
+                </optgroup>
+                <optgroup label="Crypto-Currency">
+                  <option
+                    value="AAVE/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/12645/large/aave-token-round.png?1720472354"
+                    data-name="Aave"
+                  >
+                    AAVE/USD
+                  </option>
+                  <option
+                    value="ADA/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/975/large/cardano.png?1696502090"
+                    data-name="Cardano"
+                  >
+                    ADA/USD
+                  </option>
+                  <option
+                    value="APT/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/26455/large/aptos_round.png?1696525528"
+                    data-name="APT/USD"
+                  >
+                    APT/USD
+                  </option>
+                  <option
+                    value="AVAX/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png?1696512369"
+                    data-name="Avalanche"
+                  >
+                    AVAX/USD
+                  </option>
+                  <option
+                    value="BCH/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/780/large/bitcoin-cash-circle.png?1696501932"
+                    data-name="Bitcoin Cash"
+                  >
+                    BCH/USD
+                  </option>
+                  <option
+                    value="BGB/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/11610/large/Bitget_logo.png?1736925727"
+                    data-name="Bitget Token"
+                  >
+                    BGB/USD
+                  </option>
+                  <option
+                    value="BNB/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970"
+                    data-name="BNB"
+                  >
+                    BNB/USD
+                  </option>
+                  <option
+                    value="BSC-USD/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/35021/large/USDT.png?1707233575"
+                    data-name="Binance Bridged USDT (BNB Smart Chain)"
+                  >
+                    BSC-USD/USD
+                  </option>
+                  <option
+                    value="BTC/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+                    data-name="Bitcoin"
+                  >
+                    BTC/USD
+                  </option>
+                  <option
+                    value="BUIDL/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/36291/large/blackrock.png?1711013223"
+                    data-name="BUIDL/USD"
+                  >
+                    BUIDL/USD
+                  </option>
+                  <option
+                    value="CBBTC/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/40143/large/cbbtc.webp?1726136727"
+                    data-name="Coinbase Wrapped BTC"
+                  >
+                    CBBTC/USD
+                  </option>
+                  <option
+                    value="CRO/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/7310/large/cro_token_logo.png?1696507599"
+                    data-name="Cronos"
+                  >
+                    CRO/USD
+                  </option>
+                  <option
+                    value="DAI/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/9956/large/Badge_Dai.png?1696509996"
+                    data-name="Dai"
+                  >
+                    DAI/USD
+                  </option>
+                  <option
+                    value="DOGE/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png?1696501409"
+                    data-name="Dogecoin"
+                  >
+                    DOGE/USD
+                  </option>
+                  <option
+                    value="DOT/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/12171/large/polkadot.png?1696512008"
+                    data-name="Polkadot"
+                  >
+                    DOT/USD
+                  </option>
+                  <option
+                    value="ETC/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/453/large/ethereum-classic-logo.png?1696501717"
+                    data-name="Ethereum Classic"
+                  >
+                    ETC/USD
+                  </option>
+                  <option
+                    value="ETH/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628"
+                    data-name="Ethereum"
+                  >
+                    ETH/USD
+                  </option>
+                  <option
+                    value="HBAR/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/3688/large/hbar.png?1696504364"
+                    data-name="Hedera"
+                  >
+                    HBAR/USD
+                  </option>
+                  <option
+                    value="HYPE/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/50882/large/hyperliquid.jpg?1729431300"
+                    data-name="Hyperliquid"
+                  >
+                    HYPE/USD
+                  </option>
+                  <option
+                    value="ICP/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png?1696514180"
+                    data-name="Internet Computer"
+                  >
+                    ICP/USD
+                  </option>
+                  <option
+                    value="JITOSOL/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/28046/large/JitoSOL-200.png?1696527060"
+                    data-name="Jito Staked SOL"
+                  >
+                    JITOSOL/USD
+                  </option>
+                  <option
+                    value="LEO/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/8418/large/leo-token.png?1696508607"
+                    data-name="LEO Token"
+                  >
+                    LEO/USD
+                  </option>
+                  <option
+                    value="LINK/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/877/large/chainlink-new-logo.png?1696502009"
+                    data-name="Chainlink"
+                  >
+                    LINK/USD
+                  </option>
+                  <option
+                    value="LTC/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/2/large/litecoin.png?1696501400"
+                    data-name="Litecoin"
+                  >
+                    LTC/USD
+                  </option>
+                  <option
+                    value="NEAR/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/10365/large/near.jpg?1696510367"
+                    data-name="NEAR Protocol"
+                  >
+                    NEAR/USD
+                  </option>
+                  <option
+                    value="OKB/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/4463/large/WeChat_Image_20220118095654.png?1696505053"
+                    data-name="OKB"
+                  >
+                    OKB/USD
+                  </option>
+                  <option
+                    value="PEPE/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/29850/large/pepe-token.jpeg?1696528776"
+                    data-name="Pepe"
+                  >
+                    PEPE/USD
+                  </option>
+                  <option
+                    value="PI/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/54342/large/pi_network.jpg?1739347576"
+                    data-name="Pi Network"
+                  >
+                    PI/USD
+                  </option>
+                  <option
+                    value="SHIB/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800"
+                    data-name="Shiba Inu"
+                  >
+                    SHIB/USD
+                  </option>
+                  <option
+                    value="SOL/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756"
+                    data-name="Solana"
+                  >
+                    SOL/USD
+                  </option>
+                  <option
+                    value="STETH/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/13442/large/steth_logo.png?1696513206"
+                    data-name="Lido Staked Ether"
+                  >
+                    STETH/USD
+                  </option>
+                  <option
+                    value="SUI/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290"
+                    data-name="Sui"
+                  >
+                    SUI/USD
+                  </option>
+                  <option
+                    value="SUSDE/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/33669/large/sUSDe-Symbol-Color.png?1716307680"
+                    data-name="Ethena Staked USDe"
+                  >
+                    SUSDE/USD
+                  </option>
+                  <option
+                    value="TAO/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/28452/large/ARUsPeNQ_400x400.jpeg?1696527447"
+                    data-name="Bittensor"
+                  >
+                    TAO/USD
+                  </option>
+                  <option
+                    value="TKX/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/4984/large/TKX_-_Logo_-_RGB-15.png?1696505519"
+                    data-name="TKX/USD"
+                  >
+                    TKX/USD
+                  </option>
+                  <option
+                    value="TON/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/17980/large/photo_2024-09-10_17.09.00.jpeg?1725963446"
+                    data-name="Toncoin"
+                  >
+                    TON/USD
+                  </option>
+                  <option
+                    value="TRX/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/1094/large/tron-logo.png?1696502193"
+                    data-name="TRON"
+                  >
+                    TRX/USD
+                  </option>
+                  <option
+                    value="UNI/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/12504/large/uniswap-logo.png?1720676669"
+                    data-name="Uniswap"
+                  >
+                    UNI/USD
+                  </option>
+                  <option
+                    value="USDC/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694"
+                    data-name="USDC"
+                  >
+                    USDC/USD
+                  </option>
+                  <option
+                    value="USDE/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/33613/large/usde.png?1733810059"
+                    data-name="Ethena USDe"
+                  >
+                    USDE/USD
+                  </option>
+                  <option
+                    value="USDS/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/39926/large/usds.webp?1726666683"
+                    data-name="USDS"
+                  >
+                    USDS/USD
+                  </option>
+                  <option
+                    value="USDT/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661"
+                    data-name="Tether"
+                  >
+                    USDT/USD
+                  </option>
+                  <option
+                    value="WBT/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/27045/large/wbt_token.png?1696526096"
+                    data-name="WhiteBIT Coin"
+                  >
+                    WBT/USD
+                  </option>
+                  <option
+                    value="WBTC/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png?1696507857"
+                    data-name="Wrapped Bitcoin"
+                  >
+                    WBTC/USD
+                  </option>
+                  <option
+                    value="WEETH/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/33033/large/weETH.png?1701438396"
+                    data-name="Wrapped eETH"
+                  >
+                    WEETH/USD
+                  </option>
+                  <option
+                    value="WETH/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/2518/large/weth.png?1696503332"
+                    data-name="WETH"
+                  >
+                    WETH/USD
+                  </option>
+                  <option
+                    value="WSTETH/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/18834/large/wstETH.png?1696518295"
+                    data-name="Wrapped stETH"
+                  >
+                    WSTETH/USD
+                  </option>
+                  <option
+                    value="XLM/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/100/large/fmpFRHHQ_400x400.jpg?1735231350"
+                    data-name="Stellar"
+                  >
+                    XLM/USD
+                  </option>
+                  <option
+                    value="XMR/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/69/large/monero_logo.png?1696501460"
+                    data-name="Monero"
+                  >
+                    XMR/USD
+                  </option>
+                  <option
+                    value="XRP/USD"
+                    data-logo="https://coin-images.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1696501442"
+                    data-name="XRP"
+                  >
+                    XRP/USD
+                  </option>
+                </optgroup>
+                <optgroup label="Currency">
+                  <option value="AUDCAD" data-logo="" data-name="AUDCAD">
+                    AUDCAD
+                  </option>
+                  <option value="AUDJPY" data-logo="" data-name="AUDJPY">
+                    AUDJPY
+                  </option>
+                  <option value="AUDNZD" data-logo="" data-name="AUDNZD">
+                    AUDNZD
+                  </option>
+                  <option value="AUDUSD" data-logo="" data-name="AUDUSD">
+                    AUDUSD
+                  </option>
+                  <option value="CADJPY" data-logo="" data-name="CADJPY">
+                    CADJPY
+                  </option>
+                  <option value="CHFJPY" data-logo="" data-name="CHFJPY">
+                    CHFJPY
+                  </option>
+                  <option value="EURAUD" data-logo="" data-name="EURAUD">
+                    EURAUD
+                  </option>
+                  <option value="EURCAD" data-logo="" data-name="EURCAD">
+                    EURCAD
+                  </option>
+                  <option value="EURCHF" data-logo="" data-name="EURCHF">
+                    EURCHF
+                  </option>
+                  <option value="EURGBP" data-logo="" data-name="EURGBP">
+                    EURGBP
+                  </option>
+                  <option value="EURJPY" data-logo="" data-name="EURJPY">
+                    EURJPY
+                  </option>
+                  <option value="EURNZD" data-logo="" data-name="EURNZD">
+                    EURNZD
+                  </option>
+                  <option value="EURUSD" data-logo="" data-name="EURUSD">
+                    EURUSD
+                  </option>
+                  <option value="GBPAUD" data-logo="" data-name="GBPAUD">
+                    GBPAUD
+                  </option>
+                  <option value="GBPCHF" data-logo="" data-name="GBPCHF">
+                    GBPCHF
+                  </option>
+                  <option value="GBPJPY" data-logo="" data-name="GBPJPY">
+                    GBPJPY
+                  </option>
+                  <option value="GBPUSD" data-logo="" data-name="GBPUSD">
+                    GBPUSD
+                  </option>
+                  <option value="NZDJPY" data-logo="" data-name="NZDJPY">
+                    NZDJPY
+                  </option>
+                  <option value="NZDUSD" data-logo="" data-name="NZDUSD">
+                    NZDUSD
+                  </option>
+                  <option value="USDCAD" data-logo="" data-name="USDCAD">
+                    USDCAD
+                  </option>
+                  <option value="USDCHF" data-logo="" data-name="USDCHF">
+                    USDCHF
+                  </option>
+                  <option value="USDCNH" data-logo="" data-name="USDCNH">
+                    USDCNH
+                  </option>
+                  <option value="USDHKD" data-logo="" data-name="USDHKD">
+                    USDHKD
+                  </option>
+                  <option value="USDINR" data-logo="" data-name="USDINR">
+                    USDINR
+                  </option>
+                  <option value="USDJPY" data-logo="" data-name="USDJPY">
+                    USDJPY
+                  </option>
+                  <option value="USDMXN" data-logo="" data-name="USDMXN">
+                    USDMXN
+                  </option>
+                  <option value="USDNOK" data-logo="" data-name="USDNOK">
+                    USDNOK
+                  </option>
+                  <option value="USDSEK" data-logo="" data-name="USDSEK">
+                    USDSEK
+                  </option>
+                  <option value="USDTRY" data-logo="" data-name="USDTRY">
+                    USDTRY
+                  </option>
+                  <option value="USDZAR" data-logo="" data-name="USDZAR">
+                    USDZAR
+                  </option>
+                </optgroup>
+                <optgroup label="Stocks">
+                  <option
+                    value="AAPL"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png"
+                    data-name="Apple Inc"
+                  >
+                    AAPL
+                  </option>
+                  <option
+                    value="ADBE"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/ADBE.png"
+                    data-name="Adobe Inc"
+                  >
+                    ADBE
+                  </option>
+                  <option
+                    value="AMGN"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AMGN.png"
+                    data-name="Amgen Inc"
+                  >
+                    AMGN
+                  </option>
+                  <option
+                    value="AMZN"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AMZN.png"
+                    data-name="Amazon.com Inc"
+                  >
+                    AMZN
+                  </option>
+                  <option
+                    value="BA"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BA.png"
+                    data-name="Boeing Co"
+                  >
+                    BA
+                  </option>
+                  <option
+                    value="BAC"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BAC.png"
+                    data-name="Bank of America Corp"
+                  >
+                    BAC
+                  </option>
+                  <option
+                    value="BRK.B"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/BRK.B.png"
+                    data-name="Berkshire Hathaway Inc"
+                  >
+                    BRK.B
+                  </option>
+                  <option
+                    value="C"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/C.png"
+                    data-name="Citigroup Inc"
+                  >
+                    C
+                  </option>
+                  <option
+                    value="CRM"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/CRM.png"
+                    data-name="Salesforce Inc"
+                  >
+                    CRM
+                  </option>
+                  <option
+                    value="CSCO"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/950800186156.png"
+                    data-name="Cisco Systems Inc"
+                  >
+                    CSCO
+                  </option>
+                  <option
+                    value="CVX"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/CVX.png"
+                    data-name="Chevron Corp"
+                  >
+                    CVX
+                  </option>
+                  <option
+                    value="DIS"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/DIS.png"
+                    data-name="Walt Disney Co"
+                  >
+                    DIS
+                  </option>
+                  <option
+                    value="GOOGL"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/GOOG.png"
+                    data-name="Alphabet Inc"
+                  >
+                    GOOGL
+                  </option>
+                  <option
+                    value="HD"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/HD.png"
+                    data-name="Home Depot Inc"
+                  >
+                    HD
+                  </option>
+                  <option
+                    value="INTC"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/INTC.png"
+                    data-name="Intel Corp"
+                  >
+                    INTC
+                  </option>
+                  <option
+                    value="JNJ"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/JNJ.png"
+                    data-name="Johnson &amp; Johnson"
+                  >
+                    JNJ
+                  </option>
+                  <option
+                    value="JPM"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/JPM.png"
+                    data-name="JPMorgan Chase &amp; Co"
+                  >
+                    JPM
+                  </option>
+                  <option
+                    value="KO"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/KO.png"
+                    data-name="Coca-Cola Co"
+                  >
+                    KO
+                  </option>
+                  <option
+                    value="LLY"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/LLY.png"
+                    data-name="Eli Lilly and Co"
+                  >
+                    LLY
+                  </option>
+                  <option
+                    value="MA"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/MA.png"
+                    data-name="Mastercard Inc"
+                  >
+                    MA
+                  </option>
+                  <option
+                    value="META"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/FB.png"
+                    data-name="Meta Platforms Inc"
+                  >
+                    META
+                  </option>
+                  <option
+                    value="MRK"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/MRK.png"
+                    data-name="Merck &amp; Co Inc"
+                  >
+                    MRK
+                  </option>
+                  <option
+                    value="MSFT"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/MSFT.png"
+                    data-name="Microsoft Corp"
+                  >
+                    MSFT
+                  </option>
+                  <option
+                    value="NFLX"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NFLX.png"
+                    data-name="Netflix Inc"
+                  >
+                    NFLX
+                  </option>
+                  <option
+                    value="NKE"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NKE.png"
+                    data-name="Nike Inc"
+                  >
+                    NKE
+                  </option>
+                  <option
+                    value="NVDA"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NVDA.png"
+                    data-name="NVIDIA Corp"
+                  >
+                    NVDA
+                  </option>
+                  <option
+                    value="ORCL"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/ORCL.png"
+                    data-name="Oracle Corp"
+                  >
+                    ORCL
+                  </option>
+                  <option
+                    value="PEP"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/PEP.png"
+                    data-name="PepsiCo Inc"
+                  >
+                    PEP
+                  </option>
+                  <option
+                    value="PFE"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/PFE.png"
+                    data-name="Pfizer Inc"
+                  >
+                    PFE
+                  </option>
+                  <option
+                    value="PG"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/PG.png"
+                    data-name="Procter &amp; Gamble Co"
+                  >
+                    PG
+                  </option>
+                  <option
+                    value="T"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/T.png"
+                    data-name="AT&amp;T Inc"
+                  >
+                    T
+                  </option>
+                  <option
+                    value="TMO"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TMO.png"
+                    data-name="Thermo Fisher Scientific Inc"
+                  >
+                    TMO
+                  </option>
+                  <option
+                    value="TSLA"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TSLA.png"
+                    data-name="Tesla Inc"
+                  >
+                    TSLA
+                  </option>
+                  <option
+                    value="UNH"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/UNH.png"
+                    data-name="UnitedHealth Group Inc"
+                  >
+                    UNH
+                  </option>
+                  <option
+                    value="V"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/V.png"
+                    data-name="Visa Inc"
+                  >
+                    V
+                  </option>
+                  <option
+                    value="VZ"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/VZ.png"
+                    data-name="Verizon Communications Inc"
+                  >
+                    VZ
+                  </option>
+                  <option
+                    value="WFC"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/WFC.png"
+                    data-name="Wells Fargo &amp; Co"
+                  >
+                    WFC
+                  </option>
+                  <option
+                    value="WMT"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/WMT.png"
+                    data-name="Walmart Inc"
+                  >
+                    WMT
+                  </option>
+                  <option
+                    value="XOM"
+                    data-logo="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/XOM.png"
+                    data-name="Exxon Mobil Corp"
+                  >
+                    XOM
+                  </option>
+                </optgroup>
+              </select>
+            </div>
+            <!-- Amount -->
+            <div>
+              <label
+                for="IAmount"
+                class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >Amount</label
+              >
+              <div
+                class="flex rounded-lg shadow-sm overflow-hidden ring-1 ring-gray-300 dark:ring-gray-600 bg-gray-50 dark:bg-gray-800"
+              >
+                <span
+                  class="px-3 sm:px-4 inline-flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700"
+                >
+                  USD
+                </span>
+                <input
+                  type="number"
+                  name="amount"
+                  id="IAmount"
+                  placeholder="Invest Amount (0.00)"
+                  min="50"
+                  max="500000"
+                  class="w-full bg-transparent focus:outline-none px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-900 dark:text-white"
+                  required
+                />
+              </div>
+              <span class="text-xs text-gray-400 mt-1 block"
+                >Min: 50, Max: 500,000</span
+              >
+            </div>
+            <!-- Leverage & Expiration -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div>
+                <label
+                  for="leverage"
+                  class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  >Leverage</label
+                >
+                <select
+                  name="leverage"
+                  id="leverage"
+                  required
+                  class="block w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                >
+                  <option disabled selected value="">Leverage</option>
+                  <option value="10">1:10</option>
+                  <option value="20">1:20</option>
+                  <option value="30">1:30</option>
+                  <option value="40">1:40</option>
+                  <option value="50">1:50</option>
+                  <option value="60">1:60</option>
+                  <option value="70">1:70</option>
+                  <option value="80">1:80</option>
+                  <option value="90">1:90</option>
+                  <option value="100">1:100</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  for="expire"
+                  class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  >Expiration</label
+                >
+                <select
+                  name="expire"
+                  id="expire"
+                  required
+                  class="block w-full px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                >
+                  <option disabled selected value="">Expiration</option>
+                  <option value="1 Minutes">1 Minute</option>
+                  <option value="5 Minutes">5 Minutes</option>
+                  <option value="15 Minutes">15 Minutes</option>
+                  <option value="30 Minutes">30 Minutes</option>
+                  <option value="60 Minutes">1 Hour</option>
+                  <option value="4 Hours">4 Hours</option>
+                  <option value="1 Days">1 Day</option>
+                  <option value="2 Days">2 Days</option>
+                  <option value="7 Days">7 Days</option>
+                </select>
+              </div>
+            </div>
+            <!-- Buy/Sell Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
+              <button
+                type="submit"
+                name="order_type"
+                value="Buy"
+                class="flex-1 bg-gradient-to-br from-green-500 to-emerald-600 text-white py-2 sm:py-3 rounded-xl shadow hover:opacity-90 transition-all flex items-center justify-center gap-2 text-sm sm:text-base font-semibold"
+              >
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i> BUY
+              </button>
+              <button
+                type="submit"
+                name="order_type"
+                value="Sell"
+                class="flex-1 bg-gradient-to-br from-red-500 to-pink-600 text-white py-2 sm:py-3 rounded-xl shadow hover:opacity-90 transition-all flex items-center justify-center gap-2 text-sm sm:text-base font-semibold"
+              >
+                <i data-lucide="arrow-down-right" class="w-4 h-4"></i> SELL
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Latest Trades & Referrals -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 sm:p-6">
+          <h4
+            class="font-semibold text-base sm:text-lg mb-3 text-gray-900 dark:text-white"
+          >
+            Latest Trades
+          </h4>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-xs sm:text-sm">
+              <thead class="text-gray-700 dark:text-gray-200">
+                <tr>
+                  <th class="px-2 sm:px-4 py-2 text-left">Details</th>
+                  <th class="px-2 sm:px-4 py-2">Amount</th>
+                  <th class="px-2 sm:px-4 py-2">Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <a
+            href="https://www.isotradex.com/dashboard/tradinghistory"
+            class="block text-center mt-4 text-blue-600 font-semibold"
+            >View All</a
+          >
+        </div>
+
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col justify-between"
+        >
+          <div>
+            <h4
+              class="font-semibold text-lg mb-2 text-gray-900 dark:text-white"
+            >
+              Referrals
+            </h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              Present our project to your network and enjoy financial benefits.
+              You don’t need an active deposit to earn affiliate commissions.
+            </p>
+            <a
+              href="https://www.isotradex.com/dashboard/referuser"
+              class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >Learn More</a
+            >
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 sm:p-6 mt-4"
+            >
+              <h4
+                class="font-semibold mb-2 text-gray-900 dark:text-white text-sm sm:text-base"
+              >
+                Personal Referral Link
+              </h4>
+              <div class="flex flex-col sm:flex-row items-stretch gap-2">
+                <input
+                  type="text"
+                  class="form-input flex-1 rounded border-gray-300 dark:bg-gray-900 dark:border-gray-700 text-white text-xs sm:text-sm min-w-0"
+                  value=""
+                  readonly
+                />
+                <button
+                  class="bg-blue-600 text-white px-4 py-2 rounded text-xs sm:text-sm whitespace-nowrap"
+                  x-on:click="navigator.clipboard.writeText(''); showCopied = true"
+                >
+                  Copy
+                </button>
+              </div>
+              <p
+                x-show="showCopied"
+                class="text-xs sm:text-sm text-green-500 mt-1"
+              >
+                Copied to clipboard!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Asset Overview Cards -->
+      <div
+          class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6 sm:mb-8"
+        >
+        <!-- BTC Widget -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4 min-h-[120px] sm:min-h-[150px]"
+        >
+          <div class="tradingview-widget-container h-full">
+            <div class="tradingview-widget-container__widget h-full"></div>
+            <script
+              type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
+              async
+            >
+              {
+                  "symbol": "BINANCE:BTCUSDT",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "en",
+                  "dateRange": "1D",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": true,
+                  "largeChartUrl": ""
+              }
+            </script>
+          </div>
+        </div>
+
+        <!-- ETH Widget -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4 min-h-[120px] sm:min-h-[150px]"
+        >
+          <div class="tradingview-widget-container h-full">
+            <div class="tradingview-widget-container__widget h-full"></div>
+            <script
+              type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
+              async
+            >
+              {
+                  "symbol": "BINANCE:ETHUSDT",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "en",
+                  "dateRange": "1D",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": true,
+                  "largeChartUrl": ""
+              }
+            </script>
+          </div>
+        </div>
+
+        <!-- EUR/USD Widget -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4 min-h-[120px] sm:min-h-[150px]"
+        >
+          <div class="tradingview-widget-container h-full">
+            <div class="tradingview-widget-container__widget h-full"></div>
+            <script
+              type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
+              async
+            >
+              {
+                  "symbol": "FX:EURUSD",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "en",
+                  "dateRange": "1D",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": true,
+                  "largeChartUrl": ""
+              }
+            </script>
+          </div>
+        </div>
+
+        <!-- GBP/USD Widget -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4 min-h-[120px] sm:min-h-[150px]"
+        >
+          <div class="tradingview-widget-container h-full">
+            <div class="tradingview-widget-container__widget h-full"></div>
+            <script
+              type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
+              async
+            >
+              {
+                  "symbol": "FX:GBPUSD",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "en",
+                  "dateRange": "1D",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": true,
+                  "largeChartUrl": ""
+              }
+            </script>
+          </div>
+        </div>
+
+        <!-- AAPL Widget -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4 min-h-[120px] sm:min-h-[150px]"
+        >
+          <div class="tradingview-widget-container h-full">
+            <div class="tradingview-widget-container__widget h-full"></div>
+            <script
+              type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
+              async
+            >
+              {
+                  "symbol": "NASDAQ:AAPL",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "en",
+                  "dateRange": "1D",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": true,
+                  "largeChartUrl": ""
+              }
+            </script>
+          </div>
+        </div>
+
+        <!-- Gold Widget -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4 min-h-[120px] sm:min-h-[150px]"
+        >
+          <div class="tradingview-widget-container h-full">
+            <div class="tradingview-widget-container__widget h-full"></div>
+            <script
+              type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
+              async
+            >
+              {
+                  "symbol": "TVC:GOLD",
+                  "width": "100%",
+                  "height": "100%",
+                  "locale": "en",
+                  "dateRange": "1D",
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "autosize": true,
+                  "largeChartUrl": ""
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Market Watch Widget -->
+      <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4 mb-4 sm:mb-6"
+        >
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js"
+            async
+          >
+            {
+                "width": "100%",
+                "height": 400,
+                "symbolsGroups": [
+                    {
+                        "name": "Crypto",
+                        "symbols": [
+                            {"name": "BINANCE:BTCUSDT", "displayName": "Bitcoin"},
+                            {"name": "BINANCE:ETHUSDT", "displayName": "Ethereum"},
+                            {"name": "BINANCE:BNBUSDT", "displayName": "BNB"}
+                        ]
+                    },
+                    {
+                        "name": "Forex",
+                        "symbols": [
+                            {"name": "FX:EURUSD", "displayName": "EUR/USD"},
+                            {"name": "FX:GBPUSD", "displayName": "GBP/USD"},
+                            {"name": "FX:USDJPY", "displayName": "USD/JPY"}
+                        ]
+                    }
+                ],
+                "showSymbolLogo": true,
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "locale": "en"
+            }
+          </script>
+        </div>
+      </div>
+
+      <!-- News Feed Widget -->
+      <div class="mt-4 sm:mt-6">
+        <div
+          class="tradingview-widget-container bg-white dark:bg-gray-800 rounded-xl shadow p-3 sm:p-4"
+        >
+          <div class="tradingview-widget-container__widget"></div>
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
+            async
+          >
+            {
+                "feedMode": "all_symbols",
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "displayMode": "compact",
+                "width": "100%",
+                "height": "350",
+                "locale": "en"
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function changeTimeframe(interval) {
+        if (widget) {
+          widget.chart().setResolution(interval);
+        }
+      }
+
+      // Asset selection enhancement with logo display
+      document.addEventListener("DOMContentLoaded", function () {
+        const assetSelect = document.getElementById("select_assetss");
+
+        if (assetSelect) {
+          // Create logo display element if it doesn't exist
+          let logoDisplay = document.getElementById("asset-logo-display");
+          if (!logoDisplay) {
+            logoDisplay = document.createElement("div");
+            logoDisplay.id = "asset-logo-display";
+            logoDisplay.className = "flex items-center gap-2 mt-2";
+            logoDisplay.innerHTML =
+              '<img id="asset-logo" class="w-6 h-6 rounded-full hidden" alt="Asset Logo"><span id="asset-name" class="text-sm text-gray-600 dark:text-gray-400"></span>';
+            assetSelect.parentNode.appendChild(logoDisplay);
+          }
+
+          // Function to update logo display
+          function updateAssetLogo() {
+            const selectedOption =
+              assetSelect.options[assetSelect.selectedIndex];
+            const logoImg = document.getElementById("asset-logo");
+            const assetName = document.getElementById("asset-name");
+
+            if (
+              selectedOption &&
+              selectedOption.dataset.logo &&
+              selectedOption.dataset.logo !== "null" &&
+              selectedOption.dataset.logo !== ""
+            ) {
+              logoImg.src = selectedOption.dataset.logo;
+              logoImg.classList.remove("hidden");
+              logoImg.onerror = function () {
+                this.classList.add("hidden");
+              };
+            } else {
+              logoImg.classList.add("hidden");
+            }
+
+            if (assetName) {
+              // Use instrument name if available, otherwise use symbol
+              const displayName =
+                selectedOption.dataset.name || selectedOption.text;
+              assetName.textContent = displayName;
+            }
+          }
+
+          // Update logo on selection change
+          assetSelect.addEventListener("change", updateAssetLogo);
+
+          // Initialize logo display
+          updateAssetLogo();
+        }
+      });
+    </script>
+  </div>
+  </main
+{% endblock content %}

@@ -1,0 +1,858 @@
+{% extends "client/base.html" %} 
+{% load static %}
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+
+{% block content %}
+
+    <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <div class="mainWrapper pb-0">
+
+
+            <section class="blockElement space bg-white halfRounded overflow-hiddon">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-10 col-xxl-8 text-center">
+                            <h1 class="bold mb-md-3">Become a Leader with <span class="secondary">Isotradex</span></h1>
+                            <p>Isotradex is one of the most transparent social trading platforms in the world, whose
+                                main
+                                goal is to support Investors and Leaders in their investment goals. Our Leader Program
+                                is
+                                open for individuals with a variety of investment strategies among Stocks, Options,
+                                Cryptos,
+                                Indices and Commodities, who can attract Investors to follow them and earn additional
+                                income.</p>
+                            <div class="dualButton text-center mt-4"><a href="https://app.Isotradex.com/register"
+                                    class="button fillBtn Isotradex_btn me-3 px-md-5">Open Account</a></div>
+                            <div class="AutoGuard mt-md-5"><img src="{% static 'assets/img/become-trader-hero-banner.png' %}" alt=""
+                                    title="Isotradex Banner" class="green-fl" iv>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+
+            <section class="blockElement bg-white pt-0 space">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-10 col-xxl-8 text-center">
+                            <div class="boxed">
+                                <h2 class="mb-md-4">Who is a Isotradex Leader?</h2>
+                                <p>A 'Leader' is a Isotradex user, who shares and allows other users to copy his trading
+                                    strategy into their account. Each trading action performed in the Leader’s account
+                                    is
+                                    copied to all the Investor accounts who follow him/her in the form of a broadcasted
+                                    signal.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+            <section class="blockElement space customCarousel">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-9">
+                            <div class="mb-4 mb-md-5 text-center">
+                                <h2>What Does a Leader Do?</h2>
+                            </div>
+                            <div id="carouselExampleIndicators"
+                                class="carousel slide row align-items-center traderWork">
+                                <div class="col-12 col-sm-12 col-md-2">
+                                    <div class="carousel-indicators"><button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide="prev"><span
+                                                class="carousel-control-prev-icon" aria-hidden="true"><i
+                                                    class="fa fa-long-arrow-up" aria-hidden="true"></i></span><span
+                                                class="visually-hidden"></span></button><button type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                            class="active" aria-current="true"
+                                            aria-label="Slide 1">Research</button><button type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                            aria-label="Slide 2">Interact</button><button type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                                            aria-label="Slide 3">Broadcast</button><button class="carousel-control-next"
+                                            type="button" data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide="next"><span class="carousel-control-next-icon"
+                                                aria-hidden="true"><i class="fa fa-long-arrow-down"
+                                                    aria-hidden="true"></i></span><span
+                                                class="visually-hidden"></span></button></div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-10">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <div
+                                                class="d-block d-md-flex text-center text-md-start align-items-center mt-4 mt-md-0">
+                                                <div class="content me-3">
+                                                    <h5 class="medium">Oversee the market and instruments, research news
+                                                        and
+                                                        updates regularly.</h5>
+                                                    <p>Leaders are always researching their preferred products,
+                                                        historical
+                                                        performance and news daily. They need to understand the risks
+                                                        and
+                                                        investment needed before moving forward with their actions.</p>
+                                                </div><img src="{% static 'assets/img/Oversee.png' %}"
+                                                    class="d-block w-100 v-lazy-image v-lazy-image-loaded"
+                                                    alt="Market And Instruments Research News" title="Oversee">
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <div
+                                                class="d-block d-md-flex text-center text-md-start align-items-center mt-4 mt-md-0">
+                                                <div class="content me-3">
+                                                    <h5 class="medium">Interact with Investors and communicate updates
+                                                        regarding trading strategy.</h5>
+                                                    <p>Leaders on our platform are advised to explain their portfolio
+                                                        strategy on their profile and communicate regularly with their
+                                                        Investors regarding their decisions on buy/sell, product &amp;
+                                                        instrument choices.</p>
+                                                </div><img
+                                                    src="{% static 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}"
+                                                    class="d-block w-100 v-lazy-image" alt="Interact With Investors"
+                                                    title="Interact">
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <div
+                                                class="d-block d-md-flex text-center text-md-start align-items-center mt-4 mt-md-0">
+                                                <div class="content me-3">
+                                                    <h5 class="medium">Broadcast trading signals to the Isotradex
+                                                        Investors.
+                                                    </h5>
+                                                    <p>Successful Leaders are featured on the Isotradex ranking where
+                                                        they
+                                                        get visibility on the website, a place where more and more
+                                                        Investors
+                                                        can easily copy their trading signals.</p>
+                                                </div><img
+                                                    src="{% static 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}"
+                                                    class="d-block w-100 v-lazy-image" alt="Broadcast Trading Signals"
+                                                    title="Broadcast">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dualButton text-center mt-4 mt-md-5"><a
+                                    href="https://app.Isotradex.com/register"
+                                    class="button fillBtn Isotradex_btn me-3 px-md-5">Open Account</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+            <section class="blockElement space bg-white">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8 mb-4 mb-md-4 text-center">
+                            <h2>Leaders Compensation Schemes</h2>
+                            <p></p>
+                        </div>
+                        <div class="col-12 col-md-10 mb-4">
+                            <div class="responsive-table wl-table compensationSchemes">
+                                <table class="table table-bordered cellSpacing mb-0 bg-black">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th><span class="f-12 d-block"></span><span class="f-16"></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h6 class="text-black">What do I earn as a Leader?</h6>
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <p class="border-bottom pb-3 text-black">0.5 pip for each closed trade executed or
+                                                    $5
+                                                    per $100K traded</p>
+                                                <p class="f-12 text-black"><i>Pip cost depends on various factors such as the
+                                                        currency pair traded. The amount of commissions received will
+                                                        depend
+                                                        on the Broker group of the Investor.</i></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-9 text-center">
+                            <p class="f-12"><i><b>Note</b>: The amount of commissions received will depend on the Broker
+                                    group of the Investor as well as the Tier of the Affiliate.</i></p>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center mt-4"><a href="leader-guide.html"
+                                    class="button fillBtn Isotradex_btn me-3 px-md-5">Leader guide</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- how to become a leader  -->
+            <section class="blockElement space automated4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 mb-md-4 pb-4 text-center">
+                            <h2 class="">How to Become a Leader in 3 Simple Steps</h2>
+                            <p>Anyone can sign up to become a Leader. To register your Leader account, please click <a
+                                    class="secondary" href="https://app.Isotradex.com/register"
+                                    target="_blank">here</a>. Check</p>
+                        </div>
+                        <div class="col-12">
+                            <ul class="listCounter affiliateStep">
+                                <li class="d-flex align-items-start pb-4"><span
+                                        class="customXpad d-flex justify-content-center mb-3 mb-sm-0"><img
+                                            class="green-fl" src="{% static 'assets/img/open-account.svg' %}"
+                                            class="d-block v-lazy-image" alt="Join Isotradex as a Trader"
+                                            title="Access the Traders Program "></span><label class="d-block">
+                                        <h4 class="mb-2 bold">Join Isotradex as a Leader</h4>
+                                        <p>Access the Leaders Program page and click on "Open Account".</p>
+                                    </label></li>
+                                <li class="d-flex align-items-start pb-4"><span
+                                        class="customXpad d-flex justify-content-center mb-3 mb-sm-0"><img
+                                            class="green-fl" src="{% static 'assets/img/Start-journey.svg' %}"
+                                            class="d-block v-lazy-image"
+                                            alt="Complete the Registration Form &amp; Start Trading"
+                                            title="Fill in your information in the Online Registration Form"></span><label
+                                        class="d-block">
+                                        <h4 class="mb-2 bold">Complete the Registration Process &amp; Start Trading</h4>
+                                        <p>Follow the onboarding instructions and when prompted click “Become a Leader”
+                                            to
+                                            start trading.</p>
+                                    </label></li>
+                                <li class="d-flex align-items-start pb-4"><span
+                                        class="customXpad d-flex justify-content-center mb-3 mb-sm-0"><img
+                                            class="green-fl" src="{% static 'assets/img/step-6.svg' %}" class="d-block v-lazy-image"
+                                            alt="Investors Copy your Strategy &amp; you Receive your Earnings"
+                                            title="Investors use your Affiliate"></span><label class="d-block">
+                                        <h4 class="mb-2 bold">Investors Copy your Strategy &amp; you Get Compensated
+                                        </h4>
+                                        <p>Investors copy your signals according to their capital and risk appetite and
+                                            you
+                                            will receive your earnings according to their payment scheme.</p>
+                                    </label></li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center mt-4"><a href="https://app.Isotradex.com/register"
+                                    class="button fillBtn Isotradex_btn me-3 px-md-5">Open Account</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- Trading platforms  -->
+            <section class="blockElement space">
+                <div class="container">
+                    <div class="row flex-row-reverse align-items-center mb-4 mb-lg-5">
+                        <div class="col-12 mb-md-4 pb-4 text-center">
+                            <h2 class="">Trading Platforms</h2>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4 mb-md-0"><img src="{% static 'assets/img/mt4-Icon.png' %}"
+                                class="d-block mx-auto" alt="MetaTrader 4 (MT4) platform"
+                                title="In ZTP, both Live and Demo Traders"></div>
+                        <div class="col-12 col-md-6 text-center text-md-start">
+                            <h2 class="mb-2 mb-md-4">MetaTrader 4 (MT4) Platform</h2>
+                            <p>MT4 is most popular trading platform for all levels offering advanced charting, copy
+                                trading,
+                                and flexible programming options.</p>
+                            <p>MetaTrader 4 is a popular platform for Leaders to trade a variety of assets. It is the
+                                gateway between you and the trading markets. On Isotradex, you can link an external MT4
+                                platform to a Leader account. In this case, the Leader account becomes read-only and any
+                                trading activity that takes place in the MT4 account is copied over to the Isotradex
+                                account.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-4 mb-lg-5">
+                        <div class="col-12 col-md-6 mb-4 mb-md-0"><img src="{% static 'assets/img/mt5-Icon.png' %}" class="d-block"
+                                alt="MetaTrader 5 (MT5) platform" title="MetaTrader is a popular platform"></div>
+                        <div class="col-12 col-md-6 text-center text-md-start">
+                            <h2 class="mb-2 mb-md-4">MetaTrader 5 (MT5) Platform</h2>
+                            <p>MetaTrader 5 is a multi-asset platform that offers superior tools for trading. On
+                                Isotradex,
+                                you can link an external live or demo MT5 platform to a Leader account. In this case,
+                                the
+                                Leader account becomes read-only and any trading activity that takes place in the MT4
+                                account is copied over to the Isotradex account.</p>
+                        </div>
+                    </div>
+                    <div class="row flex-row-reverse mb-4 mb-md-5 align-items-center">
+                        <div class="col-12 col-md-6 mb-4 mb-md-0"><img src="{% static 'assets/img/xoh.png' %}" class="d-block mx-auto"
+                                alt="MetaTrader 4 (MT4) platform" title="In ZTP, both Live and Demo Traders"></div>
+                        <div class="col-12 col-md-6 text-center text-md-start">
+                            <h2 class="mb-2 mb-md-4">XOH Trading Platform</h2>
+                            <p>XOH is a state-of-the-art technology platform that offers advanced charting, copy
+                                trading,
+                                and flexible programming options. On Isotradex, you can link an external XOH platform to
+                                a
+                                Leader account. In this case, the Leader account becomes read-only and any trading
+                                activity
+                                that takes place on the XOH account is copied over to the Isotradex account.</p>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mb-4 mb-md-0">
+                        <div class="col-12 col-md-6 mb-4 mb-md-0"><img src="{% static 'assets/img/ActTrader.png' %}" width="400"
+                                class="d-block" alt="ActTrader" title="ActTrader platform"></div>
+                        <div class="col-12 col-md-6 text-center text-md-start">
+                            <h2 class="mb-2 mb-md-4">ActTrader</h2>
+                            <p>ActTrader is a feature-rich trading platform that is packed with a super-friendly
+                                interface,
+                                one-click trading, advanced charting tools, and an intuitive client management dashboard
+                                to
+                                cater to every leader's need.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center mt-4 mt-md-5"><a href="https://app.Isotradex.com/register"
+                                class="button fillBtn Isotradex_btn px-md-5">Open Account</a></div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+            <section class="blockElement space bg-white automated5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="text-center mb-md-4 pb-4">Reasons to Become a Leader with Isotradex</h2>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-block d-sm-flex align-items-start affiliateReason"><span
+                                    class="automated me-2"><img
+                                        src="{% static 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}"
+                                        class="d-block v-lazy-image" alt="No Hidden Costs and No Monthly Payout Limits"
+                                        title="The AutoScript feature enables"></span>
+                                <div class="contentCalc">
+                                    <h4 class="bold">No Hidden Costs and No Monthly Payout Limits</h4>
+                                    <p>The program is open to everyone, has no hidden costs or fees, and has no limits
+                                        per
+                                        Leader payout. The more popular your strategy is, the more commissions you earn.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-block d-sm-flex align-items-start affiliateReason"><span
+                                    class="automated me-2"><img
+                                        src="{% static 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}"
+                                        class="d-block v-lazy-image" alt="Multiple Brokers Platform"
+                                        title="Our platform is compatible with multiple"></span>
+                                <div class="contentCalc">
+                                    <h4 class="bold">Broker-Agnostic Platform</h4>
+                                    <p>Our platform is compatible with multiple well-known and reliable brokers
+                                        worldwide.
+                                        You can choose the one that best suits your needs and share your strategy with
+                                        the
+                                        community.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-block d-sm-flex align-items-start affiliateReason"><span
+                                    class="automated me-2"><img
+                                        src="{% static 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}"
+                                        class="d-block v-lazy-image" alt="Verified Track Record"
+                                        title="Establish a verified track record"></span>
+                                <div class="contentCalc">
+                                    <h4 class="bold">Verified Track Record</h4>
+                                    <p>Establish a verified track record at no cost and share it with your Investors’
+                                        Community. Save time, money, and resources!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="d-block d-sm-flex align-items-start affiliateReason"><span
+                                    class="automated me-2"><img
+                                        src="{% static 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' %}"
+                                        class="d-block v-lazy-image" alt="Dedicated Traders Desk"
+                                        title="Isotradex is one of the first .."></span>
+                                <div class="contentCalc">
+                                    <h4 class="bold">Dedicated Leaders Desk</h4>
+                                    <p>Our Leaders Desk will help you to set up a great Leader profile, gain and retain
+                                        your
+                                        Investors to improve your profitability!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center mt-4"><a href="https://app.Isotradex.com/register"
+                                    class="button fillBtn Isotradex_btn px-md-5">Open Account</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- faqs  -->
+
+            <section class="blockElement space faqs automated6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="mb-md-4 pb-4">Frequently Asked Questions (FAQs)</h2>
+                        </div>
+                        <div class="col-12">
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                            aria-controls="flush-collapseOne">Can anyone become a Isotradex
+                                            Leader?</button></h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Yes, anyone can become a Leader on our platform.
+                                            However, the most suitable Leaders are the ones with a trading background
+                                            and a
+                                            professional business mindset.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingTwo"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                            aria-controls="flush-collapseTwo">Can I become a Options Leader on
+                                            Isotradex?</button></h2>
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Sure, we have a wide variety of instruments that you
+                                            can trade including popular Options pairs, Stocks, Indices, Commodities and
+                                            Cryptos.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingThree"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                            aria-controls="flush-collapseThree">Can I become a Stock Leader on
+                                            Isotradex?</button></h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Yes, there are multiple Stocks that a Leader can
+                                            choose
+                                            from including Tesla, Apple, Amazon, Facebook, Pfizer and more.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingFour"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                            aria-controls="flush-collapseFour">What are the compensation Models for
+                                            Leaders?</button></h2>
+                                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Our payment model is the Classic Volume Based Model.
+                                            In
+                                            case you are being copied by Investors using the Legacy ‘Profit-sharing’
+                                            model,
+                                            you will receive payments accordingly. Please take note that creation of
+                                            Profit
+                                            Sharing Investor accounts has been discontinued since April 2022.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingfive"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapsefive" aria-expanded="false"
+                                            aria-controls="flush-collapsefive">What are the general trading hours for
+                                            all
+                                            the instruments?</button></h2>
+                                    <div id="flush-collapsefive" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingfive" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">All times are GMT+2 during non-DST, and GMT+3 during
+                                            DST. <ul class="dotList mb-0 mt-2">
+                                                <li>Options: 00.05 (Monday) until 24:00 (Friday), with a daily break
+                                                    from
+                                                    00.00 until 00.05.</li>
+                                                <li>Commodities: 01:00 (Monday) until 24:00 (Friday), with a daily break
+                                                    from 00.00 until 00.05.</li>
+                                                <li>Indices: 01:00 (Monday) until 24:00 (Friday), with a daily break
+                                                    from
+                                                    00.00 until 00.05.</li>
+                                                <li>Cryptocurrencies: 00.05 (Monday) until 24:00 (Friday), with a daily
+                                                    break from 00.00 until 00.05.</li>
+                                                <li>USD Stocks: 16:30 (Monday) to 23:00 (Friday), with a daily break
+                                                    from
+                                                    00.00-16:30, 23:00-24:00.</li>
+                                                <li>EUR Stocks: 10:00 (Monday) to 18:30 (Friday), with a daily break
+                                                    from
+                                                    18:30-10:00.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingsix"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapsesix" aria-expanded="false"
+                                            aria-controls="flush-collapsesix">How do I become a successful
+                                            Leader?</button>
+                                    </h2>
+                                    <div id="flush-collapsesix" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingsix" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Being a successful Leader is not a quick process and
+                                            frankly, it never stops. Discipline, strategic approach, aggressiveness and
+                                            professionalism are the fundamentals for becoming successful.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingSeven"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseSeven" aria-expanded="false"
+                                            aria-controls="flush-collapseSeven">What are Options Signals and how do I
+                                            share
+                                            my signals through Isotradex?</button></h2>
+                                    <div id="flush-collapseSeven" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Options signals are automatically generated signals
+                                            from
+                                            a trading strategy. You can share your signals by <a class="secondary"
+                                                href="https://app.Isotradex.com/register" target="_blank">becoming a
+                                                Leader</a>. </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingEight"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseEight" aria-expanded="false"
+                                            aria-controls="flush-collapseEight">Is there a minimum limit for me to start
+                                            trading with Isotradex?</button></h2>
+                                    <div id="flush-collapseEight" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Until now, there have not been any restrictions,
+                                            however, it would be preferable that your balance would exceed the USD 500
+                                            level.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingNine"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseNine" aria-expanded="false"
+                                            aria-controls="flush-collapseNine">What’s the best Options Trading
+                                            platform?</button></h2>
+                                    <div id="flush-collapseNine" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">There are many Options trading platforms out there.
+                                            Isotradex has been around since 2007 and offers Copy Trading services of
+                                            Options
+                                            Pairs, Stocks, Cryptocurrency, Indices and Commodities via your connected
+                                            broker.</div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingTen"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseTen" aria-expanded="false"
+                                            aria-controls="flush-collapseTen">What tools does Isotradex offer for
+                                            Capital
+                                            Safety?</button></h2>
+                                    <div id="flush-collapseTen" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingTen" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Isotradex offers numerous tools to achieve capital
+                                            safety, one of the most important being the <a
+                                                href="autoprotect-your-account.html" class="secondary"
+                                                target="_blank">AutoGuard</a>. </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingEleven"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapseEleven" aria-expanded="false"
+                                            aria-controls="flush-collapseEleven"> How do I get featured on the Leaders
+                                            Rankings?</button></h2>
+                                    <div id="flush-collapseEleven" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Global Ranking is assigned automatically after you
+                                            have
+                                            completed your first few trades. EU ranking is assigned only after your
+                                            account
+                                            has fulfilled the <a href="AutoRanking.html" class="secondary"
+                                                target="_blank">basic requirements</a>. </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingtwelve"><button
+                                            class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#flush-collapsetwelve" aria-expanded="false"
+                                            aria-controls="flush-collapsetwelve">What is Risk-score?</button></h2>
+                                    <div id="flush-collapsetwelve" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingtwelve" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Risk-score indicates how risky is the Leader's
+                                            Strategy. Calculated using Sharpe Ratio formula, inverted and normalised on
+                                            1-5
+                                            scale (1 Low Risk &amp; 5 High Risk).</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </div><!----><!---->
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Replicate Bootstrap accordion functionality
+            var accordion = document.getElementById('accordionFlushExample');
+            if (accordion) {
+                accordion.addEventListener('click', function (e) {
+                    var btn = e.target.closest('.accordion-button');
+                    if (!btn) return;
+                    var collapseId = btn.getAttribute('data-bs-target');
+                    var collapse = document.querySelector(collapseId);
+                    if (!collapse) return;
+
+                    // Close all open items
+                    var allCollapses = accordion.querySelectorAll('.accordion-collapse');
+                    var allButtons = accordion.querySelectorAll('.accordion-button');
+                    allCollapses.forEach(function (item) {
+                        item.classList.remove('show');
+                    });
+                    allButtons.forEach(function (b) {
+                        b.classList.add('collapsed');
+                        b.setAttribute('aria-expanded', 'false');
+                    });
+
+                    // Open the clicked item if it was closed
+                    if (!collapse.classList.contains('show')) {
+                        collapse.classList.add('show');
+                        btn.classList.remove('collapsed');
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        // --- Utility: String to numeric seed ---
+        function stringToSeed(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash);
+        }
+
+        // --- Seeded PRNG using Linear Congruential Generator ---
+        function seededRandomGenerator(seed) {
+            let m = 2 ** 31 - 1;
+            let a = 16807;
+            let state = seed % m;
+            return function () {
+                state = (a * state) % m;
+                return state / m;
+            };
+        }
+
+        // --- Generate ROI data with labels (dates) ---
+        function generateSmoothSeededROI(seedString, startDate, days = 365, startROI = 0) {
+            const seed = stringToSeed(seedString);
+            const random = seededRandomGenerator(seed);
+            const data = [];
+            const labels = [];
+            let currentROI = startROI;
+
+            const bias = 0.01; // very small daily positive bias
+            const volatility = 0.1; // smaller daily volatility for smoothness
+            const smoothingFactor = 0.3; // smooth factor for moving average
+
+            let lastChange = 0;
+
+            for (let i = 0; i < days; i++) {
+                const date = new Date(startDate);
+                date.setDate(date.getDate() + i);
+                labels.push(date.toISOString().split('T')[0]);
+
+                // Generate noisy daily change with bias
+                let rawChange = ((random() - 0.5) * volatility) + bias;
+
+                // Smooth changes: mix last day's change with current raw change
+                const smoothedChange = smoothingFactor * rawChange + (1 - smoothingFactor) * lastChange;
+
+                currentROI += smoothedChange;
+                lastChange = smoothedChange;
+
+                // Optional: clamp to prevent large negatives
+                if (currentROI < -0.2) currentROI = -0.2;
+
+                data.push(parseFloat(currentROI.toFixed(2)));
+            }
+
+            return {
+                labels,
+                data
+            };
+        }
+
+
+        // --- Store chart instances by canvas ID ---
+        const roiCharts = {};
+
+        // --- Create chart in canvas with given ID and seed ---
+        function drawChart(selector, seedValue) {
+            const {
+                labels,
+                data
+            } = generateSmoothSeededROI(seedValue, '2025-01-01');
+            const canvases = document.querySelectorAll(selector);
+            if (!canvases.length) {
+                console.warn(`Canvas not found: ${selector}`);
+                return;
+            }
+
+            canvases.forEach((canvas, idx) => {
+                const ctx = canvas.getContext('2d');
+                // Destroy existing chart instance if it exists
+                if (roiCharts[selector + idx]) {
+                    roiCharts[selector + idx].destroy();
+                }
+                roiCharts[selector + idx] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: `ROI - ${seedValue}`,
+                            data: data,
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            borderWidth: 1,
+                            fill: true,
+                            tension: 0.2,
+                            pointRadius: 0,
+                            pointHoverRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: true
+                            }
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            intersect: false
+                        },
+                        scales: {
+                            x: {
+                                display: false,
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    display: false
+                                },
+                            },
+                            y: {
+                                display: false,
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    display: false
+                                },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // --- Main logic: fetch experts and build UI + charts ---
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('https://api.Isotradex.com/api/top/experts')
+                .then(response => response.json())
+                .then(data => {
+                    function formatData(traders) {
+                        return traders.slice(0, 3).map(trader => `
+                        <div class="card h-100 overflow-hidden">
+                            <div class="card-body px-0 pb-0">
+                                <div class="text-center position-relative">
+                                    <div class="vueRisk px-3 d-flex align-items-start justify-content-between">
+                                        <p class="bTn mb-0 fs-12 fw-600 uppercase risk3">Risk 3</p>
+                                        <a href="become-a-leader.html#">
+                                            <span class="circleImg d-inline-block mb-3">
+                                                <img alt="${trader.name}" title="${trader.name}" loading="lazy" width="70" height="70" decoding="async" class="rounded-circle" src="https://www.isotradex.com/Home/${trader.img}" style="color: transparent;">
+                                            </span>
+                                        </a>
+                                        <div class="d-flex align-items-center">
+                                            <button class="inWatchList">⭐</button>
+                                        </div>
+                                    </div>
+                                    <a href="become-a-leader.html#">
+                                        <div class="title">
+                                            <h6 class="mb-1 fs-16">${trader.name}</h6>
+                                            <div class="element d-flex align-items-center justify-content-center mb-3">
+                                                <div class="me-2 d-flex align-items-center">
+                                                    <p class="moregray fs-12 mb-0 me-1">COPIERS</p>
+                                                    <p class="fs-12 medium mb-0">${trader.copiers}</p>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <p class="moregray fs-12 mb-0 me-1">FOLLOWERS</p>
+                                                    <p class="fs-12 medium mb-0">${trader.followers}</p>
+                                                </div>
+                                            </div>
+                                            <div class="element">
+                                                <p class="mb-0 px-1 fw-600 d-inline-flex greenView">+19.97</p>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <!-- Chart Canvas -->
+                                    <canvas class="${trader.name.replaceAll(" ", "")}_roiChart" height="100"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                    }
+
+                    // Populate slides
+                    const leaderSlides = document.querySelectorAll('#topTraders .swiper-slide');
+                    const topLeaders = data.topLeaders.slice(0, 3);
+
+                    leaderSlides.forEach((slide, idx) => {
+                        if (topLeaders[idx]) {
+                            slide.innerHTML = formatData([topLeaders[idx]]);
+                        }
+                    });
+
+                    setTimeout(() => {
+                        [...topExperts, ...topLeaders].forEach(trader => {
+                            const canvasId = `.${trader.name.replaceAll(" ", "")}_roiChart`;
+                            drawChart(canvasId, trader.name.replaceAll(" ", ""));
+                        });
+                    }, 100)
+                });
+        });
+    </script>
+
+        {% endblock content%}
+        {% block footer %}
+    {% include "client/footer.html" %}
+        {% endblock footer %}  

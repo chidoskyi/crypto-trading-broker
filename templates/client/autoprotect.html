@@ -1,0 +1,60 @@
+{% extends "client/base.html" %} 
+{% load static %}
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+        {% block content%}
+        <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <section class="bg-white pt-4 pt-md-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <h1 class="bold mb-md-4">Autoprotect your <span class="secondary">account!</span></h1>
+                        
+                        <div class="text-center mt-4 mt-md-0"><a class="button fillBtn Isotradex_btn" href="https://app.Isotradex.com/register">Create
+                                Account</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-white autoprotect2 pt-4 pt-md-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        
+                        </div>
+                    <div class="col-12 col-md-6 text-center text-md-start">
+                        <h2 class="mb-2 mt-2 mt-md-0">Meet AutoGuard</h2>
+                        <p>AutoGuard™ is an account protection feature that monitors each Trader's behavior and
+                            automatically removes a Trader when detecting a trading strategy has deviated from its expected
+                            loss profile.</p>
+                        <p>AutoGuard™ Capital Protection is available for all Investors, and it is mandatory for the users
+                            residing in the EU using the EU Isotradex platform as it creates a protection shield for your
+                            investment capital!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-white autoprotect2 py-4 py-md-5">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-12 col-md-6"><img width="522" class="d-block mx-auto"
+                            src="assets/img/autoguard-new-1.png" alt="How does it work?" title="How does it work?">
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-start">
+                        <h2 class="mb-2 mt-2 mt-md-0">How does it work?</h2>
+                        <p>The AutoGuard™ automatically calculates a trading exit value for the trades opened in your
+                            account based on your specified capital protection amount. When your threshold is hit,
+                            AutoGuard™ will step in, it will close all open positions and disable the Leader instantly.</p>
+                        <p>For detailed information about AutoGuard, please consult the</p><a href="AutoGuard-guide.html"
+                            class="secondary">AutoGuard Guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+        {% endblock content%}
+{% block footer %}
+    {% include "client/footer.html" %}
+{% endblock footer %}

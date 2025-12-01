@@ -1,0 +1,86 @@
+{% extends "client/base.html" %} 
+{% load static %}
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+        {% block content%}
+    <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <div class="mainWrapper pb-0">
+            <section class="blockElement space position-relative reatesPage">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="flex-between">
+                                <h1 class="mb-2 f-22 bold letter-space-0">Risk Disclaimer</h1>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="static">
+                                <p>Isotradex, is a Global financial service provider, Isotradex is a registered
+                                    trademark of
+                                    the group, that operates amongst various entities.
+                                </p>
+                                <p>The service provided by Isotradex (<a href="index.html"
+                                        class="secondary">https://Isotradex.com</a>) is operated by the Isotradex Group
+                                    of
+                                    Companies and is regulated by SEC, CRD 298461. CN Global is regulated by FCA in the
+                                    United Kingdom, Reference Number 573263. CN is regulated by CIRO, reference number
+                                    9290.
+                                    The Company may extend its services to various regions, including the European
+                                    Economic
+                                    Area ("EEA") countries.
+                                </p>
+                                <p>Trading in financial instruments involves substantial risk and there is always the
+                                    potential for loss. Your trading results may vary. Past performance is not
+                                    indicative of
+                                    future results.</p>
+                                <div class="flex-between">
+                                    <h1 class="mb-2 f-22 bold letter-space-0">Full Disclaimer</h1>
+                                </div>
+                                <p>Past performance displayed by Traders (Signal Providers) is not necessarily
+                                    indicative of
+                                    future outcomes. There is no guarantee that an account copying a Trader’s options
+                                    contracts will achieve profits or experience losses similar to the Trader’s account.
+                                </p>
+                                <p>Options trading involves leverage, time decay, and volatility factors that can
+                                    amplify
+                                    both gains and losses. Even when copying trades, individual account performance may
+                                    differ substantially from a Trader’s results due to differences in execution speed,
+                                    brokerage fees, market conditions, and account size.</p>
+                                <p>Performance results shown on this website may include historical or hypothetical
+                                    data.
+                                    Hypothetical results have inherent limitations and do not represent actual trading
+                                    in
+                                    live accounts. In particular, hypothetical performance does not account for factors
+                                    such
+                                    as slippage, margin requirements, assignment risk, or commissions, which can
+                                    materially
+                                    affect outcomes.
+                                    Customers who choose to copy multiple Traders simultaneously may not be able to
+                                    follow
+                                    all signals due to insufficient funds or risk constraints. Accordingly, the
+                                    performance
+                                    of customer accounts may vary significantly.</p>
+                                <p>Copying options trades is not suitable for all investors. Options contracts carry a
+                                    high
+                                    level of risk and may not be appropriate for individuals who do not fully understand
+                                    the
+                                    nature of these instruments. You should carefully consider your investment
+                                    objectives,
+                                    level of experience, and risk tolerance before deciding to copy trades.</p>
+                                <p>We strongly recommend consulting with a licensed financial professional regarding the
+                                    risks associated with options trading before participating. Isotradex does not
+                                    provide
+                                    personalized investment advice and makes no assurances regarding profitability or
+                                    suitability of the strategies displayed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+        {% endblock content%}
+{% block footer %}
+    {% include "client/footer.html" %}
+{% endblock footer %}   

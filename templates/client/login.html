@@ -1,0 +1,425 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark red-theme">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Isotradex - Sign In</title>
+
+    <!-- Favicon -->
+    <link href="{% static 'assets/img/XoR8MfdPTzQDfF4JVKuMIQhGj8HmCdPoBxveN4vK.png' %}" rel="icon" type="image/x-icon" />
+
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+            document.documentElement.classList.add('dark');
+        }
+
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: {
+                            50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5',
+                            400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c',
+                            800: '#991b1b', 900: '#7f1d1d',
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        body { overflow-x: hidden; }
+        [x-cloak] { display: none !important; }
+        .red-theme {
+            --brand-300: #fca5a5; --brand-400: #f87171; --brand-500: #ef4444;
+            --brand-600: #dc2626; --brand-700: #b91c1c;
+        }
+        .red-theme .text-blue-400, .red-theme .text-cyan-400 { color: var(--brand-400) !important; }
+        .red-theme .hover\:text-blue-300:hover, .red-theme .hover\:text-cyan-300:hover { color: var(--brand-300) !important; }
+        .red-theme .border-blue-400 { border-color: var(--brand-400) !important; }
+        .red-theme .hover\:border-blue-400\/50:hover, .red-theme .hover\:border-cyan-400\/50:hover { 
+            border-color: rgba(239, 68, 68, 0.5) !important; 
+        }
+        .red-theme .focus\:border-blue-400:focus { border-color: var(--brand-400) !important; }
+        .red-theme .focus\:ring-blue-400\/20:focus { --tw-ring-color: rgba(239, 68, 68, 0.2) !important; }
+        .red-theme .from-blue-500 { --tw-gradient-from: var(--brand-500) !important; }
+        .red-theme .to-cyan-500 { --tw-gradient-to: var(--brand-700) !important; }
+        .red-theme .hover\:from-blue-600:hover { --tw-gradient-from: var(--brand-600) !important; }
+        .red-theme .hover\:to-cyan-600:hover { --tw-gradient-to: var(--brand-800) !important; }
+        .red-theme input[type="checkbox"] { accent-color: var(--brand-500); }
+    </style>
+</head>
+
+<body class="h-full bg-gray-300 font-sans antialiased transition-colors duration-300 text-gray-900" 
+      x-data="{ darkMode: localStorage.theme === 'dark' || !localStorage.theme }" 
+      :class="{ 'dark': darkMode }" 
+      x-cloak>
+
+    <!-- Theme Toggle -->
+    <div class="fixed top-4 right-4 z-50">
+        <button
+            @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light'); document.documentElement.classList.toggle('dark', darkMode)"
+            class="relative inline-flex items-center justify-center w-10 h-10 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-150 backdrop-blur-sm">
+            <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728l-.707-.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-cloak>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="relative min-h-screen overflow-hidden">
+        <div class="relative z-10">
+            <div class="min-h-screen bg-gray-900 relative overflow-hidden">
+                <div class="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
+                    <div class="w-full max-w-lg">
+                        <div class="relative bg-gray-900 border border-gray-700 rounded-3xl p-8 sm:p-10 shadow-2xl">
+                            
+                            <!-- Header -->
+                            <div class="text-center mb-8">
+                                <div class="flex items-center justify-center mb-6">
+                                    <img src="{% static 'assets/img/ZJbORQRpj7N096KoQ4Mbs3lqj6JOvqka6pVrlBUL.png' %}" class="h-16 w-auto" alt="Isotradex" />
+                                </div>
+
+                                <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">Welcome Back</h1>
+                                <h2 class="text-lg sm:text-xl font-semibold mb-3">
+                                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Isotradex</span>
+                                </h2>
+                                <p class="text-gray-300 text-sm sm:text-base">Access your trading dashboard</p>
+
+                                <div class="flex items-center justify-center gap-6 mt-6 text-xs sm:text-sm">
+                                    <div class="text-center">
+                                        <div class="flex items-center justify-center gap-1 text-green-400 mb-1">
+                                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                            <span class="font-medium">Live</span>
+                                        </div>
+                                        <div class="text-gray-400">24/7 Markets</div>
+                                    </div>
+                                    <div class="w-px h-10 bg-white/20"></div>
+                                    <div class="text-center">
+                                        <div class="flex items-center justify-center gap-1 text-blue-400 mb-1">
+                                            <i data-lucide="zap" class="w-3 h-3"></i>
+                                            <span class="font-medium">Fast</span>
+                                        </div>
+                                        <div class="text-gray-400">Execution</div>
+                                    </div>
+                                    <div class="w-px h-10 bg-white/20"></div>
+                                    <div class="text-center">
+                                        <div class="flex items-center justify-center gap-1 text-cyan-400 mb-1">
+                                            <i data-lucide="shield" class="w-3 h-3"></i>
+                                            <span class="font-medium">Secure</span>
+                                        </div>
+                                        <div class="text-gray-400">Platform</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Login Form -->
+                            <form method="POST" class="space-y-6" id="login-form">
+                                {% csrf_token %}
+                                
+                                <!-- Email/Username -->
+                                <div class="space-y-2">
+                                    <label for="login" class="block text-sm font-semibold text-gray-200">
+                                        Email Address or Username
+                                    </label>
+                                    <div class="relative group">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                                            <i data-lucide="mail" class="h-5 w-5 text-gray-400 group-focus-within:text-blue-400 transition-colors duration-200"></i>
+                                        </div>
+                                        <input 
+                                            type="text" 
+                                            name="login" 
+                                            id="login" 
+                                            required
+                                            class="block w-full rounded-2xl border border-gray-600 bg-gray-900 pl-12 pr-4 py-4 text-white placeholder-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 focus:bg-gray-800 transition-all duration-200 text-sm font-medium"
+                                            placeholder="your.email@example.com" 
+                                        />
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="space-y-2">
+                                    <label for="password" class="block text-sm font-semibold text-gray-200">
+                                        Password
+                                    </label>
+                                    <div class="relative group" x-data="{ showPassword: false }">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                                            <i data-lucide="lock" class="h-5 w-5 text-gray-400 group-focus-within:text-blue-400 transition-colors duration-200"></i>
+                                        </div>
+                                        <input 
+                                            :type="showPassword ? 'text' : 'password'"
+                                            name="password" 
+                                            id="password" 
+                                            required
+                                            class="block w-full rounded-2xl border border-gray-600 bg-gray-900 pl-12 pr-12 py-4 text-white placeholder-gray-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 focus:bg-gray-800 transition-all duration-200 text-sm font-medium"
+                                            placeholder="Enter your password"
+                                        />
+                                        <button 
+                                            type="button" 
+                                            @click="showPassword = !showPassword"
+                                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-blue-400 transition-colors"
+                                        >
+                                            <i data-lucide="eye" class="h-5 w-5" x-show="!showPassword"></i>
+                                            <i data-lucide="eye-off" class="h-5 w-5" x-show="showPassword" x-cloak></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Remember & Forgot -->
+                                <div class="flex items-center justify-between text-sm">
+                                    <div class="flex items-center">
+                                        <input 
+                                            type="checkbox" 
+                                            name="remember" 
+                                            id="remember"
+                                            class="h-4 w-4 rounded border-gray-600 bg-gray-900 text-blue-500 focus:ring-2 focus:ring-blue-400/20 transition-colors"
+                                        />
+                                        <label for="remember" class="ml-3 text-gray-300 font-medium">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="{% url 'password-reset-request' %}" class="text-blue-400 hover:text-blue-300 transition-colors underline underline-offset-2">
+                                        Forgot password?
+                                    </a>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="mt-8">
+                                    <button 
+                                        type="submit"
+                                        class="group relative flex w-full justify-center items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 px-6 py-4 text-base font-bold text-white transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        <i data-lucide="log-in" class="h-5 w-5"></i>
+                                        <span>Access Dashboard</span>
+                                        <i data-lucide="arrow-right" class="h-4 w-4 group-hover:translate-x-1 transition-transform"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Quick Access (Optional) -->
+                            <div class="mt-8">
+                                <div class="relative">
+                                    <div class="absolute inset-0 flex items-center">
+                                        <div class="w-full border-t border-white/20"></div>
+                                    </div>
+                                    <div class="relative flex justify-center text-sm">
+                                        <span class="bg-gray-900 px-4 text-gray-300 font-medium">Quick Access</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 flex justify-center space-x-4">
+                                    <button type="button" class="group relative inline-flex items-center justify-center w-14 h-14 rounded-2xl border border-gray-600 bg-gray-800 hover:bg-gray-700 hover:border-blue-400/50 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                        <i data-lucide="fingerprint" class="h-6 w-6 text-blue-400 group-hover:text-blue-300 group-hover:scale-110 transition-all duration-200"></i>
+                                    </button>
+                                    <button type="button" class="group relative inline-flex items-center justify-center w-14 h-14 rounded-2xl border border-gray-600 bg-gray-800 hover:bg-gray-700 hover:border-cyan-400/50 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                        <i data-lucide="scan-face" class="h-6 w-6 text-cyan-400 group-hover:text-cyan-300 group-hover:scale-110 transition-all duration-200"></i>
+                                    </button>
+                                    <button type="button" class="group relative inline-flex items-center justify-center w-14 h-14 rounded-2xl border border-gray-600 bg-gray-800 hover:bg-gray-700 hover:border-green-400/50 transition-all duration-200 shadow-lg hover:shadow-xl">
+                                        <i data-lucide="qr-code" class="h-6 w-6 text-green-400 group-hover:text-green-300 group-hover:scale-110 transition-all duration-200"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="mt-10 text-center space-y-6">
+                                <div class="text-sm">
+                                    <span class="text-gray-300">New to trading? </span>
+                                    <a href="/register" class="font-semibold text-blue-400 hover:text-blue-300 transition-colors underline underline-offset-2">
+                                        Create your account
+                                    </a>
+                                </div>
+
+                                <div class="flex items-center justify-center gap-6 py-4 text-xs text-gray-400">
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="shield-check" class="w-3 h-3 text-green-400"></i>
+                                        <span>SSL Secured</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="lock" class="w-3 h-3 text-blue-400"></i>
+                                        <span>256-bit Encryption</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="award" class="w-3 h-3 text-cyan-400"></i>
+                                        <span>Regulated</span>
+                                    </div>
+                                </div>
+
+                                <p class="text-xs text-gray-500">© 2025 Isotradex. All rights reserved.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Scripts -->
+    <script module src="{% static 'assets/scripts/api.js' %}"></script>
+    <script module src="{% static 'assets/scripts/auth.js' %}"></script>
+    <script module src="{% static 'assets/scripts/auth-utils.js' %}"></script>
+
+    <!-- Initialize -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Focus email field
+            const loginField = document.getElementById('login');
+            if (loginField) loginField.focus();
+            
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }); 
+
+        // Reinitialize icons after Alpine updates
+        document.addEventListener('alpine:updated', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+
+{% comment %} <script>
+    // Simple login handler for this page
+    class LoginHandler {
+        constructor() {
+            this.form = null;
+            this.init();
+        }
+
+        init() {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.form = document.getElementById('login');
+                if (this.form) {
+                    this.setupFormHandler();
+                }
+            });
+        }
+
+        setupFormHandler() {
+            this.form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await this.handleSubmit();
+            });
+        }
+
+        async handleSubmit() {
+            const submitBtn = this.form.querySelector('button[type="submit"]');
+            const originalHTML = submitBtn.innerHTML;
+            
+            try {
+                // Disable submit button
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline-block mr-2"></i>Logging In...';
+                
+                // Refresh icons
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+
+                // Collect form data
+                const formData = {
+                    login: document.getElementById('login_input').value.trim(),
+                    password: document.getElementById('password').value,
+                    remember: document.getElementById('remember').checked
+                };
+                
+                // Send login request
+                const response = await APIClient.post('/auth/login/', formData);
+                
+                // Handle success
+                APIClient.showMessage('Login successful! Redirecting...', 'success');
+                
+                // Store tokens
+                if (response.data.tokens) {
+                    APIClient.setTokens(response.data.tokens.access, response.data.tokens.refresh); 
+                }
+                
+                // Redirect to dashboard after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+
+                // Refresh icons
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+                
+                // Show error message
+                let errorMessage = 'Login failed. Please try again.';
+                
+                if (error.response?.data) {
+                    const errors = error.response.data;
+                    
+                    if (typeof errors === 'object') {
+                        const errorMessages = [];
+                        for (const [field, messages] of Object.entries(errors)) {
+                            const fieldName = this.formatFieldName(field);
+                            const message = Array.isArray(messages) ? messages.join(', ') : messages;
+                            errorMessages.push(`${fieldName}: ${message}`);
+                        }
+                        errorMessage = errorMessages.join('\n');
+                    } else if (typeof errors === 'string') {
+                        errorMessage = errors;
+                    } else if (errors.detail) {
+                        errorMessage = errors.detail;
+                    } else if (errors.message) {
+                        errorMessage = errors.message;
+                    }
+                } else if (error.message) {
+                    errorMessage = error.message;
+                }
+                
+                APIClient.showMessage(errorMessage, 'danger');
+            }
+        }
+
+        formatFieldName(field) {
+            const fieldMap = {
+                'login': 'Username/Email',
+                'password': 'Password'
+            };
+            return fieldMap[field] || field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+    }
+
+    // Initialize login handler when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        new LoginHandler();
+});
+</script> {% endcomment %}
+</body>
+</html>

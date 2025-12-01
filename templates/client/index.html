@@ -1,0 +1,2456 @@
+{% extends "client/base.html" %} 
+{% load static %}
+
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+
+
+{% block content %}
+<section class="blockElement space homeBanner bg-white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-7 text-center" data-aos="fade-up">
+        <div class="mb-md-4">
+          <h1>
+            <strong
+              ><span class="secondary"
+                >Copy Stocks, Options & Contracts with Precision.</span
+              >
+              The Premier Copy-Trading Hub for Options Traders</strong
+            >
+          </h1>
+        </div>
+        <h3 class="fs-24 textColor fw-600">
+          Go long, go short, or go Isotradex!
+        </h3>
+        <div class="mb-md-4">
+          <p class="textColor">
+            Isotradex empowers you to mirror real-time stock and options trades
+            from top-performing traders. Whether you're following tickers,
+            contracts, or strategic options moves, our platform brings
+            precision, flexibility, and transparency—straight to your
+            fingertips.
+          </p>
+        </div>
+        <a
+          target="_self"
+          class="IsotradexBTN small mx-auto max-220"
+          href="https://app.Isotradex.com/register"
+          >Sign Up</a
+        >
+      </div>
+      <div class="col-12 col-lg-10 text-center" data-aos="fade-up">
+        <video
+          width="100%"
+          height="420"
+          autoplay
+          loop
+          muted
+          preload="auto"
+          class="bannerVideo light"
+        >
+          <source src="{% static 'assets/videos/banner-video-light.mp4' %}" type="video/mp4" />
+        </video>
+        <video
+          width="100%"
+          height="420"
+          autoplay
+          loop
+          muted
+          preload="auto"
+          class="bannerVideo dark d-none"
+        >
+          <source src="{% static 'assets/videos/banner-video-dark.mp4' %}" type="video/mp4" />
+        </video>
+      </div>
+      <div class="col-12 col-lg-8 text-center" data-aos="fade-up">
+        <div
+          class="d-flex align-items-center justify-content-between awardsRibbon mb-4 pb-3"
+        >
+          <div class="boxedSize">
+            <h2 class="secondary">150+</h2>
+            <p class="mb-0 fw-600">Countries</p>
+          </div>
+          <div class="boxedSize">
+            <h2 class="secondary">30M+</h2>
+            <p class="mb-0 fw-600">Accounts</p>
+          </div>
+          <div class="boxedSize">
+            <h2 class="secondary">2M+</h2>
+            <p class="mb-0 fw-600">Leaders</p>
+          </div>
+        </div>
+        <p class="fw-600 d-flex align-items-center justify-content-center">
+          <img
+            alt="Global"
+            loading="lazy"
+            width="30"
+            height="30"
+            decoding="async"
+            data-nimg="1"
+            class="me-2"
+            style="color: transparent"
+            src="{% static 'assets/img/globally.svg' %}"
+          />Regulated Globally
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<section
+  class="blockElement space flexCol fiveColumn position-relative newMarketLoop pt-4"
+>
+  <div class="container-fluid">
+    <div class="row mb-3">
+      <div class="col-12 mb-3">
+        <div class="d-flex align-items-start mb-2 line-1">
+          <div class="leftBlock">
+            <h1 class="d-flex align-items-center medium f-30 mb-2 line-1">
+              Markets
+            </h1>
+            <p class="mb-0">
+              Follow the markets and discover valuable data you need.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div
+          style="
+            background: #292c30;
+            border-color: #292c30;
+            border-radius: 8px;
+            height: 550px;
+          "
+        >
+          <!-- TradingView Widget BEGIN -->
+          <div class="tradingview-widget-container" style="height: 100%">
+            <div
+              class="tradingview-widget-container__widget"
+              style="height: 100%"
+            ></div>
+            <!-- FIX: use absolute TradingView URL (not ../s3...) -->
+            <script
+              type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js"
+              async
+            >
+              {
+                  "colorTheme": "dark",
+                      "dateRange": "12M",
+                          "showChart": true,
+                              "locale": "en",
+                                  "width": "100%",
+                                      "height": "100%",
+                                          "largeChartUrl": "",
+                                              "isTransparent": true,
+                                                  "showSymbolLogo": true,
+                                                      "tabs": [
+                                                          {
+                                                              "title": "Indices",
+                                                              "symbols": [
+                                                                  { "s": "FOREXCOM:SPXUSD", "d": "S&P 500 Index" },
+                                                                  { "s": "FOREXCOM:NSXUSD", "d": "US 100 Cash CFD" },
+                                                                  { "s": "FOREXCOM:DJI", "d": "Dow Jones Industrial Average Index" },
+                                                                  { "s": "INDEX:NKY", "d": "Japan 225" },
+                                                                  { "s": "INDEX:DEU40", "d": "DAX Index" },
+                                                                  { "s": "FOREXCOM:UKXGBP", "d": "FTSE 100 Index" }
+                                                              ],
+                                                              "originalTitle": "Indices"
+                                                          },
+                                                          {
+                                                              "title": "Futures",
+                                                              "symbols": [
+                                                                  { "s": "CME_MINI:ES1!", "d": "S&P 500" },
+                                                                  { "s": "CME:6E1!", "d": "Euro" },
+                                                                  { "s": "COMEX:GC1!", "d": "Gold" },
+                                                                  { "s": "NYMEX:CL1!", "d": "WTI Crude Oil" },
+                                                                  { "s": "NYMEX:NG1!", "d": "Gas" },
+                                                                  { "s": "CBOT:ZC1!", "d": "Corn" }
+                                                              ],
+                                                              "originalTitle": "Futures"
+                                                          },
+                                                          {
+                                                              "title": "Bonds",
+                                                              "symbols": [
+                                                                  { "s": "CBOT:ZB1!", "d": "T-Bond" },
+                                                                  { "s": "CBOT:UB1!", "d": "Ultra T-Bond" },
+                                                                  { "s": "EUREX:FGBL1!", "d": "Euro Bund" },
+                                                                  { "s": "EUREX:FBTP1!", "d": "Euro BTP" },
+                                                                  { "s": "EUREX:FGBM1!", "d": "Euro BOBL" }
+                                                              ],
+                                                              "originalTitle": "Bonds"
+                                                          },
+                                                          {
+                                                              "title": "Forex",
+                                                              "symbols": [
+                                                                  { "s": "FX:EURUSD", "d": "EUR to USD" },
+                                                                  { "s": "FX:GBPUSD", "d": "GBP to USD" },
+                                                                  { "s": "FX:USDJPY", "d": "USD to JPY" },
+                                                                  { "s": "FX:USDCHF", "d": "USD to CHF" },
+                                                                  { "s": "FX:AUDUSD", "d": "AUD to USD" },
+                                                                  { "s": "FX:USDCAD", "d": "USD to CAD" }
+                                                              ],
+                                                              "originalTitle": "Forex"
+                                                          },
+                                                          {
+                                                              "title": "Cryptocurrency",
+                                                              "symbols": [
+                                                                  { "s": "BINANCE:BTCUSDT" },
+                                                                  { "s": "COINBASE:ETHUSD" },
+                                                                  { "s": "BINANCE:DOGEUSDT" },
+                                                                  { "s": "CRYPTOCAP:SOL" },
+                                                                  { "s": "CRYPTOCAP:BNB" }
+                                                              ]
+                                                          }
+                                                      ]
+              }
+            </script>
+          </div>
+          <!-- TradingView Widget END -->
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-8">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container" style="height: 550px">
+          <div
+            class="tradingview-widget-container__widget"
+            style="height: 100%"
+          ></div>
+          <!-- FIX: use absolute TradingView URL (not ../s3...) -->
+          <script
+            type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
+            async
+          >
+            {
+                "symbol": "FX:EURUSD",
+                    "width": "100%",
+                        "height": "100%",
+                            "locale": "en",
+                                "dateRange": "12M",
+                                    "colorTheme": "dark",
+                                        "isTransparent": false,
+                                            "largeChartUrl": ""
+            }
+          </script>
+        </div>
+        <!-- TradingView Widget END -->
+      </div>
+
+      <section class="blockElement position-relative pt-5 element3">
+        <div class="container">
+          <div class="mb-md-4 row align-items-center">
+            <div class="col-12 col-lg-6 element2">
+              <img
+                alt="trading is hard"
+                loading="lazy"
+                width="350"
+                height="350"
+                decoding="async"
+                data-nimg="1"
+                class="d-block mx-auto w-auto"
+                style="color: transparent"
+                src="{% static 'assets/img/trading-is-hard-creative.png' %}"
+              />
+            </div>
+            <div class="col-12 col-lg-6">
+              <div>
+                <div class="mb-3" id="truth-is" data-aos="fade-up">
+                  <h2>Truth is...</h2>
+                  <h2>Trading is not easy</h2>
+                </div>
+                <p class="d-flex align-items-center pb-2" data-aos="fade-up">
+                  <img
+                    alt="Clock"
+                    loading="lazy"
+                    width="19"
+                    height="19"
+                    decoding="async"
+                    data-nimg="1"
+                    class="me-2"
+                    style="color: transparent"
+                    src="{% static 'assets/img/watch.svg' %}"
+                  />Studying the market takes time
+                </p>
+                <p class="d-flex align-items-center pb-2" data-aos="fade-up">
+                  <img
+                    alt="Building"
+                    loading="lazy"
+                    width="19"
+                    height="19"
+                    decoding="async"
+                    data-nimg="1"
+                    class="me-2"
+                    style="color: transparent"
+                    src="{% static 'assets/img/targetting.svg' %}"
+                  />Building and maintaining a trading strategy is hard
+                </p>
+                <div
+                  class="d-inline-flex gap-1 align-items-end mobUp pb-3"
+                  data-aos="fade-up"
+                >
+                  <p class="mb-0">
+                    Options require timing, strategy, and discipline. Only
+                    11–26% of manual investors succeed on their own. With
+                    Isotradex, you can replicate successful trades from seasoned
+                    options traders to tilt the odds in your favor.
+                  </p>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-alert-circle"
+                  >
+                    <g>
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex-row-reverse mb-md-0 mb-4 row align-items-center"
+            data-aos="fade-up"
+          >
+            <div class="col-12 col-lg-6 element2">
+              <img
+                height="350"
+                alt="Trading is hard"
+                loading="lazy"
+                data-nuxt-img=""
+                class="d-block mx-auto w-auto"
+                src="{% static 'assets/img/winner.png' %}"
+              />
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="text-end mob-text-left">
+                <div class="mb-3 pmb-0">
+                  <h2>Beat the odds with Copy Trading</h2>
+                </div>
+                <div class="d-inline-flex align-items-end gap-1 mobUp pb-3">
+                  <div class="pmb-0">
+                    <p class="mb-0">
+                      Proven Success Rate.
+                      <strong
+                        >Over 73% of investors generate profits by copying top
+                        leaders—especially in dynamic options markets.</strong
+                      >
+                    </p>
+                  </div>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-alert-circle"
+                  >
+                    <g>
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </g>
+                  </svg>
+                </div>
+                <a
+                  href="https://app.Isotradex.com/register"
+                  target="_self"
+                  class="mb-4 secondary d-flex align-items-center justify-content-end"
+                  ><span class="sortImg"></span
+                  ><span class="medium">Explore Isotradex’s Statistics</span
+                  ><img
+                    width="16"
+                    height="16"
+                    alt="arrow"
+                    loading="lazy"
+                    class="ms-2"
+                    src="{% static 'assets/img/arroew.png' %}"
+                  />
+                </a>
+                <a
+                  target="_self"
+                  class="IsotradexBTN small ms-md-auto max-220"
+                  href="https://app.Isotradex.com/register"
+                  >Try it Yourself
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="mb-md-4 row align-items-center" data-aos="fade-up">
+            <div class="col-12 col-lg-6 element2">
+              <img
+                alt="trading is hard"
+                loading="lazy"
+                width="350"
+                height="350"
+                decoding="async"
+                data-nimg="1"
+                class="d-block mx-auto w-auto"
+                style="color: transparent"
+                src="{% static 'assets/img/whynod.png' %}"
+              />
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="">
+                <div class="mb-3 pmb-0">
+                  <h2>
+                    <span class="mt-4 pt-2 d-flex"
+                      >Why Copy Options Trades on Isotradex?</span
+                    >
+                  </h2>
+                </div>
+                <ul class="listCounter commonList">
+                  <li>
+                    <span class="semibold">Global Reach & Regulation</span>
+                    Join a trusted community spanning 150+ countries with
+                    millions of accounts and leaders. Regulated globally,
+                    offering secure and reliable access to options and stock
+                    contracts.
+                  </li>
+                  <li>
+                    <span class="semibold">Options-Focused Copy Trading</span
+                    >Tailor your strategy: copy entire options chains, specific
+                    tickers, or tactical contracts—such as calls, puts, or
+                    spreads. Manage risk, leverage, and exposure—automatically.
+                  </li>
+                  <li>
+                    <span class="semibold">Advanced Tools</span> Beyond copying,
+                    leverage in-house features like Backtest, Watchlist,
+                    Risk-score, and AutoGuard™ tailored for options strategies.
+                  </li>
+                  <li>
+                    <span class="semibold">Stay In Control</span>Each copy trade
+                    adapts to your capital, risk appetite, and contract
+                    preferences—even across varying strike prices and expiration
+                    dates.
+                  </li>
+                  <li>
+                    <span class="semibold">Learning through Copying</span>Engage
+                    directly with leaders—understand their rationale for options
+                    trades, ask questions, learn in a social investing
+                    environment.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-5 space bg-white boxed py-md-5 row align-items-center"
+            data-aos="fade-up"
+          >
+            <div class="col-12 col-lg-6 element2">
+              <img
+                alt="trading is hard"
+                loading="lazy"
+                width="350"
+                height="350"
+                decoding="async"
+                data-nimg="1"
+                class="d-block mx-auto w-auto"
+                style="color: transparent"
+                src="{% static 'assets/img/How-it-works-creative.png' %}"
+              />
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="">
+                <div class="mb-3 pmb-0">
+                  <h2>How It Works: Copying Options Made Easy</h2>
+                </div>
+                <ul class="listCounter commonList">
+                  <li>
+                    <span class="semibold">Browse Our Leaders</span>Discover
+                    top-rated options traders using over 40 filters—sort by
+                    performance, risk score, strategy type (long calls, puts,
+                    spreads), contract volume, and more.
+                  </li>
+                  <li>
+                    <span class="semibold">Copy in Real Time</span>When a leader
+                    places an options trade—whether a single contract or a
+                    complex spread—your linked account mirrors that exact action
+                    instantly.
+                  </li>
+                  <li>
+                    <span class="semibold">Monitor, Adjust, Automate</span>Track
+                    performance, customize contract sizes, set stop-loss levels,
+                    or disengage at any time. We offer risk tools like Backtest
+                    simulations, AutoGuard™, and real-time contract alerts.
+                  </li>
+                </ul>
+                <a
+                  target="_self"
+                  class="IsotradexBTN small max-220"
+                  href="https://Isotradex.com/register"
+                  >Create Account</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- START: Comprehensive Trading & Copy Trading Calculator (fixed side + defaults + help) -->
+
+      <section
+        id="ctc_root"
+        class="blockElement space element4 bg-white"
+        data-aos="fade-up"
+        style="margin-top: 28px"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-12 mb-md-4">
+              <h2>Comprehensive Trading & Copy Trading Calculator</h2>
+              <p>
+                Live pricing for Crypto, Forex, and Stocks. Size positions,
+                model fees/slippage/funding, and simulate copy allocations.
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- LEFT: Inputs -->
+            <div class="col-12 col-lg-5 mb-3">
+              <div data-ctc="card" style="border-radius: 12px; padding: 14px">
+                <!-- Asset Type -->
+                <div class="mb-3">
+                  <label class="form-label ctc-strong" style="font-weight: 600"
+                    >Asset Type</label
+                  >
+                  <select id="ctc_asset_type" class="form-select">
+                    <option value="crypto" selected>Crypto</option>
+                    <option value="forex">Forex</option>
+                    <option value="stock">Stock</option>
+                  </select>
+                </div>
+
+                <!-- Side (NEW) -->
+                <div class="mb-3">
+                  <label class="form-label ctc-strong" style="font-weight: 600"
+                    >Side</label
+                  >
+                  <select id="ctc_side" class="form-select">
+                    <option value="long" selected>Long (price up)</option>
+                    <option value="short">Short (price down)</option>
+                  </select>
+                </div>
+
+                <!-- Symbol selectors -->
+                <div id="ctc_symbol_crypto" class="mb-3">
+                  <label class="form-label ctc-strong" style="font-weight: 600"
+                    >Crypto</label
+                  >
+                  <select id="ctc_crypto_id" class="form-select">
+                    <option value="bitcoin" selected>BTC (Bitcoin)</option>
+                    <option value="ethereum">ETH (Ethereum)</option>
+                    <option value="tether">USDT (Tether)</option>
+                    <option value="binancecoin">BNB (BNB)</option>
+                    <option value="solana">SOL (Solana)</option>
+                    <option value="ripple">XRP (Ripple)</option>
+                    <option value="cardano">ADA (Cardano)</option>
+                    <option value="dogecoin">DOGE (Dogecoin)</option>
+                    <option value="tron">TRX (TRON)</option>
+                    <option value="toncoin">TON (Toncoin)</option>
+                    <option value="polkadot">DOT (Polkadot)</option>
+                    <option value="litecoin">LTC (Litecoin)</option>
+                    <option value="matic-network">MATIC (Polygon)</option>
+                    <option value="chainlink">LINK (Chainlink)</option>
+                    <option value="shiba-inu">SHIB (Shiba Inu)</option>
+                    <option value="avalanche-2">AVAX (Avalanche)</option>
+                    <option value="stellar">XLM (Stellar)</option>
+                    <option value="cosmos">ATOM (Cosmos)</option>
+                    <option value="uniswap">UNI (Uniswap)</option>
+                    <option value="aave">AAVE (Aave)</option>
+                    <option value="near">NEAR (NEAR)</option>
+                    <option value="aptos">APT (Aptos)</option>
+                    <option value="arbitrum">ARB (Arbitrum)</option>
+                    <option value="optimism">OP (Optimism)</option>
+                    <option value="sui">SUI (Sui)</option>
+                    <option value="pepe">PEPE (Pepe)</option>
+                    <option value="injective-protocol">INJ (Injective)</option>
+                    <option value="internet-computer">
+                      ICP (Internet Computer)
+                    </option>
+                    <option value="render-token">RNDR (Render)</option>
+                    <option value="the-graph">GRT (The Graph)</option>
+                    <option value="other">Other… (enter CoinGecko ID)</option>
+                  </select>
+                  <input
+                    id="ctc_crypto_custom"
+                    class="form-control mt-2"
+                    placeholder="e.g., kaspa, floki"
+                    style="display: none"
+                  />
+                  <small class="text-muted ctc-muted"
+                    >CoinGecko live price (USD). Choose “Other” to type any
+                    CoinGecko ID.</small
+                  >
+                </div>
+
+                <div id="ctc_symbol_forex" class="mb-3" style="display: none">
+                  <label class="form-label ctc-strong" style="font-weight: 600"
+                    >Forex Pair</label
+                  >
+                  <div class="d-flex" style="gap: 8px">
+                    <select id="ctc_fx_base" class="form-select">
+                      <option value="USD">USD</option>
+                      <option value="EUR" selected>EUR</option>
+                      <option value="GBP">GBP</option>
+                      <option value="JPY">JPY</option>
+                      <option value="CHF">CHF</option>
+                      <option value="AUD">AUD</option>
+                      <option value="CAD">CAD</option>
+                      <option value="NZD">NZD</option>
+                      <option value="CNY">CNY</option>
+                      <option value="HKD">HKD</option>
+                      <option value="SGD">SGD</option>
+                      <option value="ZAR">ZAR</option>
+                      <option value="NGN">NGN</option>
+                      <option value="GHS">GHS</option>
+                      <option value="KES">KES</option>
+                      <option value="INR">INR</option>
+                      <option value="BRL">BRL</option>
+                      <option value="MXN">MXN</option>
+                      <option value="CLP">CLP</option>
+                      <option value="COP">COP</option>
+                      <option value="ARS">ARS</option>
+                      <option value="PEN">PEN</option>
+                      <option value="TRY">TRY</option>
+                      <option value="RUB">RUB</option>
+                      <option value="PLN">PLN</option>
+                      <option value="CZK">CZK</option>
+                      <option value="HUF">HUF</option>
+                      <option value="RON">RON</option>
+                      <option value="SEK">SEK</option>
+                      <option value="NOK">NOK</option>
+                      <option value="DKK">DKK</option>
+                      <option value="AED">AED</option>
+                      <option value="SAR">SAR</option>
+                      <option value="QAR">QAR</option>
+                      <option value="EGP">EGP</option>
+                      <option value="MAD">MAD</option>
+                      <option value="TND">TND</option>
+                      <option value="KRW">KRW</option>
+                      <option value="TWD">TWD</option>
+                      <option value="THB">THB</option>
+                      <option value="MYR">MYR</option>
+                      <option value="IDR">IDR</option>
+                      <option value="PHP">PHP</option>
+                      <option value="ILS">ILS</option>
+                      <option value="UAH">UAH</option>
+                      <option value="VND">VND</option>
+                      <option value="PKR">PKR"></option>
+                      <option value="BDT">BDT</option>
+                    </select>
+                    <select id="ctc_fx_quote" class="form-select">
+                      <option value="USD" selected>USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP">GBP</option>
+                      <option value="JPY">JPY</option>
+                      <option value="CHF">CHF</option>
+                      <option value="AUD">AUD</option>
+                      <option value="CAD">CAD</option>
+                      <option value="NZD">NZD</option>
+                      <option value="CNY">CNY</option>
+                      <option value="HKD">HKD</option>
+                      <option value="SGD">SGD</option>
+                      <option value="ZAR">ZAR</option>
+                      <option value="NGN">NGN</option>
+                      <option value="GHS">GHS</option>
+                      <option value="KES">KES</option>
+                      <option value="INR">INR</option>
+                      <option value="BRL">BRL</option>
+                      <option value="MXN">MXN</option>
+                      <option value="CLP">CLP</option>
+                      <option value="COP">COP</option>
+                      <option value="ARS">ARS</option>
+                      <option value="PEN">PEN</option>
+                      <option value="TRY">TRY</option>
+                      <option value="RUB">RUB</option>
+                      <option value="PLN">PLN</option>
+                      <option value="CZK">CZK</option>
+                      <option value="HUF">HUF</option>
+                      <option value="RON">RON</option>
+                      <option value="SEK">SEK</option>
+                      <option value="NOK">NOK</option>
+                      <option value="DKK">DKK</option>
+                      <option value="AED">AED</option>
+                      <option value="SAR">SAR</option>
+                      <option value="QAR">QAR</option>
+                      <option value="EGP">EGP</option>
+                      <option value="MAD">MAD</option>
+                      <option value="TND">TND</option>
+                      <option value="KRW">KRW</option>
+                      <option value="TWD">TWD</option>
+                      <option value="THB">THB</option>
+                      <option value="MYR">MYR</option>
+                      <option value="IDR">IDR</option>
+                      <option value="PHP">PHP</option>
+                      <option value="ILS">ILS</option>
+                      <option value="UAH">UAH</option>
+                      <option value="VND">VND</option>
+                      <option value="PKR">PKR"></option>
+                      <option value="BDT">BDT</option>
+                    </select>
+                  </div>
+                  <small class="text-muted ctc-muted"
+                    >exchangerate.host live rate.</small
+                  >
+                </div>
+
+                <div id="ctc_symbol_stock" class="mb-3" style="display: none">
+                  <label class="form-label ctc-strong" style="font-weight: 600"
+                    >Stock Ticker</label
+                  >
+                  <input
+                    id="ctc_stock_ticker"
+                    list="ctc_stock_suggestions"
+                    class="form-control"
+                    placeholder="e.g., AAPL, TSLA, MSFT"
+                  />
+                  <datalist id="ctc_stock_suggestions">
+                    <option value="AAPL"></option>
+                    <option value="MSFT"></option>
+                    <option value="GOOGL"></option>
+                    <option value="AMZN"></option>
+                    <option value="TSLA"></option>
+                    <option value="NVDA"></option>
+                    <option value="META"></option>
+                    <option value="NFLX"></option>
+                    <option value="AMD"></option>
+                    <option value="INTC"></option>
+                    <option value="IBM"></option>
+                    <option value="ORCL"></option>
+                    <option value="JPM"></option>
+                    <option value="BAC"></option>
+                    <option value="WFC"></option>
+                    <option value="V"></option>
+                    <option value="MA"></option>
+                    <option value="PYPL"></option>
+                    <option value="TSM"></option>
+                    <option value="BABA"></option>
+                    <option value="NIO"></option>
+                  </datalist>
+                  <small class="text-muted ctc-muted"
+                    >Stooq (maps to TICKER.US). If blocked, enter Entry
+                    manually.</small
+                  >
+                </div>
+
+                <!-- Live Price Row -->
+                <div
+                  class="mb-3 d-flex align-items-center justify-content-between"
+                  style="gap: 12px"
+                >
+                  <div>
+                    <div class="ctc-muted" style="font-size: 12px">
+                      Live Price
+                    </div>
+                    <div
+                      id="ctc_live_price"
+                      class="ctc-strong"
+                      style="font-weight: 700"
+                    >
+                      $0.00
+                    </div>
+                    <div
+                      id="ctc_last_update"
+                      class="ctc-muted"
+                      style="font-size: 12px"
+                    >
+                      —
+                    </div>
+                  </div>
+                  <div>
+                    <button id="ctc_refresh" class="btn btn-sm btn-primary">
+                      Refresh
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Trade Inputs -->
+                <div class="mb-3">
+                  <label class="form-label ctc-strong" style="font-weight: 600"
+                    >Entry Price</label
+                  >
+                  <input
+                    id="ctc_entry"
+                    class="form-control"
+                    type="number"
+                    step="0.00000001"
+                    placeholder="Auto-filled from live price"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Target Price</label
+                      >
+                      <input
+                        id="ctc_target"
+                        class="form-control"
+                        type="number"
+                        step="0.00000001"
+                        placeholder="Your TP price"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Expected Move (%)</label
+                      >
+                      <input
+                        id="ctc_move_pct"
+                        class="form-control"
+                        type="number"
+                        step="0.01"
+                        value="0"
+                        placeholder="e.g., 2"
+                      />
+                      <small class="text-muted ctc-muted"
+                        >Set either Target Price or % Move. (Default = 1% if
+                        both empty)</small
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Amount ($)</label
+                      >
+                      <input
+                        id="ctc_amount"
+                        class="form-control"
+                        type="number"
+                        step="0.01"
+                        value="1000"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Leverage (×)</label
+                      >
+                      <input
+                        id="ctc_leverage"
+                        class="form-control"
+                        type="number"
+                        step="0.1"
+                        value="1"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Duration (hours)</label
+                      >
+                      <input
+                        id="ctc_hours"
+                        class="form-control"
+                        type="number"
+                        step="0.1"
+                        value="8"
+                      />
+                      <small class="text-muted ctc-muted"
+                        >Funding/swap window.</small
+                      >
+                    </div>
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Funding Rate (% / 8h)</label
+                      >
+                      <input
+                        id="ctc_funding"
+                        class="form-control"
+                        type="number"
+                        step="0.001"
+                        value="0"
+                      />
+                      <small class="text-muted ctc-muted"
+                        >Perps: e.g., 0.02 = 0.02% / 8h.</small
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Fees (bps)</label
+                      >
+                      <input
+                        id="ctc_fees_bps"
+                        class="form-control"
+                        type="number"
+                        step="0.1"
+                        value="10"
+                      />
+                      <small class="text-muted ctc-muted"
+                        >Total (entry+exit). 10 bps = 0.10%.</small
+                      >
+                    </div>
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Slippage (bps)</label
+                      >
+                      <input
+                        id="ctc_slip_bps"
+                        class="form-control"
+                        type="number"
+                        step="0.1"
+                        value="5"
+                      />
+                      <small class="text-muted ctc-muted"
+                        >Applied to notional.</small
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Copy Trading Controls -->
+                <div
+                  class="mb-2"
+                  style="padding-top: 8px; border-top: 1px dashed; opacity: 0.8"
+                  data-ctc="tile"
+                >
+                  <div class="row">
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Copies (accounts)</label
+                      >
+                      <input
+                        id="ctc_copies"
+                        class="form-control"
+                        type="number"
+                        step="1"
+                        value="1"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label
+                        class="form-label ctc-strong"
+                        style="font-weight: 600"
+                        >Per-copy Allocation ($)</label
+                      >
+                      <input
+                        id="ctc_copy_alloc"
+                        class="form-control"
+                        type="number"
+                        step="0.01"
+                        value="1000"
+                      />
+                    </div>
+                  </div>
+                  <small class="text-muted ctc-muted"
+                    >Total notional = copies × allocation × leverage.</small
+                  >
+                </div>
+
+                <div class="d-grid mt-3">
+                  <button id="ctc_calc" class="btn btn-success">
+                    Calculate
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: Outputs -->
+            <div class="col-12 col-lg-7">
+              <div data-ctc="card" style="border-radius: 12px; padding: 14px">
+                <div class="row g-3">
+                  <!-- KPI tiles -->
+                  <div class="col-6 col-md-4">
+                    <div
+                      data-ctc="tile"
+                      style="border-radius: 10px; padding: 10px"
+                    >
+                      <div class="ctc-muted" style="font-size: 12px">
+                        Units / Qty
+                      </div>
+                      <div
+                        id="ctc_qty"
+                        class="ctc-strong"
+                        style="font-weight: 700"
+                      >
+                        —
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div
+                      data-ctc="tile"
+                      style="border-radius: 10px; padding: 10px"
+                    >
+                      <div class="ctc-muted" style="font-size: 12px">
+                        Position Notional
+                      </div>
+                      <div
+                        id="ctc_notional"
+                        class="ctc-strong"
+                        style="font-weight: 700"
+                      >
+                        —
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div
+                      data-ctc="tile"
+                      style="border-radius: 10px; padding: 10px"
+                    >
+                      <div class="ctc-muted" style="font-size: 12px">
+                        Target Move
+                      </div>
+                      <div
+                        id="ctc_target_move"
+                        class="ctc-strong"
+                        style="font-weight: 700"
+                      >
+                        —
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6 col-md-4">
+                    <div
+                      data-ctc="tile"
+                      style="border-radius: 10px; padding: 10px"
+                    >
+                      <div class="ctc-muted" style="font-size: 12px">Fees</div>
+                      <div
+                        id="ctc_fees"
+                        class="ctc-strong"
+                        style="font-weight: 700"
+                      >
+                        —
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div
+                      data-ctc="tile"
+                      style="border-radius: 10px; padding: 10px"
+                    >
+                      <div class="ctc-muted" style="font-size: 12px">
+                        Slippage
+                      </div>
+                      <div
+                        id="ctc_slippage"
+                        class="ctc-strong"
+                        style="font-weight: 700"
+                      >
+                        —
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div
+                      data-ctc="tile"
+                      style="border-radius: 10px; padding: 10px"
+                    >
+                      <div class="ctc-muted" style="font-size: 12px">
+                        Funding/Swap
+                      </div>
+                      <div
+                        id="ctc_funding_cost"
+                        class="ctc-strong"
+                        style="font-weight: 700"
+                      >
+                        —
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PnL outputs -->
+                  <div class="col-12">
+                    <div
+                      data-ctc="tile"
+                      style="border-radius: 10px; padding: 12px"
+                    >
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="ctc-muted" style="font-size: 12px">
+                            Gross PnL
+                          </div>
+                          <div
+                            id="ctc_gross_pnl"
+                            class="ctc-strong"
+                            style="font-weight: 700"
+                          >
+                            —
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="ctc-muted" style="font-size: 12px">
+                            Net PnL (per copy)
+                          </div>
+                          <div
+                            id="ctc_net_pnl"
+                            style="font-weight: 800; font-size: 18px"
+                          >
+                            —
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col-12">
+                          <div class="ctc-muted" style="font-size: 12px">
+                            Net PnL × Copies
+                          </div>
+                          <div
+                            id="ctc_net_pnl_total"
+                            style="font-weight: 800; font-size: 18px"
+                          >
+                            —
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <small class="text-muted ctc-muted"
+                      >Notes: If Target & % Move are blank, we assume 1% in your
+                      selected side. Stocks may need manual Entry if price fetch
+                      is blocked.</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HOW IT WORKS (auto dark/light) -->
+          <div class="row mt-3">
+            <div class="col-12">
+              <div data-ctc="card" style="border-radius: 12px; padding: 14px">
+                <h4 class="ctc-strong" style="margin: 0 0 8px">
+                  How to use this calculator
+                </h4>
+                <ul class="ctc-muted" style="margin: 0; padding-left: 18px">
+                  <li>
+                    Pick <span class="ctc-strong">Asset Type</span> and symbol.
+                    Use “Other” for any CoinGecko crypto ID.
+                  </li>
+                  <li>
+                    Select <span class="ctc-strong">Side</span> (Long for up
+                    moves, Short for down moves).
+                  </li>
+                  <li>
+                    Set <span class="ctc-strong">Target</span> or
+                    <span class="ctc-strong">% Move</span>. If both are empty,
+                    we assume <span class="ctc-strong">1%</span>.
+                  </li>
+                  <li>
+                    Fill <span class="ctc-strong">Amount</span>,
+                    <span class="ctc-strong">Leverage</span>, and cost
+                    assumptions (Fees/Slippage/Funding).
+                  </li>
+                  <li>
+                    Click <span class="ctc-strong">Calculate</span>. Net PnL
+                    turns
+                    <span style="color: #16a34a; font-weight: 700">green</span>
+                    if profit,
+                    <span style="color: #dc2626; font-weight: 700">red</span>
+                    if loss.
+                  </li>
+                  <li>
+                    Use <span class="ctc-strong">Copies</span> &
+                    <span class="ctc-strong">Per-copy Allocation</span> to model
+                    copy trading totals.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        (function () {
+          const $ = (id) => document.getElementById(id);
+          const root = $("ctc_root");
+
+          // THEME
+          function getTheme() {
+            const isDark =
+              document.body.classList.contains("dark") ||
+              document.body.classList.contains("dark-mode");
+            return {
+              isDark,
+              cardBg: isDark ? "#1e1e1e" : "#fff",
+              border: isDark ? "rgba(255,255,255,.15)" : "rgba(0,0,0,.1)",
+              tileBor: isDark ? "rgba(255,255,255,.12)" : "rgba(0,0,0,.08)",
+              text: isDark ? "#fff" : "#212529",
+              muted: isDark ? "#aaa" : "#6c757d",
+            };
+          }
+          function applyTheme() {
+            const t = getTheme();
+            root.style.color = t.text;
+            root.querySelectorAll('[data-ctc="card"]').forEach((el) => {
+              el.style.background = t.cardBg;
+              el.style.border = "1px solid " + t.border;
+            });
+            root.querySelectorAll('[data-ctc="tile"]').forEach((el) => {
+              el.style.border = "1px solid " + t.tileBor;
+              if (!el.style.background) el.style.background = "transparent";
+            });
+            root
+              .querySelectorAll(".ctc-strong")
+              .forEach((el) => (el.style.color = t.text));
+            root
+              .querySelectorAll(".ctc-muted")
+              .forEach((el) => (el.style.color = t.muted));
+          }
+          const themeObs = new MutationObserver(applyTheme);
+          themeObs.observe(document.body, {
+            attributes: true,
+            attributeFilter: ["class"],
+          });
+
+          // FORMATTERS
+          const fmtUSD = (n) =>
+            isFinite(n)
+              ? `$${Number(n).toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}`
+              : "—";
+          const fmtUSDSign = (n) =>
+            !isFinite(n)
+              ? "—"
+              : n >= 0
+              ? `+$${Number(n).toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}`
+              : `-$${Math.abs(n).toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}`;
+          const fmtNum = (n, d = 8) =>
+            isFinite(n)
+              ? Number(n).toLocaleString(undefined, {
+                  maximumFractionDigits: d,
+                })
+              : "—";
+          const nowStr = () => new Date().toLocaleTimeString();
+
+          // ELEMENTS
+          const els = {
+            type: $("ctc_asset_type"),
+            side: $("ctc_side"),
+            cryptoId: $("ctc_crypto_id"),
+            cryptoCustom: $("ctc_crypto_custom"),
+            fxBase: $("ctc_fx_base"),
+            fxQuote: $("ctc_fx_quote"),
+            stockTicker: $("ctc_stock_ticker"),
+            livePrice: $("ctc_live_price"),
+            lastUpdate: $("ctc_last_update"),
+            refresh: $("ctc_refresh"),
+            entry: $("ctc_entry"),
+            target: $("ctc_target"),
+            movePct: $("ctc_move_pct"),
+            amount: $("ctc_amount"),
+            leverage: $("ctc_leverage"),
+            hours: $("ctc_hours"),
+            funding: $("ctc_funding"),
+            feesBps: $("ctc_fees_bps"),
+            slipBps: $("ctc_slip_bps"),
+            copies: $("ctc_copies"),
+            copyAlloc: $("ctc_copy_alloc"),
+            calcBtn: $("ctc_calc"),
+            qty: $("ctc_qty"),
+            notional: $("ctc_notional"),
+            targetMove: $("ctc_target_move"),
+            fees: $("ctc_fees"),
+            slippage: $("ctc_slippage"),
+            fundingCost: $("ctc_funding_cost"),
+            grossPnl: $("ctc_gross_pnl"),
+            netPnl: $("ctc_net_pnl"),
+            netPnlTotal: $("ctc_net_pnl_total"),
+          };
+
+          // UI
+          function syncSymbolUI() {
+            const t = els.type.value;
+            $("ctc_symbol_crypto").style.display = t === "crypto" ? "" : "none";
+            $("ctc_symbol_forex").style.display = t === "forex" ? "" : "none";
+            $("ctc_symbol_stock").style.display = t === "stock" ? "" : "none";
+          }
+          function currentCryptoId() {
+            return els.cryptoId.value === "other" &&
+              els.cryptoCustom.value.trim()
+              ? els.cryptoCustom.value.trim()
+              : els.cryptoId.value;
+          }
+
+          // PRICE FETCHERS
+          async function fetchCryptoUSD(id) {
+            const url = `https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(
+              id
+            )}&vs_currencies=usd`;
+            const r = await fetch(url);
+            if (!r.ok) throw new Error("coingecko error");
+            const j = await r.json();
+            return j?.[id]?.usd || null;
+          }
+          async function fetchForex(base, quote) {
+            if (base === quote) return 1;
+            const url = `https://api.exchangerate.host/latest?base=${encodeURIComponent(
+              base
+            )}&symbols=${encodeURIComponent(quote)}`;
+            const r = await fetch(url);
+            if (!r.ok) throw new Error("fx error");
+            const j = await r.json();
+            return j?.rates?.[quote] || null;
+          }
+          async function fetchStock(tickerInput) {
+            const t = (tickerInput || "").trim().toLowerCase();
+            if (!t) return null;
+            const symbol = t.includes(".") ? t : `${t}.us`;
+            const url = `https://stooq.com/q/l/?s=${encodeURIComponent(
+              symbol
+            )}&f=sd2t2ohlcv&h&e=csv`;
+            const r = await fetch(url);
+            if (!r.ok) throw new Error("stooq error");
+            const text = await r.text();
+            const lines = text.trim().split("\n");
+            if (lines.length < 2) return null;
+            const cols = lines[1].split(",");
+            const close = parseFloat(cols[6]);
+            return isFinite(close) ? close : null;
+          }
+
+          async function updateLivePrice() {
+            try {
+              let price = null;
+              const t = els.type.value;
+              if (t === "crypto")
+                price = await fetchCryptoUSD(currentCryptoId());
+              if (t === "forex")
+                price = await fetchForex(els.fxBase.value, els.fxQuote.value);
+              if (t === "stock")
+                price = await fetchStock(els.stockTicker.value);
+
+              if (price == null) throw new Error("no price");
+
+              els.livePrice.textContent = fmtUSD(price);
+              els.lastUpdate.textContent = `Updated ${nowStr()}`;
+
+              const curEntry = parseFloat(els.entry.value);
+              if (!isFinite(curEntry) || curEntry <= 0) els.entry.value = price;
+              syncTargetFromMovePct(); // keep target in sync
+            } catch (e) {
+              els.livePrice.textContent = "—";
+              els.lastUpdate.textContent =
+                "Price unavailable (enter Entry manually)";
+            }
+          }
+          setInterval(updateLivePrice, 60000); // auto refresh
+
+          // TARGET / % MOVE SYNC (side-aware)
+          function syncTargetFromMovePct() {
+            const entry = parseFloat(els.entry.value);
+            let mPct = parseFloat(els.movePct.value);
+            const side = els.side.value;
+            if (!isFinite(entry) || entry <= 0) return;
+
+            // if both empty/zero, assume 1%
+            if (
+              (!isFinite(mPct) || mPct === 0) &&
+              (!isFinite(parseFloat(els.target.value)) ||
+                parseFloat(els.target.value) === 0)
+            ) {
+              mPct = 1;
+              els.movePct.value = "1";
+            }
+            if (!isFinite(mPct)) return;
+
+            const tgt =
+              side === "long"
+                ? entry * (1 + mPct / 100)
+                : entry * (1 - mPct / 100);
+            els.target.value = String(tgt);
+          }
+          function syncMovePctFromTarget() {
+            const entry = parseFloat(els.entry.value);
+            const tgt = parseFloat(els.target.value);
+            const side = els.side.value;
+            if (!isFinite(entry) || entry <= 0 || !isFinite(tgt)) return;
+
+            const pct =
+              side === "long"
+                ? ((tgt - entry) / entry) * 100
+                : ((entry - tgt) / entry) * 100;
+            els.movePct.value = pct.toFixed(2);
+          }
+
+          // CALCULATE
+          function calculate() {
+            const side = els.side.value; // long | short
+            const entry = parseFloat(els.entry.value);
+            let target = parseFloat(els.target.value);
+            let movePct = parseFloat(els.movePct.value);
+            let amount = parseFloat(els.amount.value);
+            const lev = Math.max(1, parseFloat(els.leverage.value) || 1);
+            const hours = Math.max(0, parseFloat(els.hours.value) || 0);
+            const fundingPctPer8h = Math.max(
+              0,
+              parseFloat(els.funding.value) || 0
+            );
+            const feesBps = Math.max(0, parseFloat(els.feesBps.value) || 0);
+            const slipBps = Math.max(0, parseFloat(els.slipBps.value) || 0);
+            const copies = Math.max(1, parseInt(els.copies.value) || 1);
+            const perCopy = Math.max(0, parseFloat(els.copyAlloc.value) || 0);
+
+            if (!isFinite(amount) || amount <= 0) amount = copies * perCopy;
+            if (!isFinite(entry) || entry <= 0) {
+              alert("Please provide a valid Entry Price.");
+              return;
+            }
+
+            // default 1% if neither provided
+            if (
+              (!isFinite(target) || target === 0) &&
+              (!isFinite(movePct) || movePct === 0)
+            ) {
+              movePct = 1;
+              els.movePct.value = "1";
+            }
+            if (!isFinite(target) || target === 0) {
+              target =
+                side === "long"
+                  ? entry * (1 + movePct / 100)
+                  : entry * (1 - movePct / 100);
+              els.target.value = String(target);
+            }
+            if (!isFinite(movePct) || movePct === 0) {
+              movePct =
+                side === "long"
+                  ? ((target - entry) / entry) * 100
+                  : ((entry - target) / entry) * 100;
+              els.movePct.value = movePct.toFixed(2);
+            }
+
+            const qty = (amount * lev) / entry;
+            const notional = qty * entry;
+
+            const fees = notional * (feesBps / 10000);
+            const slippage = notional * (slipBps / 10000);
+            const funding = notional * ((fundingPctPer8h / 100) * (hours / 8));
+
+            const grossPnl =
+              side === "long" ? qty * (target - entry) : qty * (entry - target);
+
+            const netPnlPerCopy = grossPnl - fees - slippage - funding;
+            const netTotal = netPnlPerCopy * copies;
+
+            els.qty.textContent = fmtNum(qty, 6);
+            els.notional.textContent = fmtUSD(notional);
+            els.targetMove.textContent = `${movePct.toFixed(2)}%`;
+            els.fees.textContent = fmtUSD(fees);
+            els.slippage.textContent = fmtUSD(slippage);
+            els.fundingCost.textContent = fmtUSD(funding);
+            els.grossPnl.textContent = fmtUSDSign(grossPnl);
+
+            const color = netPnlPerCopy >= 0 ? "#16a34a" : "#dc2626";
+            els.netPnl.style.color = color;
+            els.netPnl.textContent = fmtUSDSign(netPnlPerCopy);
+            els.netPnlTotal.style.color = color;
+            els.netPnlTotal.textContent = fmtUSDSign(netTotal);
+          }
+
+          // EVENTS
+          $("ctc_asset_type").addEventListener("change", () => {
+            syncSymbolUI();
+            updateLivePrice();
+          });
+          $("ctc_side").addEventListener("change", () => {
+            syncTargetFromMovePct();
+          });
+          $("ctc_crypto_id").addEventListener("change", () => {
+            const showCustom = els.cryptoId.value === "other";
+            els.cryptoCustom.style.display = showCustom ? "" : "none";
+            updateLivePrice();
+          });
+          $("ctc_crypto_custom").addEventListener("input", updateLivePrice);
+          $("ctc_fx_base").addEventListener("change", updateLivePrice);
+          $("ctc_fx_quote").addEventListener("change", updateLivePrice);
+          $("ctc_stock_ticker").addEventListener("change", updateLivePrice);
+          $("ctc_refresh").addEventListener("click", updateLivePrice);
+
+          ["ctc_entry", "ctc_target"].forEach((id) => {
+            $(id).addEventListener("input", () => {
+              if (id === "ctc_entry") syncTargetFromMovePct();
+              else syncMovePctFromTarget();
+            });
+          });
+          $("ctc_move_pct").addEventListener("input", syncTargetFromMovePct);
+          $("ctc_calc").addEventListener("click", calculate);
+
+          // INIT
+          applyTheme();
+          syncSymbolUI();
+          updateLivePrice();
+        })();
+      </script>
+      <!-- END: Comprehensive Trading & Copy Trading Calculator (fixed side + defaults + help) -->
+
+      <!-- START: One profile at a time -->
+      <section
+        class="blockElement space element4 bg-white"
+        data-aos="fade-up"
+        style="margin-top: 20px"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-12 mb-md-4">
+              <h2>Isotradex's Top Leaders</h2>
+              <p>
+                Discover your perfect match using more than 40 filters. Rank
+                Leaders based on your preferences.
+              </p>
+            </div>
+          </div>
+
+          <div class="row mobDirection" data-aos="fade-up">
+            <div class="col-12 col-md-9 mobCarousel pb-3 pb-md-0">
+              <div class="swiper">
+                <div class="swiper-wrapper experts" id="topTraders"></div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 ps-lg-5">
+              <h3 class="bold">Rising</h3>
+              <p>
+                Strategies that have positive momentum and trading history up to
+                30 weeks.
+              </p>
+            </div>
+            <div class="col-12 mb-0 md-md-3">
+              <span class="border d-flex my-md-5 mb-3 w-100"></span>
+            </div>
+          </div>
+
+          <div class="row" data-aos="fade-up">
+            <div class="col-12 col-md-3 pe-lg-5 mb-0">
+              <h3 class="bold">AMOUNT FOLLOWING - HIGHEST AUM</h3>
+              <p>
+                Strategies that have positive momentum and move near ATHs (All
+                Time Highs)
+              </p>
+            </div>
+            <div class="col-12 col-md-9 mobCarousel pb-3 pb-md-0">
+              <div class="swiper">
+                <div class="swiper-wrapper experts" id="topExperts"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        // ===== One-card carousel generator (light only, 30s) =====
+        (function () {
+          const hasSwiper = typeof window.Swiper !== "undefined";
+          const ri = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+          const pick = (a) => a[ri(0, a.length - 1)];
+          const fmt = (n) => n.toLocaleString();
+
+          const pref = [
+            "Alpha",
+            "Zen",
+            "Crypto",
+            "Bull",
+            "Nova",
+            "Apex",
+            "Vortex",
+            "Echo",
+            "Falcon",
+            "Orion",
+            "Atlas",
+          ];
+          const suf = [
+            "Trader",
+            "Master",
+            "Pilot",
+            "Rider",
+            "Hawk",
+            "Wolf",
+            "Ninja",
+            "Guru",
+            "Spark",
+            "Flow",
+            "Edge",
+          ];
+          const genName = () => `${pick(pref)}${pick(suf)}${ri(10, 9999)}`;
+
+          const genRating = () => ((35 + ri(0, 15)) / 10).toFixed(1);
+          const stars = (r) => {
+            r = parseFloat(r);
+            let s = "";
+            for (let i = 0; i < Math.floor(r); i++)
+              s += '<span style="color:#FDBA00">★</span>';
+            for (let i = Math.floor(r); i < 5; i++)
+              s += '<span style="color:#BDBDBD">☆</span>';
+            return s;
+          };
+
+          const avatar = (n) => {
+            const h = ri(0, 359),
+              s = ri(60, 75),
+              l = ri(45, 65);
+            return `<div style="width:36px;height:36px;border-radius:999px;
+                                        display:flex;align-items:center;justify-content:center;
+                                        font-weight:700;font-size:12px;
+                                        background:hsl(${h} ${s}% ${l}%);color:#fff;">
+                                    ${n.slice(0, 2).toUpperCase()}
+                                    </div>`;
+          };
+
+          function cardHTML() {
+            const name = genName();
+            const copyAmt = ri(20000, 30000);
+            const followers = ri(300, 40000);
+            const rating = genRating();
+
+            return `
+                            <div style="height:160px;border:1px solid rgba(0,0,0,.1);
+                                        border-radius:12px;padding:14px;background:#fff;
+                                        display:flex;flex-direction:column;justify-content:space-between;">
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                ${avatar(name)}
+                                <div style="font-weight:700;color:#212529">${name}</div>
+                                </div>
+                                <div style="display:flex;justify-content:space-between;">
+                                <div>
+                                    <div style="font-size:12px;color:#6c757d;">Copy</div>
+                                    <div style="font-weight:600;color:#212529">${fmt(
+                                      copyAmt
+                                    )}</div>
+                                </div>
+                                <div style="text-align:right;">
+                                    <div style="font-size:12px;color:#6c757d;">Followers</div>
+                                    <div style="font-weight:600;color:#212529">${fmt(
+                                      followers
+                                    )}</div>
+                                </div>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:6px;">
+                                <div>${stars(rating)}</div>
+                                <div style="font-size:12px;color:#6c757d;">(${rating})</div>
+                                </div>
+                            </div>`;
+          }
+
+          function makeSlide() {
+            const el = document.createElement("div");
+            el.className = "swiper-slide";
+            el.innerHTML = cardHTML();
+            return el;
+          }
+
+          function seed(wrapper) {
+            wrapper.innerHTML = "";
+            wrapper.appendChild(makeSlide());
+          }
+
+          const groups = [
+            { id: "topTraders", swiper: null },
+            { id: "topExperts", swiper: null },
+          ];
+
+          groups.forEach((g, i) => {
+            const wrap = document.getElementById(g.id);
+            if (!wrap) return;
+            seed(wrap);
+            if (hasSwiper) {
+              const cont = wrap.closest(".swiper");
+              g.swiper = new Swiper(cont, {
+                slidesPerView: 1,
+                loop: true,
+              });
+              groups[i] = g;
+            }
+          });
+
+          function refresh(g) {
+            const wrap = document.getElementById(g.id);
+            if (!wrap) return;
+            wrap.innerHTML = "";
+            wrap.appendChild(makeSlide());
+            if (g.swiper) {
+              g.swiper.update();
+            }
+          }
+
+          // refresh every 30s
+          setInterval(() => groups.forEach(refresh), 30000);
+        })();
+      </script>
+      <!-- END: One profile at a time -->
+
+      <section class="blockElement space position-relative" data-aos="fade-up">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-lg-3 mb-4 mb-lg-0">
+              <h2 class="mb-4">Wide variety of instruments</h2>
+              <p>
+                Copy the exact instruments top traders use — not just vague
+                signals. Isotradex supports a broad set of tradable assets and
+                contract types so you can mirror strategies precisely and
+                control your exposure.
+              </p>
+              <a class="IsotradexBTN small me-auto max-220" href="markets.html"
+                >View All</a
+              >
+            </div>
+            <div class="col-12 col-lg-9">
+              <div
+                class="bg-white boxed position-relative megaDropMenu mobPad"
+                style="height: 100%"
+              >
+                <div
+                  style="
+                    padding: 15px;
+                    margin: 0px;
+                    border-radius: 10px;
+                    --bs-bg-opacity: 1;
+                    position: relative;
+                  "
+                >
+                  <ul
+                    id="instrument-tabs"
+                    style="
+                      font-size: 16px;
+                      padding: 0px 20px 12px;
+                      margin: 0px;
+                      list-style: outside none none;
+                      margin-bottom: 0px;
+                      align-items: center;
+                      display: flex;
+                      overflow: auto !important;
+                      margin-top: 0px;
+                      padding-left: 20px;
+                    "
+                  >
+                    <li>
+                      <button
+                        style="
+                          color: rgb(1, 3, 4);
+                          display: block;
+                          font-size: 14px;
+                          font-weight: 500;
+                          padding: 23px 15px;
+                          white-space: nowrap;
+                          background-color: rgba(0, 0, 0, 0);
+                          border: 0px none rgb(1, 3, 4);
+                          position: relative;
+                          margin: 0px;
+                          cursor: pointer;
+                          appearance: button;
+                          text-transform: none;
+                          line-height: 21px;
+                          border-radius: 0px;
+                        "
+                      >
+                        Most Popular
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        style="
+                          color: rgb(147, 147, 147);
+                          display: block;
+                          font-size: 14px;
+                          font-weight: 500;
+                          padding: 23px 15px;
+                          white-space: nowrap;
+                          background-color: rgba(0, 0, 0, 0);
+                          border: 0px none rgb(147, 147, 147);
+                          position: relative;
+                          margin: 0px;
+                          cursor: pointer;
+                          appearance: button;
+                          text-transform: none;
+                          line-height: 21px;
+                          border-radius: 0px;
+                        "
+                      >
+                        Commodities
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        style="
+                          color: rgb(147, 147, 147);
+                          display: block;
+                          font-size: 14px;
+                          font-weight: 500;
+                          padding: 23px 15px;
+                          white-space: nowrap;
+                          background-color: rgba(0, 0, 0, 0);
+                          border: 0px none rgb(147, 147, 147);
+                          position: relative;
+                          margin: 0px;
+                          cursor: pointer;
+                          appearance: button;
+                          text-transform: none;
+                          line-height: 21px;
+                          border-radius: 0px;
+                        "
+                      >
+                        Indices
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        style="
+                          color: rgb(147, 147, 147);
+                          display: block;
+                          font-size: 14px;
+                          font-weight: 500;
+                          padding: 23px 15px;
+                          white-space: nowrap;
+                          background-color: rgba(0, 0, 0, 0);
+                          border: 0px none rgb(147, 147, 147);
+                          position: relative;
+                          margin: 0px;
+                          cursor: pointer;
+                          appearance: button;
+                          text-transform: none;
+                          line-height: 21px;
+                          border-radius: 0px;
+                        "
+                      >
+                        Stocks
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        style="
+                          color: rgb(147, 147, 147);
+                          display: block;
+                          font-size: 14px;
+                          font-weight: 500;
+                          padding: 23px 15px;
+                          white-space: nowrap;
+                          background-color: rgba(0, 0, 0, 0);
+                          border: 0px none rgb(147, 147, 147);
+                          position: relative;
+                          margin: 0px;
+                          cursor: pointer;
+                          appearance: button;
+                          text-transform: none;
+                          line-height: 21px;
+                          border-radius: 0px;
+                        "
+                      >
+                        Cryptocurrencies
+                      </button>
+                    </li>
+                  </ul>
+                  <div
+                    style="
+                      padding-bottom: 0px;
+                      margin: 0px 0px 24px;
+                      margin-bottom: 24px;
+                    "
+                  >
+                    <div
+                      id="instruments"
+                      class="instruments"
+                      style="
+                        margin: -24px -12px 0px;
+                        --bs-gutter-y: 1.5rem;
+                        --bs-gutter-x: 1.5rem;
+                        margin-top: -24px;
+                        margin-right: -12px;
+                        margin-left: -12px;
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="blockElement space element5 bg-white" data-aos="fade-up">
+        <div class="container">
+          <div class="row mb-4">
+            <div class="col-12 text-center">
+              <h2 class="secondary mb-3">What you can copy</h2>
+            </div>
+          </div>
+          <div class="row gy-4">
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">Stocks &amp; ETFs</h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Full-share orders or fractional allocations, instantaneous
+                  entry/exit mirroring, price-based T/P and S/L.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">
+                  Single-Leg Options (Calls &amp; Puts)
+                </h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Replicate trade by trade: ticker, strike, expiry, premium,
+                  quantity, and timestamp.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">Multi-Leg Options Strategies</h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Copy complex structures as a single unit: verticals, iron
+                  condors, butterflies, calendars, ratio spreads, etc. We
+                  preserve leg ratios and leg timing to reduce legging risk.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">Index &amp; ETF Options</h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Copy trades on SPX, RUT, QQQ, IWM, and other index/ETF option
+                  chains where leaders trade macro or index strategies.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">LEAPS &amp; Long-dated Contracts</h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Mirror long-term option plays (LEAPS) with proportional sizing
+                  and roll rules.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">
+                  Short Options &amp; Assignment-Aware Trades
+                </h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Copy strategies that involve selling premium (naked/covered),
+                  with settings to manage assignment risk and automatic
+                  hedge/close rules.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">Ticker-Filtered Copying</h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Follow traders by specific tickers (e.g., copy only their TSLA
+                  contracts) or exclude names you don’t want.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card-body h-100">
+                <h4 class="fw-600 mb-2">Contract-Level Filters</h4>
+                <p style="font-weight: normal; margin-top: 12px">
+                  Copy only contracts that match your criteria: min open
+                  interest, min volume, max bid-ask spread, delta range, IV
+                  rank, expiration window, or strike distance from spot.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="blockElement space element6" data-aos="fade-up">
+        <div class="container" data-aos="fade-up">
+          <div>
+            <div class="trust__titles">
+              <h2
+                class="textcolor"
+                style="
+                  font-size: 30px;
+                  line-height: 40px;
+                  margin-bottom: 16px;
+                  font-weight: 400;
+                  letter-spacing: normal;
+                  font-style: normal;
+                  margin: 0px 0px 16px;
+                  padding: 0px;
+                "
+              >
+                Ready to Start?
+              </h2>
+            </div>
+
+            <!-- Swiper Container -->
+            <div class="list_trust">
+              <div
+                class="trust__list"
+                style="grid-template-columns: repeat(3, 1fr)"
+              >
+                <div class="swiper-slide">
+                  <div
+                    class="trust__item bg-white boxed"
+                    style="margin-bottom: 12px"
+                  >
+                    <div class="trust__image">
+                      <img
+                        src="{% static 'assets/img/app-review-phone-smartphone-svgrepo-com.svg' %}"
+                        class="hts_icon"
+                        loading="lazy"
+                        alt="Social"
+                      />
+                    </div>
+                    <div class="trust__content">
+                      <h3 class="textColor">Create Your Account.</h3>
+                      <p
+                        class="textColor"
+                        style="font-weight: normal; margin-top: 12px"
+                      >
+                        Join now to unlock options-focused copy trading.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div
+                    class="trust__item bg-white boxed"
+                    style="margin-bottom: 12px"
+                  >
+                    <div class="trust__image">
+                      <img
+                        src="{% static 'assets/img/app-performance-phone-smartphone-svgrepo-com.svg' %}"
+                        class="hts_icon"
+                        loading="lazy"
+                        alt="Reliable"
+                      />
+                    </div>
+                    <div class="trust__content">
+                      <h3 class="textColor">Find Your Match.</h3>
+                      <p
+                        class="textColor"
+                        style="font-weight: normal; margin-top: 12px"
+                      >
+                        Explore leaders known for success in options—contracts,
+                        spreads, tickers—you name it.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div
+                    class="trust__item bg-white boxed"
+                    style="margin-bottom: 12px"
+                  >
+                    <div class="trust__image">
+                      <img
+                        src="{% static 'assets/img/award-success-win-winner-svgrepo-com.svg' %}"
+                        class="hts_icon"
+                        loading="lazy"
+                        alt="Secured"
+                      />
+                    </div>
+                    <div class="trust__content">
+                      <h3 class="textColor">Copy and Grow.</h3>
+                      <p
+                        class="textColor"
+                        style="font-weight: normal; margin-top: 12px"
+                      >
+                        Replicate trades, refine strategies, and learn—all while
+                        staying in control.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="container" data-aos="fade-up">
+        <div style="padding: 40px 0">
+          <div style="text-align: center">
+            <h2
+              class="textcolor"
+              style="
+                font-size: 28px;
+                line-height: 50px;
+                margin-bottom: 16px;
+                font-weight: 400;
+              "
+            >
+              Your funds are held in top&#8209;tier institutions
+            </h2>
+            <p
+              class="textcolor"
+              style="
+                font-size: 20px;
+                line-height: 26px;
+                font-weight: 400;
+                margin: 0px;
+                padding: 0px;
+              "
+            >
+              The Isotradex Group works with globally renowned banking partners
+              including:
+            </p>
+          </div>
+          <div class="bank_list">
+            <img
+              loading="lazy"
+              src="{% static 'assets/img/J_P_Morgan.svg' %}"
+              alt="J.P. Morgan"
+              style=""
+            />
+            <img loading="lazy" src="{% static 'assets/img/ubp.svg' %}" alt="UBP" style="" />
+            <img
+              loading="lazy"
+              src="{% static 'assets/img/deutsche_bank.svg' %}"
+              alt="Deutsche Bank"
+              style=""
+            />
+            <img
+              loading="lazy"
+              src="{% static 'assets/img/coutts.svg' %}"
+              alt="Coutts"
+              style=""
+            />
+            <img
+              loading="lazy"
+              src="{% static 'assets/img/JSS.svg' %}"
+              alt="J. Safra Sarasin"
+              style=""
+            />
+            <img
+              loading="lazy"
+              src="{% static 'assets/img/pictet.svg' %}"
+              alt="Pictet"
+              style=""
+            />
+          </div>
+          <div
+            class="textcolor"
+            style="
+              font-size: 16px;
+              line-height: 20px;
+              margin-top: 0px;
+              font-style: normal;
+              font-weight: 400;
+              letter-spacing: -0.1px;
+              text-align: center;
+            "
+          >
+            * These banks are partnered with the Isotradex group and do not
+            serve all entities within the group
+          </div>
+        </div>
+      </div>
+      <div class="container" data-aos="fade-up">
+        <div>
+          <div class="trust__titles">
+            <h2
+              class="textcolor"
+              style="
+                font-size: 30px;
+                line-height: 40px;
+                margin-bottom: 16px;
+                font-weight: 400;
+                letter-spacing: normal;
+                font-style: normal;
+                margin: 0px 0px 16px;
+                padding: 0px;
+              "
+            >
+              Trusted worldwide
+            </h2>
+            <p
+              class="textcolor"
+              style="
+                font-size: 18px;
+                line-height: 24px;
+                font-weight: 400;
+                letter-spacing: normal;
+                font-style: normal;
+                margin: 0px;
+                padding: 0px;
+              "
+            >
+              Discover why millions of investors from over 100 countries joined
+              Isotradex
+            </p>
+          </div>
+
+          <!-- Swiper Container -->
+          <div class="list_trust swiper">
+            <div class="swiper-wrapper trust__list">
+              <div class="swiper-slide">
+                <div class="trust__item bg-white boxed">
+                  <div class="trust__image">
+                    <img
+                      src="{% static 'assets/img/social.svg' %}"
+                      loading="lazy"
+                      alt="Social"
+                    />
+                  </div>
+                  <div class="trust__content">
+                    <h3 class="textColor">Social</h3>
+                    <p class="textColor">More than 35 million users globally</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="trust__item bg-white boxed">
+                  <div class="trust__image">
+                    <img
+                      src="{% static 'assets/img/reliability.svg' %}"
+                      loading="lazy"
+                      alt="Reliable"
+                    />
+                  </div>
+                  <div class="trust__content">
+                    <h3 class="textColor">Reliable</h3>
+                    <p class="textColor">
+                      A leader in the fintech space since 2007
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="trust__item bg-white boxed">
+                  <div class="trust__image">
+                    <img
+                      src="{% static 'assets/img/protection.svg' %}"
+                      loading="lazy"
+                      alt="Secured"
+                    />
+                  </div>
+                  <div class="trust__content">
+                    <h3 class="textColor">Secured</h3>
+                    <p class="textColor">
+                      Utilising best security practices for client money and
+                      assets safety
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="trust__item bg-white boxed">
+                  <div class="trust__image">
+                    <img
+                      src="{% static 'assets/img/globe.svg' %}"
+                      loading="lazy"
+                      alt="Global"
+                    />
+                  </div>
+                  <div class="trust__content">
+                    <h3 class="textColor">Global</h3>
+                    <p class="textColor">Providing services around the world</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="blockElement space element7">
+        <div class="container">
+          <div class="row Isotradex Why">
+            <div class="col-12 mb-4 mb-md-5">
+              <h2>
+                <span class="secondary">Benefit</span>
+                <!-- -->From
+              </h2>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+              <div class="card-body text-center">
+                <span class="d-flex justify-content-center mb-2"
+                  ><img
+                    alt="Transparency"
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                    decoding="async"
+                    data-nimg="1"
+                    class="d-block green-fl"
+                    style="color: transparent"
+                    src="{% static 'assets/img/benefitIcon1.png' %}"
+                /></span>
+                <h4 class="fw-600">Transparent Options Copying</h4>
+                <p>
+                  See exactly what you’re mirroring—ticker, strategy, side
+                  (call/put), strike, expiry, entry/exit premium, size, and
+                  timestamps—plus a clear history of each leader’s performance
+                  and drawdowns. No hidden fees, no black-box trades.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+              <div class="card-body text-center">
+                <span class="d-flex justify-content-center mb-2"
+                  ><img
+                    alt="Innovation"
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                    decoding="async"
+                    data-nimg="1"
+                    class="d-block green-fl"
+                    style="color: transparent"
+                    src="{% static 'assets/img/benefitIcon2.png' %}"
+                /></span>
+                <h4 class="fw-600">Advanced Tools for Contracts</h4>
+                <p>
+                  Dial in risk before you copy: per-trade caps, %-of-equity
+                  allocation, max contracts, slippage guard (max premium), chain
+                  filters (min OI/volume, max bid-ask spread), and auto-hedge
+                  toggles for volatile names.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+              <div class="card-body text-center">
+                <span class="d-flex justify-content-center mb-2"
+                  ><img
+                    alt="Innovative Solutions"
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                    decoding="async"
+                    data-nimg="1"
+                    class="d-block green-fl"
+                    style="color: transparent"
+                    src="{% static 'assets/img/benefitIcon3.png' %}"
+                /></span>
+                <h4 class="fw-600">Innovative Execution for Multi-Legs</h4>
+                <p>
+                  Copy simple contracts or complex structures as a unit:
+                  verticals, calendars, iron condors, butterflies. We sync legs,
+                  preserve ratios, and apply best-effort routing to help reduce
+                  mis-fills and legging risk when leaders trade.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+              <div class="card-body text-center">
+                <span class="d-flex justify-content-center mb-2"
+                  ><img
+                    alt="Customer Orientation"
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                    decoding="async"
+                    data-nimg="1"
+                    class="d-block green-fl"
+                    style="color: transparent"
+                    src="{% static 'assets/img/benefitIcon4.png' %}"
+                /></span>
+                <h4 class="fw-600">Trader-Centric Support</h4>
+                <p>
+                  Human help when it matters—real people on chat, phone, and
+                  email for account linking, order settings, and
+                  contract-specific questions (assignments, exercise,
+                  expirations).
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+              <div class="card-body text-center">
+                <span class="d-flex justify-content-center mb-2"
+                  ><img
+                    alt="Learn by Copying"
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                    decoding="async"
+                    data-nimg="1"
+                    class="d-block green-fl"
+                    style="color: transparent"
+                    src="{% static 'assets/img/benefitIcon5.png' %}"
+                /></span>
+                <h4 class="fw-600">Learn While You Copy</h4>
+                <p>
+                  Leaders can attach notes, rationale, and risk context (IV,
+                  Greeks, catalysts) to each trade. Use strategy tags (breakout,
+                  earnings, theta, trend) and post-trade debriefs to sharpen
+                  your own playbook while you mirror.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mb-4" data-aos="fade-up">
+              <div class="card-body text-center">
+                <span class="d-flex justify-content-center mb-2"
+                  ><img
+                    alt="Unique Advanced Features"
+                    loading="lazy"
+                    width="91"
+                    height="83"
+                    decoding="async"
+                    data-nimg="1"
+                    class="d-block green-fl"
+                    style="color: transparent"
+                    src="{% static 'assets/img/benefitIcon6.png' %}"
+                /></span>
+                <h4 class="fw-600">Unique Options Features</h4>
+                <p>
+                  AutoGuard™: optional auto-TP/SL by premium, % move, or delta
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock content %} 
+
+{% block footer %} {% include "client/footer.html" %} {% endblock footer %} 

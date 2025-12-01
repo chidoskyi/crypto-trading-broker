@@ -1,0 +1,240 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %} 
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %} 
+
+{% block content %}
+<div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    
+    <!-- Success Container -->
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8" x-data="successHandler()">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Success Animation -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full mb-4 animate-bounce">
+                    <i data-lucide="check-circle" class="w-12 h-12 text-green-600 dark:text-green-400"></i>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                    Deposit Submitted Successfully!
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400">
+                    Your deposit is being processed
+                </p>
+            </div>
+
+            <!-- Deposit Details Card -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+                
+                <!-- Card Header -->
+                <div class="bg-gradient-to-r from-green-500/10 to-emerald-500/10 dark:from-green-600/20 dark:to-emerald-600/20 border-b border-gray-200 dark:border-gray-700 p-6">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            Deposit Details
+                        </h2>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400">
+                            <i data-lucide="clock" class="w-4 h-4 mr-1"></i>
+                            <span x-text="depositStatus">Pending</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-6 space-y-6">
+                    
+                    <!-- Deposit ID -->
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="hash" class="w-5 h-5 text-gray-400"></i>
+                            <span class="text-gray-600 dark:text-gray-400">Deposit ID</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-sm text-gray-900 dark:text-white" x-text="depositId">-</span>
+                            <button @click="copyToClipboard(depositId, 'Deposit ID copied!')" 
+                                    class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                                <i data-lucide="copy" class="w-4 h-4 text-gray-500"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="dollar-sign" class="w-5 h-5 text-gray-400"></i>
+                            <span class="text-gray-600 dark:text-gray-400">Amount</span>
+                        </div>
+                        <span class="text-2xl font-bold text-green-600 dark:text-green-400" x-text="'$' + depositAmount">$0.00</span>
+                    </div>
+
+                    <!-- Cryptocurrency -->
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="coins" class="w-5 h-5 text-gray-400"></i>
+                            <span class="text-gray-600 dark:text-gray-400">Cryptocurrency</span>
+                        </div>
+                        <span class="font-medium text-gray-900 dark:text-white" x-text="depositCrypto">-</span>
+                    </div>
+
+                    <!-- Wallet Address -->
+                    <div class="py-3">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="wallet" class="w-5 h-5 text-gray-400"></i>
+                            <span class="text-gray-600 dark:text-gray-400">Wallet Address</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
+                            <code class="flex-1 text-sm text-gray-900 dark:text-white break-all" x-text="depositWallet">-</code>
+                            <button @click="copyToClipboard(depositWallet, 'Wallet address copied!')" 
+                                    class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                                <i data-lucide="copy" class="w-4 h-4 text-gray-500"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Cards Grid -->
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                
+                <!-- Processing Time -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                            <i data-lucide="clock" class="w-5 h-5 text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Processing Time</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Your deposit will be confirmed within 24-48 hours
+                    </p>
+                </div>
+
+                <!-- Notification -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                            <i data-lucide="bell" class="w-5 h-5 text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Notification</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        You'll receive an email once your deposit is confirmed
+                    </p>
+                </div>
+
+                <!-- Support -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                            <i data-lucide="headphones" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Need Help?</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Contact our 24/7 support team for assistance
+                    </p>
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-6 mb-6">
+                <div class="flex gap-3">
+                    <i data-lucide="alert-triangle" class="w-6 h-6 text-amber-600 dark:text-amber-400 flex-shrink-0"></i>
+                    <div>
+                        <h3 class="font-semibold text-amber-900 dark:text-amber-300 mb-2">Important Information</h3>
+                        <ul class="space-y-1 text-sm text-amber-800 dark:text-amber-400">
+                            <li>• Keep your deposit ID for reference</li>
+                            <li>• Do not make another deposit until this one is confirmed</li>
+                            <li>• Check your email for confirmation updates</li>
+                            <li>• Contact support if you don't receive confirmation within 48 hours</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="/dashboard/" 
+                   class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span>Back to Dashboard</span>
+                </a>
+                <a href="/dashboard/deposits/" 
+                   class="flex-1 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-medium py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="list" class="w-5 h-5"></i>
+                    <span>View All Deposits</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/scripts/scripts.js' %}"></script>
+<script>
+    function successHandler() {
+        return {
+            depositId: '',
+            depositAmount: '0.00',
+            depositCrypto: '',
+            depositStatus: 'Pending',
+            depositWallet: '',
+            depositQR: '',
+
+            init() {
+                // Load deposit details from sessionStorage
+                this.depositId = sessionStorage.getItem('last_deposit_id') || 'N/A';
+                this.depositAmount = sessionStorage.getItem('last_deposit_amount') || '0.00';
+                this.depositCrypto = sessionStorage.getItem('last_deposit_crypto') || 'N/A';
+                this.depositStatus = sessionStorage.getItem('last_deposit_status') || 'Pending';
+                this.depositWallet = sessionStorage.getItem('last_deposit_wallet') || 'N/A';
+                this.depositQR = sessionStorage.getItem('last_deposit_qr') || '';
+
+                // Show success message
+                APIClient.showMessage('Your deposit has been submitted successfully!', 'success');
+
+                // Clear sessionStorage after loading (optional)
+                // this.clearDepositData();
+            },
+
+            copyToClipboard(text, message = 'Copied!') {
+                navigator.clipboard.writeText(text).then(() => {
+                    APIClient.showMessage(message, 'success');
+                }).catch(() => {
+                    APIClient.showMessage('Failed to copy', 'danger');
+                });
+            },
+
+            clearDepositData() {
+                sessionStorage.removeItem('last_deposit_id');
+                sessionStorage.removeItem('last_deposit_amount');
+                sessionStorage.removeItem('last_deposit_crypto');
+                sessionStorage.removeItem('last_deposit_status');
+                sessionStorage.removeItem('last_deposit_wallet');
+                sessionStorage.removeItem('last_deposit_qr');
+            }
+        }
+    }
+
+    // Initialize Lucide icons
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    });
+</script>
+
+<style>
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .animate-bounce {
+        animation: bounce 1s ease-in-out infinite;
+    }
+</style>
+
+{% endblock content %}

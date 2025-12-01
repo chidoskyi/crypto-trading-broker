@@ -1,0 +1,547 @@
+{% extends "client/base.html" %} 
+{% load static %}
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+
+{% block content %}
+    <div id="main-wrapper" class="mainWrapper pb-0"><!---->
+        <div class="mainWrapper pb-0">
+            <section class="blockElement space">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 mb-3 mobSticky">
+                            <div class="getStart bg-white boxed box-shadow guide_lines mobScroll" id="getstarted">
+                                <div class="repeatListFlex">
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="leader-guide.html#affiliates">Isotradex
+                                            Leaders</a></div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="leader-guide.html#affiliateAccount">Performance, Stats and Indicators</a></div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="leader-guide.html#Payments">Payments</a>
+                                    </div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="leader-guide.html#supportAssistance">Trading from MT4, MT5, XOH, ActTrader
+                                            Terminals</a>
+                                    </div>
+                                    <div class="repeatList"><a class="js-anchor-link d-flex"
+                                            href="leader-guide.html#suspension">Suspension</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <div class="bg-white boxed box-shadow p-md-4">
+                                <section class="inner-box" id="affiliates">
+                                    <h1 class="tag f-25 medium border-bottom pb-1 mb-2">Isotradex Leaders</h1>
+                                    <div class="fullList"><a class="d-flex f-18 arrow" data-bs-toggle="collapse"
+                                            href="leader-guide.html#A1" role="button" aria-expanded="true"
+                                            aria-controls="collapseExample">Introduction to Leaders Program</a>
+                                        <div class="collapse selected show" id="A1" data-bs-parent="#affiliates">
+                                            <p>A "Leader" is a Isotradex user, who trades on a Real account while
+                                                Isotradex
+                                                publishes his/her results and statistics publicly through the website.
+                                                Each
+                                                trading action performed in the Leader’s account is sent to all
+                                                Isotradex
+                                                accounts in the form of a broadcast signal. Users, who have chosen to
+                                                follow
+                                                the Leader ("Investors"), have the trading action automatically executed
+                                                in
+                                                their account, residing in their brokerage firm. Since a simple Leader
+                                                signal is executed by various different Brokers that have different
+                                                trading
+                                                interfaces and configurations, trading problems can occur. A possible
+                                                instance is an orphan trade. An orphan trade is a trade that although it
+                                                is
+                                                closed in the Leader’s account, due to a variety of reasons, it may be
+                                                left
+                                                open on one or more of the Investors' Real accounts. This incident can
+                                                lead
+                                                to different results between the Leader and the Investor- e.g. although
+                                                the
+                                                Leader gains, the Investor ends up losing as a result of the trade
+                                                having
+                                                closed long after it had been closed in the Leader’s account. However,
+                                                Leaders have the ability to both monitor and close their Real Investors'
+                                                positions that are detected as "orphans". Investors can fine-tune and
+                                                override Leader's signals by configuring their settings in their
+                                                Isotradex
+                                                account portfolio, or even manually.</p>
+                                            <p>For Risk Management purposes, Isotradex may restrict Leaders for being
+                                                copied
+                                                by Investors in case they don't follow the Program's Guidelines.</p>
+                                        </div>
+                                    </div>
+                                    <div class="fullList"><a class="d-flex f-18 arrow" data-bs-toggle="collapse"
+                                            href="leader-guide.html#A2" role="button" aria-expanded="false"
+                                            aria-controls="collapseExample">Creating a Leader account</a>
+                                        <div class="collapse selected" id="A2" data-bs-parent="#affiliates">
+                                            <p>Everyone can sign up to become a Leader. To register your Leader account,
+                                                please click </p>
+                                            <p>You can open up to 10 Leader accounts with the same email address.
+                                                Competition however is fierce. Leaders’ performance is constantly ranked
+                                                by
+                                                Isotradex's AutoRank algorithm and the Isotradex community, so that only
+                                                the
+                                                best ones appear on the top of our lists.</p>
+                                        </div>
+                                    </div>
+                                    <div class="fullList"><a class="d-flex f-18 arrow" data-bs-toggle="collapse"
+                                            href="leader-guide.html#A3" role="button" aria-expanded="false"
+                                            aria-controls="collapseExample">Trading platforms</a>
+                                        <div class="collapse selected" id="A3" data-bs-parent="#affiliates">
+                                            <p>Leaders may select one of the following Trading Platforms to place their
+                                                trades:</p><strong class="mb-1 d-block"> 1. MetaTrader 4 (MT4)
+                                                platform</strong>
+                                            <p> It is possible to link an external live MT4 platform to a Leader
+                                                account. In
+                                                this case the Leader account becomes read-only and any trading activity
+                                                that
+                                                takes place in the MT4 account is copied over to the Isotradex account.
+                                            </p>
+                                            <strong class="mb-1 d-block"> 2. MetaTrader 5 (MT5) platform</strong>
+                                            <p>It is possible to link an external live MT5 platform to a Leader account.
+                                                In
+                                                this case the Leader account becomes read-only and any trading activity
+                                                that
+                                                takes place in the MT5 account is copied over to the Isotradex account.
+                                            </p>
+                                            <strong class="mb-1 d-block">3. ActTrader</strong>
+                                            <p>It is possible to link an external live ActTrader platform to a Leader
+                                                account. In this case the Leader account becomes read-only and any
+                                                trading
+                                                activity that takes place in the ActTrader account is copied over to the
+                                                Isotradex account.</p><strong class="mb-1 d-block">4. X Open Hub (XOH)
+                                                platform</strong>
+                                            <p>It is possible to link an external live XOH platform to a Leader account.
+                                                In
+                                                this case the Leader account becomes read-only and any trading activity
+                                                that
+                                                takes place in the XOH account is copied over to the Isotradex account.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="affiliateAccount">
+                                    <h3 class="border-bottom pb-3 mb-3">Performance, Stats and Indicators</h3>
+                                    <div class="selected support_sec">
+                                        <p>As a Leader trades, their performance and position in the Isotradex Leaders
+                                            page
+                                            will gradually evolve; moving up and down in ranking. All data and
+                                            information
+                                            of the Leaders are taken into consideration in order to calculate their
+                                            place in
+                                            the ranking. Some decisive factors for the AutoRank are (please note that
+                                            this
+                                            list is not exhaustive):</p>
+                                        <ul class="dotList">
+                                            <li>Maturity: How long the Leader has been trading for, reflected in
+                                                ‘Weeks’.
+                                            </li>
+                                            <li>Exposure: How many positions might be open at the same time, reflected
+                                                in
+                                                ‘Max Open Trades’, the 'NME' required, etc.</li>
+                                            <li>Drawdown: How many ups and downs the Leader’s historical performance has
+                                                experienced.</li>
+                                            <li>Performance: Overall pips earned, average pips per trade and other
+                                                performance metrics.</li>
+                                        </ul>
+                                        <p>For Our European Performance Page only, the below mentioned factors are also
+                                            taken into account in order to form the list of the top 2000 Leaders:</p>
+                                        <ul class="dotList">
+                                            <li>Their minimum trading time is at least 8 weeks.</li>
+                                            <li>They have less than 30% Drawdown (in pips or equity)</li>
+                                            <li>The average number of pips is above 3 or average rate of return is above
+                                                0.015%.</li>
+                                        </ul>
+                                        <p>If you want to find out more about the way AutoRank is calculated, please
+                                            click
+                                        </p>
+                                        <p>The Performance page is updated several times per day, as trades and Leader’s
+                                            statistics develop.</p>
+                                        <p>Performance page also contains visual indicators, helping Investors to
+                                            identify
+                                            certain Leader attributes. Most common of which are:</p>
+                                        <ul class="dotList">
+                                            <li>The Leader is using a Demo Account (For legacy reference only, new
+                                                accounts
+                                                cannot use this option).</li>
+                                            <li>The Leader is operating on a Demo Account but is copying his own signals
+                                                in
+                                                a Real Investor Account (for legacy reference only, new accounts cannot
+                                                use
+                                                this option).</li>
+                                            <li>The Leader is using the MT4, MT5, XOH, ActTrader trading platform.</li>
+                                            <li>The Leader is submitting trading requests through Isotradex API.</li>
+                                            <li>The Leader is trading correlated currency pairs, by using a natural
+                                                hedging
+                                                strategy that potentially lead to limited drawdown.</li>
+                                            <li>The Leader is frequently trading economic calendar releases!</li>
+                                            <li>Nod Veteran - a Leader that has been trading with Isotradex for more
+                                                than 2
+                                                years with a consistently high ranking.</li>
+                                            <li>Leaders that have partially or fully verified their account.</li>
+                                            <li>Trading history from XX/XX/XX To XX/XX/XX has been imported to
+                                                Isotradex.
+                                            </li>
+                                        </ul>
+                                        <p>In order to appear in the Leaders page, a Leader must first close 1 position,
+                                            while a minimum of 8 weeks of trading activity is required in order to
+                                            appear on
+                                            the Leaders page for Europe!</p>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="Payments">
+                                    <h3 class="border-bottom pb-3 mb-3">Payments</h3>
+                                    <div class="selected support_sec"><strong class="mb-1 d-block">A. General
+                                            Information</strong>
+                                        <p>Leaders’ compensation differs according to the their Investors account type
+                                            as
+                                            well as the Leader's location in order to comply with local regulation.</p>
+                                        <ul class="dotList">
+                                            <li>Volume Based Compensation – Zero Subscription plan (Default Isotradex
+                                                Investor Account type)</li>
+                                            <li>Volume Based Compensation – Classic plan (legacy accounts, for reference
+                                                only)</li>
+                                            <li>Profit Sharing Compensation – Profit Sharing Accounts (legacy accounts,
+                                                for
+                                                reference only)</li>
+                                        </ul><strong class="mb-1 d-block">B. Volume Based Compensation Scheme</strong>
+                                        <p>Leaders earn for each closed trade executed in a Real Investor account under
+                                            Volume Based Rules. The 0.5 pip value depends on the lot size executed in
+                                            the
+                                            investor’s account, not in the leader’s. For example, the leader opens 1
+                                            standard lot and the investor receives 1 lot according to his/her settings,
+                                            then
+                                            the leader will get 0.5$. In case that the investor only opens a micro lot,
+                                            then
+                                            the leader will get 0.05$. Pip cost varies according to the currency pair
+                                            traded.</p><strong class="mb-1 d-block">C. Profit Sharing Compensation
+                                            Scheme
+                                            (legacy accounts, for reference only) </strong>
+                                        <p>Leaders get compensated on a monthly basis according to the profits they
+                                            generate
+                                            on their Real Investors under Profit Sharing Account Model.</p>
+                                        <p>Every time you generate a profitable monthly PnL to a Profit-Sharing
+                                            Investor,
+                                            you will be credited a 25% Performance Fee. This Fee will only apply for the
+                                            amount above High Water Mark (“HWM”). HWM is the maximum profit made by the
+                                            Leader and it is calculated on the 1st calendar day of each month since the
+                                            Investor added the Leader to his portfolio.</p>
+                                        <p>For each profitable monthly PnL, the Leader will be compensated based on a
+                                            50%
+                                            Payment-Reserve model. More specifically:</p>
+                                        <p>50% of the Performance Fee charged is being credited in the Leader’s account.
+                                            The
+                                            same amount (50%) is requested from the Reserve bucket. The amount that will
+                                            be
+                                            released and credited is limited to the reserved amount generated from
+                                            previous
+                                            periods.</p>
+                                        <p>50% of the Performance Fee charged is added to the Leader’s Reserve Bucket
+                                            for
+                                            next periods.</p>
+                                        <p>Each Leader holds one Reserve Bucket for all his Profit Sharing Investors.
+                                            The
+                                            Reserve amount is updated on the 1st calendar day of each month based on the
+                                            profits/losses generated on the Real Investor accounts from the Leader
+                                            during
+                                            the previous month.</p>
+                                        <p>Case 1: Profitable monthly PnL - Profit above HWM</p>
+                                        <p>Investor’s Monthly Performance Fee (20% of the Profit above High Water Mark)
+                                            is
+                                            split, as follows:</p>
+                                        <p>50% is credited in the Leader’s account</p>
+                                        <p>50% is credited from Reserve Bucket (if applicable - see the example below)
+                                        </p>
+                                        <p>50% is placed into the Leader’s Reserve Bucket for future release.</p>
+                                        <p>Case 2: Negative monthly PnL</p>
+                                        <p>In case of underperforming, the Reserve amount will be deducted by 20% of the
+                                            generated losses.</p>
+                                        <p>Case3: Recovering Losses Period - Profit below HWM</p>
+                                        <p>In case of a Recovering Losses Period, the Performance Fee will not apply,
+                                            yet
+                                            the Leader’s reserve will be increased by 20% of the generated Profit.</p>
+                                        <p>For example:</p>
+                                        <p>In June, a Leader makes a profit of $1000 - This will be the HWM. The
+                                            Investor
+                                            will be charged 25% (20% for the leader, 5% for Isotradex) out of the
+                                            accumulated profit ($1000): $1000 x 25% = $250</p>
+                                        <p>Based on the Payment-Reserve Scheme, the 20% for the Leader breaks as
+                                            follows:
+                                            50% of the Performance Fee paid by the Investor will be credited in the
+                                            Leader’s
+                                            account immediately: $200 x 50% = $100.</p>
+                                        <p>50% of the Performance Fee paid by the Investor will be credited in the
+                                            Leader’s
+                                            account from the Reserve (in case there is an available amount). In this
+                                            example, there is no Reserve.</p>
+                                        <p>50% of the Performance Fee paid by the Investor will be reserved in the
+                                            Leader’s
+                                            Reserve Bucket: $200 x 50% = $100</p>
+                                        <p>Monthly Reserve Amount = $100</p>
+                                        <p>Total Reserve Amount = $100</p>
+                                        <p>In July, the Leader has a negative month (-$100) – HWM remains $1000.</p>
+                                        <p>Performance Fee will not apply for the Investor</p>
+                                        <p>The Leader’s Reserve amount will be deducted by 20% of the losing amount:
+                                            -$100 x
+                                            20% = -$20.</p>
+                                        <p>Monthly Reserve Amount = -$20</p>
+                                        <p>New Total Reserve Amount = $80 (=$100 - $20)</p>
+                                        <p>In August, the Leader makes a profit of $500 – New HWM $1400</p>
+                                        <p>The first $100 is considered as Recovering Losses Amount (loss generated in
+                                            July)
+                                            and the Investor will not be charged any Performance Fee. However, the
+                                            Leader’s
+                                            Reserve amount will be refilled again with the amount of $20 (20% x $100).
+                                        </p>
+                                        <p>Performance Fee will apply for the Investor, only for the $400 (amount above
+                                            new
+                                            HWM): $400 x 20% = $80.</p>
+                                        <p>The Leader will now receive</p>
+                                        <p>50% of the Investors' Performance Fee will be credited immediately: $80 x 50%
+                                            =
+                                            $40.</p>
+                                        <p>50% of the Investors' Performance Fee will be credited from Total Reserve
+                                            Amount
+                                            reserved so far: $80 x 50% = $40</p>
+                                        <p>50% of the Investors' Performance Fee will be added to Reserve Bucket: $80 x
+                                            50%
+                                            = $40.</p>
+                                        <p>Monthly Reserve Amount = +$20 (from Recovering Loss Period) + $40 (placed
+                                            into
+                                            Reserve bucket) = $60</p>
+                                        <p>New Total Reserve Amount = $100 (=$80 + $20 + $40 - $40)</p><strong
+                                            class="mb-1 d-block">AutoPay Service for Real Leaders (temporarily
+                                            deactivated,
+                                            please request withdrawals manually)</strong>
+                                        <p>Real Leaders may select to receive their total outstanding commissions
+                                            automatically in their Real Broker account at the 1st business day of each
+                                            month. To be eligible for the AutoPay Service, Leaders must:</p>
+                                        <ul class="dotList">
+                                            <li>Operate on a Real trading account registered in a Broker participating
+                                                in
+                                                this Program.</li>
+                                            <li>Have completed the verification process by submitting a valid
+                                                identification
+                                                document as well as a proof of address.</li>
+                                            <li>Leaders may enable the AutoPay service on the Revenue page of their
+                                                account.
+                                                On the 1st business day of each calendar month, they will be receiving
+                                                automatically the accrued commissions of the previous month directly in
+                                                their trading account. There are no minimum amount requirements nor fees
+                                                apply if AutoPay is enabled.</li>
+                                        </ul>
+                                        <p>Also please take the following under consideration:</p>
+                                        <ul class="dotList">
+                                            <li>To submit your request, Isotradex needs to be provided with sufficient
+                                                evidence of the Leader credentials – typically we require a valid photo
+                                                ID
+                                                (passport, government identification card or government issued voter’s
+                                                card)
+                                                and a recent formal bill indicating your name and full current
+                                                residential
+                                                address.</li>
+                                            <li>Before issuing payments, all trades need to be checked against our
+                                                Trading
+                                                Compliance rules and relevant commissions need to be collected from our
+                                                collaborating Brokers; the estimated time frame required to process a
+                                                payment after a request has been made via our website is approximately
+                                                30
+                                                days.</li>
+                                            <li>An active account balance with a minimum of $100 is required before
+                                                proceeding to request a payment. Please ensure that your bank account
+                                                details, PayPal account or Crypto Wallet Address is set up properly to
+                                                avoid
+                                                any complications with payment.</li>
+                                            <li>The relevant fees for each payment are the following. Bank transfer
+                                                ($45),
+                                                PayPal ($20 for 0-$500 transfer and 3.9% for $500 and above), Crypto
+                                                (network transaction fees).</li>
+                                            <li>The Leaders must at all times fully, promptly, truthfully and
+                                                transparently
+                                                communicate with the Investors copying their strategies via Social
+                                                Pages, as
+                                                well as the Isotradex Traders Community Desk.</li>
+                                            <li>Isotradex values the safety of its Investors’ capital as an utmost
+                                                priority.
+                                                For this reason, Leaders who apply abusive trading behavior, introducing
+                                                high risks to their Investors, will be examined carefully and if deemed
+                                                malicious, they will be refused compensation.</li>
+                                            <li>For each specific calendar month that a Leader presents a negative Total
+                                                Monthly PnL performance in $, the Leader will not be compensated. Total
+                                                Monthly PnL includes unrealized PnL deriving from the end of month
+                                                valuation
+                                                of the Leader’s open positions.</li>
+                                            <li>Please note that payment must be requested within 30 days of receipt of
+                                                the
+                                                termination notification. Payment requests received after this period
+                                                will
+                                                be rejected. In case of disabled or terminated accounts, any accrued
+                                                commissions that fail to reach the threshold of $100 get automatically
+                                                rejected.</li>
+                                            <li>Accounts with considerable deposits can be characterized from the Broker
+                                                as
+                                                Institutional due to the low spread offered. Compensation for such
+                                                accounts
+                                                is 0.1 pips per lot executed in a Leader’s account.</li>
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="supportAssistance">
+                                    <h3 class="border-bottom pb-3 mb-3">Trading from MT4, MT5, XOH, ActTrader Terminals
+                                    </h3>
+                                    <div class="selected support_sec">
+                                        <p>In addition to the above rules for Leaders operating on MT4, MT5, XOH,
+                                            ActTrader
+                                            terminals and outside of the Isotradex web interface, compliance with the
+                                            following rules is also expected:</p>
+                                        <p>Closing partial lots is not supported</p>
+                                        <p>Deleting Stop/Limit via EA (updating Stop/Limit from non-zero values to zero
+                                            via
+                                            EA) is not supported and related signals will not be broadcast to Investors.
+                                        </p>
+                                        <p>We support trading in Forex, CFDs, Indices, Gold and Silver.</p>
+                                        <p>Altering of MT4, MT5, XOH, ActTrader trading records and statistics in any
+                                            way is
+                                            strictly prohibited. Closing trades via the 'Close by' type is not
+                                            supported.
+                                        </p>
+                                        <p>Demo Trading (legacy feature, for reference only)</p>
+                                        <p>When trading from a Demo account, please make sure your trading strategy
+                                            complies
+                                            with the following restrictions:</p>
+                                        <p>There is an upper limit of 50 market and 50 pending orders, as well as a
+                                            limit of
+                                            5000 update signals, permitted to be broadcast to Investors within a 24-hour
+                                            interval.</p>
+                                        <p>Signals to create market/pending orders should have a minimum time interval
+                                            of 5
+                                            seconds from the last one accepted in order to be broadcast to Investors.
+                                        </p>
+                                        <p>Maximum overall number allowed of open - market and pending - orders is
+                                            limited
+                                            to 50; any further signals will not be broadcast to Investors.</p>
+                                        <p>Please note that none of the above restrictions apply to Leaders operating on
+                                            a
+                                            Real Account.</p><strong class="mb-1 d-block">Inappropriate Trading
+                                            Behaviors</strong>
+                                        <p>Isotradex values the safety of its Investors’ capital as an utmost priority.
+                                            Consequently, Leaders who apply abusive trading behavior, introducing high
+                                            risks
+                                            to their Investors, will be examined carefully and if deemed malicious, they
+                                            will be refused compensation and may be banned from future use of
+                                            Isotradex’s
+                                            services Likewise any attempt to take advantage of their status, extort or
+                                            even
+                                            break the communication channel with the community or the company will be
+                                            deemed
+                                            as malicious.</p>
+                                        <p>In order to avoid extremes, Leaders are required to comply with a minimum set
+                                            of
+                                            guidelines that aim to reduce risks, such as:</p>
+                                        <p>A Leader's maximum total draw-down should not exceed their profit in currency
+                                            or
+                                            pips. This applies once there is an adequate record of Leader's performance
+                                            (6
+                                            months).</p>
+                                        <p>Isotradex is not endorsing a winning trades ratio close to 100%. It is a
+                                            potentially risky strategy as it may indicate exposure to unusually large
+                                            drawdowns.</p>
+                                        <p>Note that the above thresholds in pips are indicative for basic FX pairs.
+                                            Please
+                                            assume equivalent amounts for exotic pairs including XAU, XAG or CFDs.</p>
+                                        <strong class="mb-1 d-block">Market Hours</strong>
+                                        <p>No trading should be performed outside of Isotradex's Market Hours. Market
+                                            Opens
+                                            Sunday 22:00 UTC and closes Friday 22:00 UTC. When Eastern time is in
+                                            daylight
+                                            saving, market opens Sunday 21:00 UTC and closes Friday 21:00 UTC.</p>
+                                        <strong class="mb-1 d-block">Recommendations for Effective Strategies</strong>
+                                        <ul class="dotCircle maker">
+                                            <li><strong class="mb-1 d-block">Scalping is not
+                                                    Recommended.</strong><span>Due
+                                                    to the combination of different trading policies, configuration and
+                                                    rate
+                                                    feeds of various brokers to whom your Investors may subscribe,
+                                                    scalping
+                                                    is not a recommended manner of sending signals to your Investors.
+                                                    The
+                                                    practice frequently leads to very inconsistent results for different
+                                                    broker accounts.</span></li>
+                                            <li><strong class="mb-1 d-block">Trading During News</strong><span>Many
+                                                    brokerage firms will often reject trading signals during News
+                                                    announcements that affect the market, resulting in possible
+                                                    discrepancies between the execution in your account and your
+                                                    Leader</span></li>
+                                            <li><strong class="mb-1 d-block">Trading with Unrealistic Amounts of Virtual
+                                                    Funds</strong><span>Apart from producing unrealistic trading
+                                                    results, no
+                                                    leader will ever be able to relate with your strategy if your
+                                                    starting
+                                                    balance is extremely high, or you trade huge amounts of lots.</span>
+                                            </li>
+                                            <li><strong class="mb-1 d-block">Accurate Strategy
+                                                    descriptions</strong><span>Your Strategy description needs to be
+                                                    accurate and descriptive, so that your Investors can be aware of
+                                                    what to
+                                                    anticipate from your trading activity. As unexpected trading
+                                                    behavior is
+                                                    not appreciated by your Isotradex Investors, any Strategies that are
+                                                    not
+                                                    in accordance with your actual trading behavior will be disapproved,
+                                                    affecting your Compensation or Ranking accordingly.</span></li>
+                                            <li><strong class="mb-1 d-block">Up-to-date Status </strong><span>Your
+                                                    current
+                                                    Status should always be up to date. Please keep in mind that
+                                                    Investors
+                                                    can request for a Status Update, in which case you will be notified
+                                                    via
+                                                    email and expected to provide a status update as shortly as
+                                                    possible.
+                                                    Awkward silences are not friendly towards your Isotradex Investors,
+                                                    so
+                                                    please ensure timely updates are provided.</span></li>
+                                        </ul>
+                                    </div>
+                                </section>
+                                <section class="inner-box fullList" id="suspension">
+                                    <h3 class="border-bottom pb-3 mb-3">Suspension</h3>
+                                    <div class="selected support_sec">
+                                        <p>Suspension of a Leader’s account may occur in two ways: temporarily as a
+                                            warning,
+                                            or permanently, leading to prohibition from using the service. Liability for
+                                            any
+                                            consequences from a Leader account getting suspended burdens the account
+                                            holder.
+                                        </p><strong class="mb-1 d-block">Temporary Suspension</strong>
+                                        <p>Leaders linked with MT4, MT5, XOH, ActTrader terminals that violate the
+                                            Compliance Policy Rules, will be automatically disconnected from their
+                                            accounts.
+                                            They can try to re-connect after they have reconfigured their strategy
+                                            according
+                                            to the suspension reason.</p><strong class="mb-1 d-block">Permanent
+                                            suspension</strong>
+                                        <ul class="dotCircle maker">
+                                            <li>Inactive Accounts. A Leader account that has been inactive for more than
+                                                1
+                                                month will be permanently suspended.</li>
+                                            <li>Leader accounts that receive multiple temporary suspensions.</li>
+                                        </ul>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block footer %}
+    {% include "client/footer.html" %}
+{% endblock footer %}

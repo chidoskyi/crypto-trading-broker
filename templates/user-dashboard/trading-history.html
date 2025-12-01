@@ -1,0 +1,145 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+
+
+{% block nav %}
+  {% include 'user-dashboard/nav.html' %}
+{% endblock nav %}
+
+
+{% block sidebar %}
+  {% include 'user-dashboard/sidebar.html' %}
+{% endblock sidebar %}
+  
+<main class="pl-0 md:pl-6">
+{% block content %}
+  <!-- Main content placeholder -->
+  <div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <!-- Your main dashboard content goes here -->
+    
+    <div class="container mx-auto bg-white dark:bg-gray-900 pl-0 md:pl-6" x-cloak>
+        <!-- Simple Header -->
+        <div class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+            <div class="mx-auto px-6 py-8">
+                <div class="text-center">
+                    <h1 class="text-2xl font-medium text-gray-900 dark:text-white">Trading History</h1>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Track your trading activities</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Messages -->
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div>
+            </div>
+        </div>
+
+        <div class="mx-auto px-6 py-8">
+            <!-- Trading History Card -->
+            <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-100 dark:border-gray-800">
+                <!-- Header -->
+                <div class="p-6 border-b border-gray-100 dark:border-gray-800" x-data="{
+                    stats: {
+                        total: 0,
+                        wins: 0,
+                        losses: 0,
+                        trades: 0
+                    }
+                }" x-init="$store.tradeFilter = { value: 'all' }" x-cloak>
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-1">Trading Overview</h2>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Monitor your trading performance</p>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <div class="text-xl font-medium text-gray-900 dark:text-white" x-text="stats.total"></div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Total</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-medium text-green-600 dark:text-green-400" x-text="stats.wins"></div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Wins</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-medium text-red-600 dark:text-red-400" x-text="stats.losses"></div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Losses</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-medium text-blue-600 dark:text-blue-400" x-text="stats.trades"></div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">Active</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <button @click="$store.tradeFilter.value = 'all'"
+                                :class="$store.tradeFilter.value === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400'"
+                                class="px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            All
+                        </button>
+                        <button @click="$store.tradeFilter.value = 'WIN'"
+                                :class="$store.tradeFilter.value === 'WIN' ? 'bg-green-600 text-white' : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400'"
+                                class="px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Wins
+                        </button>
+                        <button @click="$store.tradeFilter.value = 'LOSE'"
+                                :class="$store.tradeFilter.value === 'LOSE' ? 'bg-red-600 text-white' : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400'"
+                                class="px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Losses
+                        </button>
+                        <button @click="$store.tradeFilter.value = 'Buy'"
+                                :class="$store.tradeFilter.value === 'Buy' ? 'bg-blue-600 text-white' : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400'"
+                                class="px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Buy
+                        </button>
+                        <button @click="$store.tradeFilter.value = 'Sell'"
+                                :class="$store.tradeFilter.value === 'Sell' ? 'bg-orange-600 text-white' : 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400'"
+                                class="px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Sell
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Trading History List -->
+                <div class="p-6" x-cloak>
+                    <div class="space-y-3">
+                                                <!-- Empty State -->
+                            <div class="text-center py-12">
+                                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-1">No trading history</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                    Your trading activity will appear here
+                                </p>
+                                <a href="https://www.isotradex.com/dashboard"
+                                  class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Back to Dashboard
+                                </a>
+                            </div>
+                                        </div>
+
+                    <!-- Modern Pagination -->
+                                </div>
+            </div>
+        </div>
+    </div>
+
+
+  </div>
+{% endblock content %}
+</main>
+
+
+
+
+
+

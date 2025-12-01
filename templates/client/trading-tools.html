@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Redirecting…</title>
+
+  <!-- Meta refresh fallback -->
+  <meta http-equiv="refresh" content="0; URL=index.html" />
+
+  <!-- (Optional) tell crawlers the target -->
+  <link rel="canonical" href="index.html" />
+
+  <script>
+    // Redirect to index.html, preserving query string and hash
+    (function () {
+      var target = 'index.html' + (location.search || '') + (location.hash || '');
+      // replace() avoids creating an extra history entry
+      location.replace(target);
+    })();
+  </script>
+</head>
+<body>
+  <p>If you are not redirected automatically, <a href="index.html">click here</a>.</p>
+</body>
+</html>
+

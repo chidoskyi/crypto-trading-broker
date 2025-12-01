@@ -1,0 +1,1196 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/leader.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/leader-extra.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/275ed64cc4367444.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/1a63c02c6252f740.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/b6c2cf256f607c90.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/b13397b0527c0fb5.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/5a56e3c1761e58ad.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+        <!-- Axios for API -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>{% block title %}Isotradex - Copy Trading Platform{% endblock %}</title>
+    <meta
+      name="description"
+      content="We are a leading platform in copy trading for options. Trade independently or copy strategies from top-performing options traders in real time. Open a demo or live account today and start trading smarter with the power of community-driven investing."
+    />
+    <link
+      rel="icon"
+      href="{% static 'assets/img/logo/favicon.png' %}"
+      type="image/x-icon"
+      sizes="32x32"
+    />
+
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        font-family: "Nunito", sans-serif;
+      }
+
+      .green-fl {
+        filter: hue-rotate(100deg);
+      }
+
+      .megaMenusubList {
+        position: absolute;
+        bottom: 0;
+        border-bottom: 1px solid var(--cardBorder);
+        right: -100%;
+        border-radius: 0;
+        background: var(--white);
+        padding: 60px 20px 20px 20px;
+        box-shadow: 0 -20px 25px -15px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        height: 100vh;
+        overflow: auto;
+        top: inherit;
+        transition: 0.3s;
+        width: 100%;
+      }
+
+      .closemenuList {
+        position: absolute !important;
+        top: 100px;
+        right: 20px;
+      }
+
+      .bank_list {
+        display: flex;
+        justify-content: center;
+        gap: 20px 28px;
+        flex-wrap: wrap;
+        margin: 40px auto;
+        max-width: 400px;
+      }
+
+      .bank_list img {
+        height: 40px;
+        object-fit: contain;
+        max-width: 100%;
+      }
+
+      @media only screen and (min-width: 769px) {
+        .bank_list {
+          gap: 32px 50px;
+          margin: 60px auto;
+          max-width: none;
+        }
+
+        .trust__titles {
+          text-align: center;
+          margin-bottom: 36px;
+        }
+
+        .trust__item {
+          flex-basis: calc((100% - 48px) / 2);
+          max-width: 350px;
+        }
+
+        .trust__item .trust__image {
+          width: 80px;
+          max-height: 80px;
+          margin-bottom: 8px;
+        }
+      }
+
+      .trust__titles {
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .trust__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        background: #fff;
+        box-shadow: 1px 1px 30px 0 rgba(0, 0, 0, 0.1);
+        padding: 16px 24px 32px;
+        border-radius: 4px;
+        flex: 0 0 100%;
+        max-width: 100%;
+        min-height: 230px;
+      }
+
+      .trust__item .trust__image {
+        width: 60px;
+        max-height: 60px;
+      }
+
+      .trust__content {
+        text-align: center;
+      }
+
+      .list_trust {
+        width: 100%;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .trust__content h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .trust__content p {
+        font-size: 16px;
+        line-height: 24px;
+        margin: 0;
+      }
+
+      .trust__titles h2 {
+        font-size: 30px;
+        line-height: 40px;
+        margin-bottom: 16px;
+        font-weight: 400;
+        color: rgb(0, 0, 33);
+      }
+
+      .trust__titles p {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 400;
+      }
+
+      .section-heading {
+        text-align: center;
+        padding: 40px 0;
+      }
+
+      .section-heading h2 {
+        font-size: 28px;
+        line-height: 50px;
+        margin-bottom: 16px;
+        font-weight: 400;
+        color: rgb(0, 0, 33);
+      }
+
+      .section-heading p {
+        font-size: 20px;
+        line-height: 26px;
+        font-weight: 400;
+        color: rgb(0, 0, 33);
+        margin: 0;
+      }
+
+      .disclaimer {
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 400;
+        letter-spacing: -0.1px;
+        color: rgb(0, 0, 33);
+        text-align: center;
+        margin-top: 16px;
+      }
+
+      .list_trust.swiper {
+        overflow: visible;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .swiper-wrapper {
+        overflow: visible;
+      }
+
+      @media (min-width: 769px) {
+        .trust__list {
+          display: grid !important;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
+        .experts {
+          gap: 16px;
+        }
+
+        .swiper-slide {
+          flex-shrink: unset !important;
+        }
+      }
+
+      .swiper-slide {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .preloader {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 99999999;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .preloader::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background: #000;
+      }
+
+      .preloader::after {
+        content: "";
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        width: 100px;
+        height: 100px;
+        border: 5px solid #9e0000;
+        border-top: 5px solid transparent;
+        border-radius: 50%;
+        animation: spin 2.5s linear infinite;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .preloader img {
+        position: absolute;
+        z-index: 2;
+        display: block;
+        margin: 0 auto;
+        width: 60px;
+        z-index: 101;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      .instruments {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+      }
+
+      @media (min-width: 769px) {
+        .instruments {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+      }
+
+      .astessd {
+        background-color: var(--bodycolor);
+      }
+    </style>
+  </head>
+
+  <body class="container-fluid __className_e8ce0c">
+    <div id="messages"></div>
+    <div class="preloader" id="preloader">
+      <img
+        src="{% static 'assets/img/logo/favicon.png' %}"
+        alt="Isotradex"
+        width="120"
+      />
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {% block header %} {% endblock header %}
+
+    <div class="mainWrapperPage">
+      <!-- Your main content sections here -->
+
+      {% block content %} {% endblock content %}
+    </div>
+    {% block footer %} {% endblock footer %}
+    <script>
+      // --- Utility: String to numeric seed ---
+      function stringToSeed(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+          hash = (hash << 5) - hash + str.charCodeAt(i);
+          hash |= 0;
+        }
+        return Math.abs(hash);
+      }
+
+      // --- Seeded PRNG using Linear Congruential Generator ---
+      function seededRandomGenerator(seed) {
+        let m = 2 ** 31 - 1;
+        let a = 16807;
+        let state = seed % m;
+        return function () {
+          state = (a * state) % m;
+          return state / m;
+        };
+      }
+
+      // --- Generate ROI data with labels (dates) ---
+      function generateSmoothSeededROI(
+        seedString,
+        startDate,
+        days = 365,
+        startROI = 0
+      ) {
+        const seed = stringToSeed(seedString);
+        const random = seededRandomGenerator(seed);
+        const data = [];
+        const labels = [];
+        let currentROI = startROI;
+
+        const bias = 0.01; // very small daily positive bias
+        const volatility = 0.1; // smaller daily volatility for smoothness
+        const smoothingFactor = 0.3; // smooth factor for moving average
+
+        let lastChange = 0;
+
+        for (let i = 0; i < days; i++) {
+          const date = new Date(startDate);
+          date.setDate(date.getDate() + i);
+          labels.push(date.toISOString().split("T")[0]);
+
+          // Generate noisy daily change with bias
+          let rawChange = (random() - 0.5) * volatility + bias;
+
+          // Smooth changes: mix last day's change with current raw change
+          const smoothedChange =
+            smoothingFactor * rawChange + (1 - smoothingFactor) * lastChange;
+
+          currentROI += smoothedChange;
+          lastChange = smoothedChange;
+
+          // Optional: clamp to prevent large negatives
+          if (currentROI < -0.2) currentROI = -0.2;
+
+          data.push(parseFloat(currentROI.toFixed(2)));
+        }
+
+        return {
+          labels,
+          data,
+        };
+      }
+
+      // --- Store chart instances by canvas ID ---
+      const roiCharts = {};
+
+      // --- Create chart in canvas with given ID and seed ---
+      function drawChart(selector, seedValue) {
+        const { labels, data } = generateSmoothSeededROI(
+          seedValue,
+          "2025-01-01"
+        );
+        const canvases = document.querySelectorAll(selector);
+        if (!canvases.length) {
+          console.warn(`Canvas not found: ${selector}`);
+          return;
+        }
+
+        canvases.forEach((canvas, idx) => {
+          const ctx = canvas.getContext("2d");
+          // Destroy existing chart instance if it exists
+          if (roiCharts[selector + idx]) {
+            roiCharts[selector + idx].destroy();
+          }
+          roiCharts[selector + idx] = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: `ROI - ${seedValue}`,
+                  data: data,
+                  backgroundColor: "rgba(255, 159, 64, 0.2)",
+                  borderColor: "rgba(255, 159, 64, 1)",
+                  borderWidth: 1,
+                  fill: true,
+                  tension: 0.2,
+                  pointRadius: 0,
+                  pointHoverRadius: 4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                title: {
+                  display: false,
+                },
+                tooltip: {
+                  enabled: true,
+                },
+              },
+              interaction: {
+                mode: "nearest",
+                intersect: false,
+              },
+              scales: {
+                x: {
+                  display: false,
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    display: false,
+                  },
+                },
+                y: {
+                  display: false,
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    display: false,
+                  },
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        });
+      }
+
+      // --- Main logic: fetch experts and build UI + charts ---
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("https://api.Isotradex.com/api/top/experts")
+          .then((response) => response.json())
+          .then((data) => {
+            function formatData(traders) {
+              return traders
+                .slice(0, 3)
+                .map(
+                  (trader) => `
+                    <div class="card h-100 overflow-hidden">
+                        <div class="card-body px-0 pb-0">
+                            <div class="text-center position-relative">
+                                <div class="vueRisk px-3 d-flex align-items-start justify-content-between">
+                                    <p class="bTn mb-0 fs-12 fw-600 uppercase risk3">Risk 3</p>
+                                    <a href="index.html#">
+                                        <span class="circleImg d-inline-block mb-3">
+                                            <img alt="${trader.name}" title="${
+                    trader.name
+                  }" loading="lazy" width="70" height="70" decoding="async" class="rounded-circle" src="https://www.isotradex.com/Home/${
+                    trader.img
+                  }" style="color: transparent;">
+                                        </span>
+                                    </a>
+                                    <div class="d-flex align-items-center">
+                                        <button class="inWatchList">⭐</button>
+                                    </div>
+                                </div>
+                                <a href="index.html#">
+                                    <div class="title">
+                                        <h6 class="mb-1 fs-16">${
+                                          trader.name
+                                        }</h6>
+                                        <div class="element d-flex align-items-center justify-content-center mb-3">
+                                            <div class="me-2 d-flex align-items-center">
+                                                <p class="moregray fs-12 mb-0 me-1">COPIERS</p>
+                                                <p class="fs-12 medium mb-0">${
+                                                  trader.copiers
+                                                }</p>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <p class="moregray fs-12 mb-0 me-1">FOLLOWERS</p>
+                                                <p class="fs-12 medium mb-0">${
+                                                  trader.followers
+                                                }</p>
+                                            </div>
+                                        </div>
+                                        <div class="element">
+                                            <p class="mb-0 px-1 fw-600 d-inline-flex greenView">+19.97</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- Chart Canvas -->
+                                <canvas class="${trader.name.replaceAll(
+                                  " ",
+                                  ""
+                                )}_roiChart" height="100"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                `
+                )
+                .join("");
+            }
+
+            // Populate slides
+            const expertSlides = document.querySelectorAll(
+              "#topExperts .swiper-slide"
+            );
+            const leaderSlides = document.querySelectorAll(
+              "#topTraders .swiper-slide"
+            );
+            const topExperts = data.topExperts.slice(0, 3);
+            const topLeaders = data.topLeaders.slice(0, 3);
+
+            expertSlides.forEach((slide, idx) => {
+              if (topExperts[idx]) {
+                slide.innerHTML = formatData([topExperts[idx]]);
+              }
+            });
+
+            leaderSlides.forEach((slide, idx) => {
+              if (topLeaders[idx]) {
+                slide.innerHTML = formatData([topLeaders[idx]]);
+              }
+            });
+
+            setTimeout(() => {
+              [...topExperts, ...topLeaders].forEach((trader) => {
+                const canvasId = `.${trader.name.replaceAll(" ", "")}_roiChart`;
+                drawChart(canvasId, trader.name.replaceAll(" ", ""));
+              });
+            }, 100);
+          });
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Tab and instrument data
+        const tabs = [
+          {
+            name: "Most Popular",
+            key: "popular",
+          },
+          {
+            name: "Commodities",
+            key: "commodities",
+          },
+          {
+            name: "Indices",
+            key: "indices",
+          },
+          {
+            name: "Stocks",
+            key: "stocks",
+          },
+          {
+            name: "Cryptocurrencies",
+            key: "crypto",
+          },
+        ];
+
+        // Dummy data for each tab
+        const dummyData = {
+          popular: [
+            {
+              id: 1,
+              name: "EUR/USD",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/EURUSD.svg",
+              buy: "1.0850",
+              sell: "1.0848",
+            },
+            {
+              id: 2,
+              name: "GBP/USD",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/GBPUSD.svg",
+              buy: "1.2650",
+              sell: "1.2647",
+            },
+            {
+              id: 3,
+              name: "USD/JPY",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/USDJPY.svg",
+              buy: "157.12",
+              sell: "157.10",
+            },
+            {
+              id: 4,
+              name: "BTC/USD",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/BTCUSD.svg",
+              buy: "67000",
+              sell: "66950",
+            },
+            {
+              id: 5,
+              name: "Gold",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/XAUUSD.svg",
+              buy: "2320.5",
+              sell: "2319.8",
+            },
+            {
+              id: 6,
+              name: "Apple",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/AAPL.svg",
+              buy: "192.50",
+              sell: "192.30",
+            },
+          ],
+          commodities: [
+            {
+              id: 7,
+              name: "Gold",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/XAUUSD.svg",
+              buy: "2320.5",
+              sell: "2319.8",
+            },
+            {
+              id: 8,
+              name: "Silver",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/XAGUSD.svg",
+              buy: "29.50",
+              sell: "29.45",
+            },
+            {
+              id: 9,
+              name: "Oil",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/USOIL.svg",
+              buy: "78.10",
+              sell: "78.05",
+            },
+            {
+              id: 10,
+              name: "Natural Gas",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/NATGAS.svg",
+              buy: "2.85",
+              sell: "2.83",
+            },
+            {
+              id: 11,
+              name: "Copper",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/COPPER.svg",
+              buy: "4.50",
+              sell: "4.48",
+            },
+            {
+              id: 12,
+              name: "Platinum",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/PLATINUM.svg",
+              buy: "950.2",
+              sell: "949.8",
+            },
+          ],
+          indices: [
+            {
+              id: 13,
+              name: "S&P 500",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/SPX500.svg",
+              buy: "5350",
+              sell: "5348",
+            },
+            {
+              id: 14,
+              name: "NASDAQ",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/NAS100.svg",
+              buy: "18700",
+              sell: "18695",
+            },
+            {
+              id: 15,
+              name: "DAX",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/DE30.svg",
+              buy: "18200",
+              sell: "18195",
+            },
+            {
+              id: 16,
+              name: "FTSE 100",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/UK100.svg",
+              buy: "8200",
+              sell: "8198",
+            },
+            {
+              id: 17,
+              name: "Nikkei 225",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/JPN225.svg",
+              buy: "39000",
+              sell: "38980",
+            },
+            {
+              id: 18,
+              name: "Dow Jones",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/US30.svg",
+              buy: "39000",
+              sell: "38990",
+            },
+          ],
+          stocks: [
+            {
+              id: 19,
+              name: "Apple",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/AAPL.svg",
+              buy: "192.50",
+              sell: "192.30",
+            },
+            {
+              id: 20,
+              name: "Tesla",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/TSLA.svg",
+              buy: "180.00",
+              sell: "179.80",
+            },
+            {
+              id: 21,
+              name: "Amazon",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/AMZN.svg",
+              buy: "185.00",
+              sell: "184.90",
+            },
+            {
+              id: 22,
+              name: "Google",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/GOOGL.svg",
+              buy: "2800.00",
+              sell: "2799.50",
+            },
+            {
+              id: 23,
+              name: "Microsoft",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/MSFT.svg",
+              buy: "420.00",
+              sell: "419.80",
+            },
+            {
+              id: 24,
+              name: "Meta",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/META.svg",
+              buy: "500.00",
+              sell: "499.80",
+            },
+          ],
+          crypto: [
+            {
+              id: 25,
+              name: "Bitcoin",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/BTCUSD.svg",
+              buy: "67000",
+              sell: "66950",
+            },
+            {
+              id: 26,
+              name: "Ethereum",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/ETHUSD.svg",
+              buy: "3500",
+              sell: "3495",
+            },
+            {
+              id: 27,
+              name: "Solana",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/SOLUSD.svg",
+              buy: "150",
+              sell: "149.8",
+            },
+            {
+              id: 28,
+              name: "Ripple",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/XRPUSD.svg",
+              buy: "0.52",
+              sell: "0.519",
+            },
+            {
+              id: 29,
+              name: "Dogecoin",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/DOGEUSD.svg",
+              buy: "0.15",
+              sell: "0.149",
+            },
+            {
+              id: 30,
+              name: "Litecoin",
+              img: "https://finvasiaexpos.s3.eu-west-2.amazonaws.com/tradingsymbol/LTCUSD.svg",
+              buy: "80",
+              sell: "79.8",
+            },
+          ],
+        };
+
+        // Helper to render instrument cards
+        function renderInstruments(list) {
+          return list
+            .map(
+              (item) => `
+                            <div style="flex: 0 0 auto;width: 100%;padding:0px 12px;margin:24px 0px 0px;flex-shrink:0;max-width:100%;padding-right:12px;padding-left:12px;margin-top:24px;">
+                                <div style="astessd" style="border-radius:14px;height:187.195px;--bs-card-spacer-y: 1rem;--bs-card-spacer-x: 1rem;--bs-card-title-spacer-y: 0.5rem;--bs-card-title-color:;--bs-card-subtitle-color:;--bs-card-border-width: 1px;--bs-card-border-color: rgba(0,0,0,.175);--bs-card-border-radius: 0.375rem;--bs-card-box-shadow:;--bs-card-inner-border-radius: calc(0.375rem - (1px));--bs-card-cap-padding-y: 0.5rem;--bs-card-cap-padding-x: 1rem;--bs-card-cap-bg: rgba(33,37,41,0.03);--bs-card-cap-color:;--bs-card-height:;--bs-card-color:;--bs-card-bg: #fff;--bs-card-img-overlay-padding: 1rem;--bs-card-group-margin: 0.75rem;position:relative;display:flex;flex-direction:column;min-width:0px;color:rgb(33, 37, 41);overflow-wrap:break-word;background-color:rgb(255, 255, 255);-webkit-background-clip:border-box;-webkit-background-clip:border-box;">
+                                    <div style="border-radius:8px;box-shadow:rgba(0, 0, 0, 0.13) 0px 0px 8px 1px;padding:15px 0px;margin:0px;padding-right:0px;padding-left:0px;flex: 1 1 auto;color:rgb(33, 37, 41);">
+                                        <div style="text-align:center;position:relative;">
+                                            <div>
+                                                <a href="https://www.isotradex.com/markets?insID=${item.id}" style="color:rgb(1, 3, 4);cursor:pointer;text-decoration:none solid rgb(1, 3, 4);padding:0px;margin:0px 0px 16px;margin-bottom:16px;align-items:center;justify-content:center;display:flex;">
+                                                    <img alt="${item.name}" title="${item.name}" loading="lazy" width="30" height="30" decoding="async" data-nimg="1" src="https://www.isotradex.com/Home/${item.img}" style="color: transparent;max-width:100%;vertical-align:middle;" />
+                                                </a>
+                                                
+                                            </div>
+                                            <div>
+                                                <a href="https://www.isotradex.com/markets?insID=${item.id}" style="ccursor:pointer;text-decoration:none solid rgb(33, 37, 41);padding:0px;margin:8px 0px 16px;margin-bottom:16px;margin-top:8px;display:block;">
+                                                    <h6 class="textcolor" style="font-weight:500;margin-bottom:0px;font-size:16px;margin-top:0px;line-height:19.2px;">${item.name}</h6>
+                                                </a>
+                                                <div style="padding:0px 16px;margin:0px;padding-right:16px;padding-left:16px;">
+                                                    <div style="align-items:center;justify-content:space-between;display:flex;">
+                                                        <p style="color:rgb(65, 191, 116);font-size:20px;font-weight:600;padding:10px 0px;margin:0px 4px 4px 0px;background:rgb(231, 243, 235) none repeat scroll 0% 0% / auto padding-box border-box;border-radius:10px 0px 0px 10px;line-height:20px;margin-bottom:4px;margin-right:4px;width: 50% !important;margin-top:0px;">${item.buy}<sub style="bottom:-3.75px;position:relative;font-size:15px;line-height:0px;vertical-align:baseline;"></sub></p>
+                                                        <p style="color:rgb(220, 53, 69);font-size:20px;font-weight:600;padding:10px 0px;margin:0px 4px 4px 0px;background:rgb(255, 197, 191) none repeat scroll 0% 0% / auto padding-box border-box;border-radius:0px 10px 10px 0px;line-height:20px;margin-bottom:4px;margin-right:4px;width: 50% !important;margin-top:0px;">${item.sell}<sub style="bottom:-3.75px;position:relative;font-size:15px;line-height:0px;vertical-align:baseline;"></sub></p>
+                                                    </div>
+                                                    <div style="align-items:center;display:flex;">
+                                                        <p style="color:rgb(92, 175, 121);font-size:12px;font-weight:600;padding:10px 4px;margin:0px;line-height:12px;padding-right:4px;padding-left:4px;margin-bottom:0px;width: 50% !important;margin-top:0px;">Buy</p>
+                                                        <p style="color:rgb(220, 53, 69);font-size:12px;font-weight:600;padding:10px 4px;margin:0px;line-height:12px;padding-right:4px;padding-left:4px;margin-bottom:0px;width: 50% !important;margin-top:0px;">Sell</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+            )
+            .join("");
+        }
+
+        // Find the instruments container
+        const instruments = document.getElementById("instruments");
+        if (!instruments) return;
+
+        // Find the tab buttons (assume they are the <button> elements in the parent <ul>)
+        const tabParent = document.getElementById("instrument-tabs");
+        if (!tabParent) return;
+        const tabButtons = Array.from(tabParent.querySelectorAll("button"));
+
+        // Set initial tab (Most Popular)
+        let currentTab = "stocks";
+        instruments.innerHTML = renderInstruments(dummyData[currentTab]);
+
+        // Tab click handler
+        tabButtons.forEach((btn, idx) => {
+          btn.addEventListener("click", function () {
+            // Remove active color from all
+            tabButtons.forEach((b) => (b.style.color = "rgb(147, 147, 147)"));
+            // Set active color
+            btn.style.color = "rgb(1, 3, 4)";
+            // Render instruments for selected tab
+            currentTab = tabs[idx].key;
+            instruments.innerHTML = renderInstruments(dummyData[currentTab]);
+          });
+        });
+      });
+    </script>
+    <script
+      data-cfasync="false"
+      src="{% static '../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"
+    ></script>
+    <script
+      data-cfasync="false"
+      src="{% static 'cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"
+    ></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var htmlTag = document.documentElement;
+        var storedTheme = localStorage.getItem("data-theme");
+        var currentTheme;
+        if (storedTheme) {
+          htmlTag.setAttribute("data-theme", storedTheme);
+          currentTheme = storedTheme;
+        } else {
+          var prefersLight = window.matchMedia(
+            "(prefers-color-scheme: light)"
+          ).matches;
+          currentTheme = prefersLight ? "light" : "dark";
+          htmlTag.setAttribute("data-theme", currentTheme);
+        }
+
+        document.querySelectorAll(".logo").forEach(function (el) {
+          if (currentTheme === "dark") {
+            el.src = el.getAttribute("data-dark-src");
+          } else {
+            el.src = el.getAttribute("data-light-src");
+          }
+        });
+        // Set icon in .grayfade depending on theme
+        document.querySelectorAll(".grayfade").forEach(function (el) {
+          if (currentTheme === "dark") {
+            el.innerHTML =
+              '<i data-feather="sun" style="width:20px;color:#fff"></i>';
+          } else {
+            el.innerHTML = '<i data-feather="moon" style="width:20px"></i>';
+          }
+          if (window.feather) feather.replace();
+        });
+
+        document.querySelectorAll(".grayfade").forEach(function (el) {
+          el.addEventListener("click", function () {
+            var htmlTag = document.documentElement;
+            var currentTheme = htmlTag.getAttribute("data-theme") || "dark";
+            var newTheme = currentTheme === "dark" ? "light" : "dark";
+            localStorage.setItem("data-theme", newTheme);
+            location.reload();
+          });
+        });
+      });
+    </script>
+    <script>
+      // Toggle dropdown menus on click
+      document
+        .querySelectorAll(".nav-link.menuTitle#subDropdownMenuLink")
+        .forEach(function (link) {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            var parentLi = link.closest("li");
+            var dropdown = parentLi
+              ? parentLi.querySelector(".dropdown-menu")
+              : null;
+            if (dropdown) {
+              dropdown.classList.toggle("show");
+            }
+          });
+        });
+
+      // Remove 'show' class on outside click
+      document.addEventListener("click", function (e) {
+        document
+          .querySelectorAll(".dropdown-menu.show")
+          .forEach(function (menu) {
+            // Check if click is inside any open dropdown or its toggle link
+            var parentLi = menu.closest("li");
+            var toggleLink = parentLi
+              ? parentLi.querySelector(
+                  ".nav-link.menuTitle#subDropdownMenuLink"
+                )
+              : null;
+            if (
+              !menu.contains(e.target) &&
+              !(toggleLink && toggleLink.contains(e.target))
+            ) {
+              menu.classList.remove("show");
+            }
+          });
+      });
+
+      // Toggle footer sections on mobile
+      document.querySelectorAll(".forMobButton").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var parent = btn.parentElement;
+          if (parent.classList.contains("false")) {
+            parent.classList.remove("false");
+            parent.classList.add("active");
+          } else {
+            parent.classList.remove("active");
+            parent.classList.add("false");
+          }
+          var icon = btn.querySelector("i[data-feather]");
+          if (icon) {
+            if (icon.getAttribute("data-feather") === "plus-circle") {
+              icon.setAttribute("data-feather", "minus-circle");
+            } else {
+              icon.setAttribute("data-feather", "plus-circle");
+            }
+            feather.replace();
+          }
+        });
+      });
+
+      document.querySelectorAll(".more-menu").forEach(function (menu) {
+        menu.addEventListener("click", function (e) {
+          e.preventDefault();
+          var megaMenu = menu
+            .closest(".repeatList")
+            .querySelector(".megaMenusubList");
+          if (megaMenu) {
+            // menu.closest('.closemenuList').style.display = 'block'
+            megaMenu.style.display = "block";
+            megaMenu.style.right = "0";
+          }
+        });
+      });
+
+      // Hide megaMenusubList when closemenuList is clicked
+      document
+        .querySelectorAll(".closemenuList a")
+        .forEach(function (closeBtn) {
+          closeBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            var megaMenu = closeBtn.closest(".megaMenusubList");
+            if (megaMenu) {
+              megaMenu.style.display = "";
+              megaMenu.style.right = "";
+            }
+          });
+        });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let swiperInstance = null;
+
+        function initOrDestroySwiper() {
+          const isLargeScreen = window.innerWidth >= 769;
+          if (isLargeScreen) {
+            if (swiperInstance) {
+              swiperInstance.destroy(true, true);
+              swiperInstance = null;
+            }
+          } else {
+            if (!swiperInstance) {
+              swiperInstance = new Swiper(".swiper", {
+                slidesPerView: 1.3,
+                centeredSlides: false,
+                spaceBetween: 10,
+                loop: true,
+                pagination: {
+                  el: ".swiper-pagination",
+                  clickable: true,
+                },
+                autoplay: true,
+                breakpoints: {
+                  768: {
+                    slidesPerView: 2.2,
+                    spaceBetween: 24,
+                  },
+                },
+              });
+            }
+          }
+        }
+        initOrDestroySwiper();
+        window.addEventListener("resize", initOrDestroySwiper);
+      });
+    </script>
+    <script>
+      feather.replace();
+    </script>
+    <script>
+      // Show loader on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        var loader = document.getElementById("preloader");
+        if (loader) {
+          loader.style.display = "flex";
+        }
+      });
+
+      // Hide loader when page is fully loaded
+      window.addEventListener("load", function () {
+        var loader = document.getElementById("preloader");
+        if (loader) {
+          loader.style.display = "none";
+        }
+      });
+    </script>
+    <script>
+      AOS.init({
+        duration: 1500,
+        once: false,
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        const elements = document.querySelectorAll(".aos-init");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("aos-animate");
+              } else {
+                entry.target.classList.remove("aos-animate");
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+          }
+        );
+
+        elements.forEach((el) => observer.observe(el));
+      });
+
+      function redirectUserToRegister() {
+        window.location.replace("http://127.0.0.1:8000/register");
+      }
+      function redirectUserLogin() {
+        window.location.replace("http://127.0.0.1:8000/login");
+      }
+    </script>
+
+    <script src="{% static 'assets/scripts/api.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+
+    <!-- Smartsupp Live Chat script -->
+    <script type="text/javascript">
+      var _smartsupp = _smartsupp || {};
+      _smartsupp.key = "869b3960f61eff4dc3c6a53d2de98f4972f7f143";
+      window.smartsupp ||
+        (function (d) {
+          var s,
+            c,
+            o = (smartsupp = function () {
+              o._.push(arguments);
+            });
+          o._ = [];
+          s = d.getElementsByTagName("script")[0];
+          c = d.createElement("script");
+          c.type = "text/javascript";
+          c.charset = "utf-8";
+          c.async = true;
+          c.src = "https://www.smartsuppchat.com/loader.js?";
+          s.parentNode.insertBefore(c, s);
+        })(document);
+    </script>
+    <noscript
+      >Powered by
+      <a href="https://www.smartsupp.com" target="_blank"
+        >Smartsupp</a
+      ></noscript
+    >
+  </body>
+</html>

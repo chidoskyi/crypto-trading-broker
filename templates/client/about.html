@@ -1,0 +1,403 @@
+{% extends "client/base.html" %} 
+{% load static %}
+{% block header %}
+    {% include "client/header.html" %}
+{% endblock header %}
+
+{% block content %}
+    <div id="main-wrapper" class="mainWrapper pb-0">
+      <!---->
+      <div class="mainWrapper pb-0">
+        <section class="blockElement space bg-white">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12 col-xl-9">
+                <ul
+                  class="timeLineTabs mb-0 d-flex align-items-center justify-content-center"
+                >
+                  <li class="borderList p-0">&nbsp;</li>
+                  <li>
+                    <a
+                      class="active button Isotradex_btn rounded border-button bg-white darkWhite"
+                      href="javascript:void(0)"
+                      >About Us</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="button Isotradex_btn rounded border-button bg-white darkWhite"
+                      href="javascript:void(0)"
+                      >Timeline</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="button Isotradex_btn rounded border-button bg-white darkWhite"
+                      href="javascript:void(0)"
+                      >Careers</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="tabsOne">
+          <div class="includepage">
+            <section class="blockElement space bg-white whoWeAre">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <div class="boxed bodyBG text-center">
+                      <div class="imgSrc">
+                        <img
+                          src="{% static 'assets/icons/svg/aboutBlub.svg' %}"
+                          class="green-fl"
+                          alt="Who we are"
+                          title="Isotradex"
+                        />
+                      </div>
+                      <div class="content">
+                        <h1 class="mb-md-4 f-32 semibold tag">
+                          Who <span class="secondary">We Are</span>
+                        </h1>
+                        <p>
+                          We are Isotradex, a Isotradex Group company.
+                          Established in 2007, we are the largest
+                          broker-agnostic social wealth management and the
+                          oldest copy trading platform in the world. We
+                          revolutionized copy trading by creating a “one of its
+                          kind” socially driven broker and platform-agnostic
+                          social network.
+                        </p>
+                        <p>
+                          We enable you to invest your capital and manage your
+                          wealth more efficiently. With the help of our large
+                          and diverse community, technology, and open ecosystem,
+                          we help you make informed investment decisions in a
+                          digitally safe and trusted environment.
+                        </p>
+                        <h5 class="secondary">Industry Leaders for 17 years</h5>
+                        <p>
+                          Our vision is to be the leading wealth management
+                          platform for everyone who doesn’t have the background,
+                          time, or technical capacity to invest and choose us
+                          for our open platform, diverse ecosystem, and strong
+                          community that can’t be copied.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="blockElement space bg-white">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-md-8 mb-4 text-center">
+                    <h5 class="mb-2 secondary">Our Mission</h5>
+                    <h2>
+                      Simplify the
+                      <span class="secondary">Trading experience</span><br />
+                      and make it accessible to all
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="blockElement space bg-white automated5 pt-0">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <h2 class="text-center mb-md-4 pb-4">Our Brokers</h2>
+                  </div>
+                  <div class="col-12">
+                    <ul
+                      class="clientLogo d-flex align-items-center flex-wrap justify-content-center"
+                    >
+                      <li>
+                        <a
+                          href="https://www.interactivebrokers.com/"
+                          target="_blank"
+                        >
+                          <img
+                            src="{% static 'assets/img/inbr.png' %}"
+                            alt="Interactive Brokers"
+                            title="Interactive Brokers"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.schwab.com/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/charles-schwab.png' %}"
+                            alt="Charles Schwab"
+                            title="Charles Schwab"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.fidelity.com/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/fidelity.png' %}"
+                            alt="Fidelity"
+                            title="Fidelity"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.schwab.com/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/td-ameritrade.png' %}"
+                            alt="TD Ameritrade"
+                            title="TD Ameritrade"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://robinhood.com/us/en/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/AvaTrade-small2.png' %}"
+                            alt="Robinhood"
+                            title="Robinhood"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.webull.com/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/BlackBull-small.png' %}"
+                            alt="Webull"
+                            title="Webull"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.etoro.com/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/etoro.png' %}"
+                            alt="eToro"
+                            title="eToro"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="http://www.avatrade.com/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/avatrade.png' %}"
+                            alt="AvaTrade"
+                            title="AvaTrade"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.home.saxo/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/saxobank.png' %}"
+                            alt="Saxo Bank"
+                            title="Saxo Bank"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.iggroup.com/" target="_blank">
+                          <img
+                            src="{% static 'assets/img/ig-group.png' %}"
+                            alt="IG Group"
+                            title="IG Group"
+                            width="120"
+                            class=""
+                          />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-12 text-center">
+                    <a href="select-broker.html" class="secondary"
+                      >View all Brokers</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="blockElement space">
+              <div class="container">
+                <div class="row justify-content-center text-center">
+                  <div class="col-12 mb-md-4">
+                    <h2>Our <span class="secondary">Awards</span></h2>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="ourAward">
+                      <div class="position-relative maskIcon one">
+                        <span class="f-14 semibold"
+                          >UF AWARDS <span>MEA</span></span
+                        ><span class="f-14 semibold">DUBAI, 2024</span>
+                      </div>
+                      <h6 class="f-15">
+                        Best Social Trading <span>Solution MEA</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="ourAward">
+                      <div class="position-relative maskIcon one">
+                        <span class="f-14 semibold"
+                          >UF AWARDS <span>GLOBAL</span></span
+                        ><span class="f-14 semibold">CYPRUS, 2023</span>
+                      </div>
+                      <h6 class="f-15">
+                        Best Social Trading <span>Solution</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="ourAward">
+                      <div class="position-relative maskIcon">
+                        <span class="f-14 semibold">UF AWARDS</span
+                        ><span class="f-14 semibold">BANGKOK, 2023</span>
+                      </div>
+                      <h6 class="f-15">
+                        Best Social Trading <span>Solution APAC</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="ourAward">
+                      <div class="position-relative maskIcon">
+                        <span class="f-14 semibold">FAME AWARD</span
+                        ><span class="f-14 semibold">SA, 2023</span>
+                      </div>
+                      <h6 class="f-15">
+                        Best Wealth <span>Management Platform</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="ourAward">
+                      <div class="position-relative maskIcon">
+                        <span class="f-14 semibold">UF AWARDS</span
+                        ><span class="f-14 semibold">DUBAI, 2023</span>
+                      </div>
+                      <h6 class="f-15">
+                        Best Social Trading <span>Solution in MEA</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="ourAward">
+                      <div class="position-relative maskIcon">
+                        <span class="f-14 semibold">UF AWARDS</span
+                        ><span class="f-14 semibold">CYPRUS, 2022</span>
+                      </div>
+                      <h6 class="f-15">
+                        Best Social Trading <span>Solution</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4 col-lg-3">
+                    <div class="ourAward">
+                      <div class="position-relative maskIcon">
+                        <span class="f-14 semibold">FOREX EXPO</span
+                        ><span class="f-14 semibold">DUBAI, 2022</span>
+                      </div>
+                      <h6 class="f-15">
+                        Best Social Wealth <span>Management Platform</span>
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="blockElement space ourLocation bg-white">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-12 col-md-6 text-center mb-4">
+                    <h2 class="mb-md-4">
+                      Our <span class="secondary">Offices</span>
+                    </h2>
+                    <p class="mb-0">
+                      <span class="bold">Isotradex’s</span> head office is based
+                      in <span class="bold">United States</span>.
+                    </p>
+                    <p class="mb-0">
+                      The corporate office is in
+                      <span class="bold">United Kingdom</span> and we have
+                      another office in <span class="bold">Canada</span>.
+                    </p>
+                    <p>
+                      Isotradex Group has it’s offices in
+                      <span class="bold">Dubai</span>,
+                      <span class="bold">Greece</span>,
+                      <span class="bold">JAPAN</span>,
+                      <span class="bold">Cyprus</span>,
+                      <span class="bold">London</span>,
+                      <span class="bold">South Africa</span>,
+                      <span class="bold">Australia</span>,
+                      <span class="bold">Mauritius</span> and
+                      <span class="bold">India</span>.
+                    </p>
+                  </div>
+                  <div class="col-12 col-md-8 text-center mapLocation mb-4">
+                    <img
+                      src="{% static 'assets/img/mapLocation.svg' %}"
+                      class="lightTheme"
+                      alt="Our Offices"
+                      title="Word Map"
+                    /><img
+                      src="{% static 'assets/img/mapLocation.svg' %}"
+                      class="darkTheme d-none"
+                      alt="Our Offices"
+                      title="Word Map"
+                    />
+                  </div>
+                  <div class="col-12 col-md-10">
+                    <div
+                      class="boxed services d-flex align-items-center justify-content-center"
+                    >
+                      <img
+                        src="{% static 'assets/img/FXVU-small.png' %}"
+                        alt="Interested in our Services?"
+                        title="Interested"
+                        class=""
+                      />
+                      <h2 class="bold mb-0 mx-3">
+                        Interested in our Services?
+                      </h2>
+                      <a
+                        href="https://app.Isotradex.com/register"
+                        class="button fillBtn Isotradex_btn px-md-5 ms-3"
+                        >Open your account</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <!----><!---->
+      </div>
+    </div>
+
+        {% endblock content%}
+        {% block footer %}
+    {% include "client/footer.html" %}
+        {% endblock footer %}

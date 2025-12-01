@@ -1,0 +1,272 @@
+{% load static %}
+
+    <header id="myHeader" class="mainHeader ">
+        <nav class="navbar navbar-expand-lg p-0 border-bottom ">
+            <div class="container-fluid">
+                <span class="IsotradexLogo pointer">
+                    <a href="{% url 'index' %}">
+                        <img alt="Isotradex" title="Isotradex"
+                                width="180" style="height:100%" decoding="async" data-nimg="1" style="color:transparent"
+                                class="logo" src="{% static 'assets/img/logo/lg-logo-dark.png' %}" 
+                                data-dark-src="{% static 'assets/img/logo/lg-logo-dark.png' %}"
+                                data-light-src="{% static 'assets/img/logo/lg-logo-light.png' %}" 
+                                />
+                    </a>
+                    </span>
+                <div class="navbar-collapse mobileFlex" id="mynavbar">
+                    <ul class="megaMenuList navbar-nav align-items-center "><a
+                            class="onlyCloseForMobile d-none p-0 text-end"><svg width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="#778290" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x-circle primary">
+                                <g>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </g>
+                            </svg></a>
+                        <div class="repeatList showBottomBarMenu d-lg-none">
+                            <li class="nav-item"><a class="nav-link menuTitle" href="index.html"><img alt="Home"
+                                        loading="lazy" width="17" height="17" decoding="async" data-nimg="1"
+                                        class="d-lg-none showBottomBar" style="color:transparent"
+                                        src="{% static 'assets/img/home-mobile.svg' %}" />Home</a></li>
+                        </div>
+                        <div class="repeatList showBottomBarMenu">
+                            <li class="nav-item"><a class="nav-link menuTitle" href="{% url 'leader' %}"><img alt="Leaders"
+                                        loading="lazy" width="17" height="17" decoding="async" data-nimg="1"
+                                        class="d-lg-none showBottomBar" style="color:transparent"
+                                        src="{% static 'assets/img/leaders.svg' %}" />Leaders</a></li>
+                        </div>
+                        <div class="repeatList showBottomBarMenu">
+                            <li class="nav-item"><a class="nav-link menuTitle" href="{% url 'market' %}"><img alt="Markets"
+                                        loading="lazy" width="17" height="17" decoding="async" data-nimg="1"
+                                        class="d-lg-none showBottomBar" style="color:transparent"
+                                        src="{% static 'assets/img/market.svg' %}" />Markets</a></li>
+                        </div>
+                        <div class="repeatList showClickMobile">
+                            <li class="nav-item"><a class="nav-link menuTitle" id="subDropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false" href="index.html#">Tools</a>
+                                <ul class="dropdown-menu w-100 showMegaMenu" aria-labelledby="subDropdownMenuLink">
+                                    <div class="container max-1320">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy"
+                                                            class="green-fl" width="30" height="30" decoding="async"
+                                                            data-nimg="1" class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="{% static 'assets/img/tools.svg' %}" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">Trading Tools</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Make use of these
+                                                            tools to help with your investments.</p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="{% url 'calender' %}">Calendar</a></li>
+                                                            <li><a href="trading-tools.html">Calculator</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy" width="30"
+                                                            height="30" decoding="async" class="green-fl" data-nimg="1"
+                                                            class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="{% static 'assets/img/instruments.svg' %}" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">Knowledge Base</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Make use of these
+                                                            tools to help with your investments</p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="{% url 'user-guide' %}">Investor Guide</a></li>
+                                                            <li><a href="{% url 'leader-guide' %}">Leader Guide</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="repeatList showClickMobile">
+                            <li class="nav-item"><a class="nav-link menuTitle" id="subDropdownMenuLink"
+                                    data-bs-toggle="dropdown" aria-expanded="false" href="">About</a>
+                                <ul class="dropdown-menu w-100 showMegaMenu darkCard "
+                                    aria-labelledby="subDropdownMenuLink">
+                                    <div class="container max-1320">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy" width="30"
+                                                            height="30" decoding="async" data-nimg="1"
+                                                            class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="{% static 'assets/img/about-us.html' %}" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">About Us</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Have a look at
+                                                            what
+                                                            we’re about and how you can join us.</p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="{% url 'about' %}">Company</a></li>    
+
+                                                            <li><a href="{% url 'support' %}">Support</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-4 colRepeat">
+                                                <div class="d-flex align-items-start horizontalBorder"><span
+                                                        class="icon"><img alt="Menu Icon" loading="lazy" width="30"
+                                                            height="30" decoding="async" data-nimg="1"
+                                                            class="v-lazy-image v-lazy-image-loaded"
+                                                            style="color:transparent"
+                                                            src="{% static 'assets/img/partner-with-us.html' %}" /></span>
+                                                    <div class="clsMail">
+                                                        <h5 class="bold mb-1 primary">Partnerships</h5>
+                                                        <p class="mb-0 medium line-4 fs-13 gray">Partner with us.
+                                                        </p>
+                                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                                            <li><a href="{% url 'become-leader' %}">Leader Program</a></li>
+                                                            <li><a href="{% url 'partnerships-program' %}">Broker
+                                                                    Partnerships</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                        </div>
+                        <div class="repeatList showClickMobile">
+                            <li class="nav-item"><a class="nav-link menuTitle" id="subDropdownMenuLink"
+                                    data-bs-toggle="" href="{% url 'help-center' %}">Help Center</a></li>
+                        </div>
+                        <div class="repeatList showBottomBarMenu d-lg-none">
+                            <li class="nav-item"><a class="nav-link menuTitle more-menu"><img alt="Menu Icon"
+                                        loading="lazy" width="17" height="17" decoding="async" data-nimg="1"
+                                        class="mb-1" style="color:transparent" src="{% static 'assets/img/mobile-more.svg' %}" /><span
+                                        class="d-block">More</span></a>
+                            </li>
+                            <ul class="megaMenusubList pb-0 viewmoreMenu">
+                                <li class="closemenuList text-end"><a class="secondary d-inline-flex"
+                                        href="javascript:void(0)"><i data-name="x-circle"
+                                            data-tags="cancel,close,delete,remove,times,clear" data-type="x-circle"
+                                            class="vue-feather vue-feather--x-circle"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-x-circle vue-feather__content">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="15" y1="9" x2="9" y2="15">
+                                                </line>
+                                                <line x1="9" y1="9" x2="15" y2="15">
+                                                </line>
+                                            </svg></i></a></li>
+                                <li class="nav-item viewMobileListed" style="text-align: start;padding-top: 60px">
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">Knowledge Base</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="user-guide.html" class="px-0 dropdown-item">Investor
+                                                    Guide</a>
+                                            </li>
+                                            <li><a href="leader-guide.html" class="px-0 dropdown-item">Leader
+                                                    Guide</a>
+                                            </li>
+                                            <li><a href="affiliate-guide.html" class="px-0 dropdown-item">Affiliate
+                                                    Guide</a></li>
+                                        </ul>
+                                    </div>
+
+
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">About Us</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="about.html"
+                                                    class="router-link-active router-link-exact-active px-0 dropdown-item"
+                                                    aria-current="page">Company</a></li>
+
+                                            <li><a href="support.html" class="px-0 dropdown-item">Support</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">Partnerships</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="become-an-affiliate.html" class="px-0 dropdown-item">Affiliate
+                                                    Program</a></li>
+                                            <li><a href="become-a-leader.html" class="px-0 dropdown-item">Leader
+                                                    Program</a></li>
+                                            <li><a href="partnership-program.html" class="px-0 dropdown-item">Broker
+                                                    Partnerships</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clsMail">
+                                        <h5 class="bold mb-1 secondary">Legal</h5>
+                                        <ul class="dropDownMenu mt-lg-3 mb-2 mb-lg-0">
+                                            <li><a href="terms-of-service.pdf" class="px-0 dropdown-item">Terms
+                                                    Of Service</a>
+                                            </li>
+                                            <li><a href="privacy-policy.html" class="px-0 dropdown-item">Privacy
+                                                    Policy</a></li>
+                                            <li><a href="cookies-policy.html" class="px-0 dropdown-item">Cookies
+                                                    Policy</a></li>
+                                            <li><a href="risk-disclaimer.html" class="px-0 dropdown-item">Risk
+                                                    Disclaimer</a></li>
+                                            <li><a href="conflict-of-interest-policy.pdf"
+                                                    class="px-0 dropdown-item">Conflict of
+                                                    Interest
+                                                    Policy</a></li>
+                                            <li><a href="https://www.isotradex.com/Home/Declaration_of_Consent_Isotradex.pdf"
+                                                    class="px-0 dropdown-item">Declaration of Consent</a>
+                                            </li>
+                                            <li><a href="https://www.isotradex.com/Home/Isotradex-eula-draft.pdf"
+                                                    class="px-0 dropdown-item">End-User
+                                                    License
+                                                    Agreement</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+                {% comment %} onclick="redirectUserLogin()"
+                onclick="redirectUserToRegister()" class=" IsotradexBTN"{% endcomment %}
+                <div class="flex-shrink-0 d-flex align-items-center gap-4 mobIndex ">
+                    <div class="position-relative"><a class="grayfade cursor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun" style="width:20px;color:#fff"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></a></div>
+                    <div class="headerLogin d-flex align-items-center gap-3">
+                        <a href="{% url 'register' %}"   title="Sign Up">Signup</a>
+                        <a href="{% url 'login' %}"
+                          class="userIcon flex-shrink-0" title="Login"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#778290" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user ">
+                                <g>
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </g>
+                            </svg></a>
+                    </div>
+                </div>
+                {% comment %} <div class="flex-shrink-0 d-flex align-items-center gap-4 mobIndex ">
+                    <div class="position-relative"><a class="grayfade cursor">
+
+                        </a></div>
+                    <div class="headerLogin d-flex align-items-center gap-3">
+                        <a href="index.html#" onclick="redirectUserToRegister()" class=" IsotradexBTN"
+                            title="Sign Up">Signup</a>
+                        <a href="index.html#" onclick="redirectUserLogin()" class="userIcon flex-shrink-0"
+                            title="Login"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#778290"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-user ">
+                                <g>
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </g>
+                            </svg></a>
+                    </div>
+                </div> {% endcomment %}
+            </div>
+        </nav>
+    </header>

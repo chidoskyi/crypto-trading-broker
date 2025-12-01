@@ -1,0 +1,371 @@
+{% extends 'user-dashboard/base.html' %}
+{% load static %}
+{% block title %}Transactions{% endblock title %}
+
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %}
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %}
+
+{% block content %}
+<div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <div x-data="transactionsPage()" x-init="init()" class="relative px-1 sm:px-2 md:px-3 lg:px-6 xl:px-8 max-w-screen-2xl mx-auto">
+        <!-- Gradient Background Effect -->
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-50/30 via-transparent to-transparent dark:from-primary-900/10 dark:via-transparent dark:to-transparent rounded-xl -z-10 pointer-events-none"></div>
+
+        <!-- Page Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 px-2">
+            <div class="relative">
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-white flex items-center">
+                    <span class="relative">
+                        Transaction History
+                        <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-600 to-primary-300 dark:from-primary-500 dark:to-primary-700"></span>
+                    </span>
+                    <span x-show="totalCount > 0" class="ml-2 inline-flex items-center justify-center px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-sm font-medium dark:bg-primary-900/50 dark:text-primary-400" x-text="totalCount"></span>
+                </h1>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 max-w-lg">Complete record of all your financial transactions and trading activities</p>
+            </div>
+
+            <!-- Export Button -->
+            <button @click="exportTransactions()" class="mt-4 md:mt-0 inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-full hover:from-primary-500 hover:to-primary-600 transition-all duration-200 shadow-lg hover:shadow-primary-500/25 dark:shadow-none transform hover:scale-105">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                Export CSV
+            </button>
+        </div>
+
+        <!-- Filters & Search Bar -->
+        <div class="mb-8 p-5 backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Transaction Type Filter -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1.5 mb-2">
+                        <i data-lucide="filter" class="h-4 w-4 text-gray-500 dark:text-gray-400"></i>
+                        Type
+                    </label>
+                    <select x-model="filters.transactionType" @change="loadTransactions()" class="w-full px-4 py-2.5 bg-gray-100/80 dark:bg-gray-700/80 border-0 rounded-full text-sm focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 transition-all duration-200">
+                        <option value="">All Types</option>
+                        <option value="deposit">Deposit</option>
+                        <option value="withdrawal">Withdrawal</option>
+                        <option value="transfer_to_trading">Transfer to Trading</option>
+                        <option value="transfer_from_trading">Transfer from Trading</option>
+                        <option value="order_fee">Order Fee</option>
+                        <option value="position_open">Position Opened</option>
+                        <option value="position_close">Position Closed</option>
+                        <option value="profit">Profit</option>
+                        <option value="loss">Loss</option>
+                    </select>
+                </div>
+
+                <!-- Balance Type Filter -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1.5 mb-2">
+                        <i data-lucide="wallet" class="h-4 w-4 text-gray-500 dark:text-gray-400"></i>
+                        Balance
+                    </label>
+                    <select x-model="filters.balanceType" @change="loadTransactions()" class="w-full px-4 py-2.5 bg-gray-100/80 dark:bg-gray-700/80 border-0 rounded-full text-sm focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 transition-all duration-200">
+                        <option value="">All Balances</option>
+                        <option value="deposit">Deposit Balance</option>
+                        <option value="trading">Trading Balance</option>
+                    </select>
+                </div>
+
+                <!-- Status Filter -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1.5 mb-2">
+                        <i data-lucide="activity" class="h-4 w-4 text-gray-500 dark:text-gray-400"></i>
+                        Status
+                    </label>
+                    <select x-model="filters.status" @change="loadTransactions()" class="w-full px-4 py-2.5 bg-gray-100/80 dark:bg-gray-700/80 border-0 rounded-full text-sm focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 transition-all duration-200">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="failed">Failed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <!-- Search -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1.5 mb-2">
+                        <i data-lucide="search" class="h-4 w-4 text-gray-500 dark:text-gray-400"></i>
+                        Search
+                    </label>
+                    <input x-model="searchTerm" @input.debounce.500ms="loadTransactions()" type="text" class="w-full px-4 py-2.5 bg-gray-100/80 dark:bg-gray-700/80 border-0 rounded-full text-sm focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-600 transition-all duration-200" placeholder="Search transactions...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <template x-if="loading">
+            <div class="text-center py-12 backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-400">Loading transactions...</p>
+            </div>
+        </template>
+
+        <!-- Transactions List -->
+        <template x-if="!loading">
+            <div class="backdrop-blur-sm bg-white/70 dark:bg-gray-800/70 rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
+                <!-- Transactions -->
+                <div class="max-h-[65vh] overflow-y-auto scroll-smooth" id="transactions-container">
+                    <div class="divide-y divide-gray-200/50 dark:divide-gray-700/50">
+                        <template x-for="transaction in transactions" :key="transaction.id">
+                            <div class="group p-5 md:p-6 hover:bg-gray-50/80 dark:hover:bg-gray-700/50 transition-all duration-200" :class="getTransactionBorderClass(transaction)">
+                                <div class="flex flex-col md:flex-row">
+                                    <!-- Icon -->
+                                    <div class="flex-shrink-0 mb-4 md:mb-0 transition-transform duration-300 group-hover:scale-110">
+                                        <div class="flex h-14 w-14 items-center justify-center rounded-full shadow-lg" :class="getIconBackgroundClass(transaction)">
+                                            <i :data-lucide="getTransactionIcon(transaction.transaction_type)" class="h-7 w-7"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="md:ml-6 flex-grow">
+                                        <div class="flex flex-col md:flex-row md:items-start md:justify-between">
+                                            <div class="max-w-2xl">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white leading-tight" x-text="transaction.description || transaction.transaction_type_display"></h3>
+                                                
+                                                <!-- Amount -->
+                                                <div class="mt-2 flex items-center gap-2">
+                                                    <span class="text-2xl font-bold" :class="transaction.is_credit ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'" x-text="formatAmount(transaction.amount)"></span>
+                                                </div>
+
+                                                <!-- Metadata -->
+                                                <div class="mt-3 flex items-center flex-wrap gap-2">
+                                                    <!-- Type Badge -->
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm" :class="getTypeBadgeClass(transaction.transaction_type)">
+                                                        <i :data-lucide="getTransactionIcon(transaction.transaction_type)" class="h-3 w-3 mr-1"></i>
+                                                        <span x-text="transaction.transaction_type_display"></span>
+                                                    </span>
+
+                                                    <!-- Balance Type -->
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                                                        <i data-lucide="wallet" class="h-3 w-3 mr-1"></i>
+                                                        <span x-text="transaction.balance_type_display"></span>
+                                                    </span>
+
+                                                    <!-- Status -->
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" :class="getStatusBadgeClass(transaction.status)">
+                                                        <i data-lucide="circle" class="h-3 w-3 mr-1"></i>
+                                                        <span x-text="transaction.status_display"></span>
+                                                    </span>
+
+                                                    <!-- Time -->
+                                                    <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                                                        <i data-lucide="clock" class="h-3.5 w-3.5 mr-1"></i>
+                                                        <span x-text="formatDate(transaction.created_at)"></span>
+                                                    </span>
+
+                                                    <!-- Order/Position Reference -->
+                                                    <template x-if="transaction.order_id">
+                                                        <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                                                            <i data-lucide="shopping-cart" class="h-3.5 w-3.5 mr-1"></i>
+                                                            Order #<span x-text="transaction.order_id"></span>
+                                                        </span>
+                                                    </template>
+
+                                                    <template x-if="transaction.position_id">
+                                                        <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                                                            <i data-lucide="trending-up" class="h-3.5 w-3.5 mr-1"></i>
+                                                            Position #<span x-text="transaction.position_id"></span>
+                                                        </span>
+                                                    </template>
+                                                </div>
+
+                                                <!-- Balance Info -->
+                                                <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                                    Balance: <span x-text="formatPrice(transaction.balance_before)"></span> → <span class="font-semibold" x-text="formatPrice(transaction.balance_after)"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Action Button -->
+                                            <div class="flex items-center mt-4 md:mt-0 opacity-70 group-hover:opacity-100 transition-opacity duration-200">
+                                                <a :href="`/dashboard/transactions/${transaction.id}`" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100/80 dark:bg-gray-800/80 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-md">
+                                                    <i data-lucide="eye" class="h-4 w-4 mr-1.5"></i>
+                                                    View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Empty State -->
+                        <template x-if="transactions.length === 0">
+                            <div class="text-center py-16">
+                                <i data-lucide="receipt" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Transactions Found</h4>
+                                <p class="text-gray-600 dark:text-gray-400">You don't have any transactions matching your filters</p>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 bg-gradient-to-b from-transparent to-gray-50/80 dark:to-gray-800/50 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+                    <div class="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <div class="mb-4 sm:mb-0">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Showing <span class="font-semibold text-primary-600 dark:text-primary-400" x-text="transactions.length"></span> of
+                                <span class="font-semibold text-primary-600 dark:text-primary-400" x-text="totalCount"></span> transactions
+                            </p>
+                        </div>
+                        <!-- Add pagination controls here if needed -->
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</div>
+
+<script>
+function transactionsPage() {
+    return {
+        transactions: [],
+        loading: true,
+        totalCount: 0,
+        searchTerm: '',
+        filters: {
+            transactionType: '',
+            balanceType: '',
+            status: ''
+        },
+
+        async init() {
+            await this.loadTransactions();
+            // Initialize Lucide icons
+            this.$nextTick(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            });
+        },
+
+        async loadTransactions() {
+            this.loading = true;
+            try {
+                const params = {};
+                if (this.filters.transactionType) params.transaction_type = this.filters.transactionType;
+                if (this.filters.balanceType) params.balance_type = this.filters.balanceType;
+                if (this.filters.status) params.status = this.filters.status;
+
+                const response = await APIClient.getTransactions(params);
+                
+                this.transactions = response.results || response;
+                this.totalCount = response.count || this.transactions.length;
+                
+                // Filter by search term if provided
+                if (this.searchTerm) {
+                    this.transactions = this.transactions.filter(t => 
+                        t.description.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                        t.transaction_type_display.toLowerCase().includes(this.searchTerm.toLowerCase())
+                    );
+                }
+
+                // Reinitialize icons after DOM update
+                this.$nextTick(() => {
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                });
+            } catch (error) {
+                console.error('Failed to load transactions:', error);
+                APIClient.showMessage('Failed to load transactions', 'danger');
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async exportTransactions() {
+            try {
+                APIClient.exportTransactions(this.filters);
+                APIClient.showMessage('Export started successfully', 'success');
+            } catch (error) {
+                console.error('Export failed:', error);
+                APIClient.showMessage('Export failed', 'danger');
+            }
+        },
+
+        getTransactionIcon(type) {
+            const icons = {
+                'deposit': 'arrow-down-circle',
+                'withdrawal': 'arrow-up-circle',
+                'transfer_to_trading': 'arrow-right',
+                'transfer_from_trading': 'arrow-left',
+                'order_fee': 'minus-circle',
+                'position_open': 'trending-up',
+                'position_close': 'trending-down',
+                'profit': 'plus-circle',
+                'loss': 'minus-circle',
+                'commission': 'percent',
+                'refund': 'refresh-cw',
+                'bonus': 'gift',
+                'adjustment': 'edit'
+            };
+            return icons[type] || 'circle';
+        },
+
+        getIconBackgroundClass(transaction) {
+            if (transaction.is_credit) {
+                return 'bg-gradient-to-br from-green-200 to-green-100 text-green-600 dark:from-green-900/40 dark:to-green-800/20 dark:text-green-500';
+            } else {
+                return 'bg-gradient-to-br from-red-200 to-red-100 text-red-600 dark:from-red-900/40 dark:to-red-800/20 dark:text-red-500';
+            }
+        },
+
+        getTransactionBorderClass(transaction) {
+            if (transaction.is_credit) {
+                return 'border-l-4 border-green-500 dark:border-green-600 bg-green-50/30 dark:bg-green-900/10';
+            } else {
+                return 'border-l-4 border-red-500 dark:border-red-600 bg-red-50/30 dark:bg-red-900/10';
+            }
+        },
+
+        getTypeBadgeClass(type) {
+            const classes = {
+                'deposit': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+                'withdrawal': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
+                'transfer_to_trading': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+                'transfer_from_trading': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+                'order_fee': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
+                'position_open': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-400',
+                'position_close': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
+                'profit': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+                'loss': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+            };
+            return classes[type] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
+        },
+
+        getStatusBadgeClass(status) {
+            const classes = {
+                'completed': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+                'pending': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+                'failed': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+                'cancelled': 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
+            };
+            return classes[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
+        },
+
+        formatAmount(amount) {
+            const num = parseFloat(amount);
+            const sign = num >= 0 ? '+' : '';
+            return sign + '$' + Math.abs(num).toFixed(2);
+        },
+
+        formatPrice(price) {
+            return '$' + parseFloat(price).toFixed(2);
+        },
+
+        formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+    }
+}
+</script>
+{% endblock %}

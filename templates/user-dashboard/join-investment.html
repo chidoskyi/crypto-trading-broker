@@ -1,0 +1,605 @@
+{% extends 'user-dashboard/base.html' %} 
+{% load static %} 
+{% block nav %} {% include 'user-dashboard/nav.html' %} {% endblock nav %} 
+{% block sidebar %} {% include 'user-dashboard/sidebar.html' %} {% endblock sidebar %} 
+{% block content %}
+
+<main class="pl-0 md:pl-6">
+  <div class="flex-1 ml-0 md:ml-64 p-4 pb-20 md:pb-4">
+    <div class="container mx-auto px-4 py-8">
+      {% comment %} <div class="w-full max-w-4xl"> {% endcomment %}
+      <!-- Header Section -->
+      <div class="mb-8">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex mb-5" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a
+                href="https://www.isotradex.com/dashboard"
+                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+              >
+                <svg
+                  class="w-4 h-4 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                  ></path>
+                </svg>
+                Home
+              </a>
+            </li>
+            <li aria-current="page">
+              <div class="flex items-center">
+                <svg
+                  class="w-6 h-6 text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <span
+                  class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+                  >Investment Plans</span
+                >
+              </div>
+            </li>
+            <li aria-current="page">
+              <div class="flex items-center">
+                <svg
+                  class="w-6 h-6 text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span
+                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+                  >
+                    Confirm Investment
+                  </span>
+                </div>
+              </li>
+          </ol>
+        </nav>
+
+        <!-- Page Title with Animation -->
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between"
+        >
+          <div>
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">
+              Confirm Your Investment
+            </h1>
+            <p class="text-gray-600 dark:text-gray-300">
+               Review your investment details and choose your investment type
+            </p>
+          </div>
+        </div>
+      </div>
+
+        <!-- Main Investment Card -->
+        <div
+           x-data="{
+              planData: {},
+              amount: 0,
+              init() {
+                const urlParams = new URLSearchParams(window.location.search);
+                this.planData = {
+                  plan_id: urlParams.get('plan_id'),
+                  plan_name: urlParams.get('plan_name'),
+                  interest_rate: parseFloat(urlParams.get('interest_rate')),
+                  min_investment: parseFloat(urlParams.get('min_investment')),
+                  max_investment: parseFloat(urlParams.get('max_investment')),
+                  duration: urlParams.get('duration')
+                };
+                this.amount = parseFloat(urlParams.get('amount')) || this.planData.min_investment;
+              },
+              get formattedAmount() {
+                return '$' + (parseFloat(this.amount) || 0).toFixed(2);
+              },
+              get roi() {
+                return parseFloat(((parseFloat(this.amount) || 0) * this.planData.interest_rate / 100).toFixed(2));
+              },
+              get totalReturn() {
+                return parseFloat(((parseFloat(this.amount) || 0) + this.roi).toFixed(2));
+              }
+            }"
+                      class="bg-white dark:bg-gray-800 mb-10 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700"
+             >
+          <!-- Plan Header -->
+          <div
+            class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-800 p-6 border-b border-gray-200 dark:border-gray-700"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <h2
+                  class="text-2xl font-bold text-gray-800 dark:text-white"
+                  x-text="planData.plan_name"
+                ></h2>
+                <p class="text-gray-600 dark:text-gray-300 mt-1">
+                  High-yield investment opportunity
+                </p>
+              </div>
+              <div
+                class="bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full"
+              >
+                <span
+                  class="text-blue-800 dark:text-blue-300 font-semibold"
+                  x-text="planData.interest_rate + '% ROI'"
+                ></span>
+              </div>
+            </div>
+            <div class="mt-4 flex items-center text-gray-600 dark:text-gray-300">
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span x-text="'Duration: ' + planData.duration"></span>
+            </div>
+          </div>
+
+          <!-- Form Content -->
+          <form id="investment-form" class="p-6">
+            <input type="hidden" name="plan_id" x-bind:value="planData.plan_id" />
+
+            <!-- Amount Input Section -->
+            <div class="mb-6">
+              <label
+                for="amount"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3"
+              >
+                Investment Amount ($)
+              </label>
+              <div class="relative">
+                <span
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500 dark:text-gray-400"
+                >
+                  $
+                </span>
+                <input
+                  type="number"
+                  id="amount"
+                  name="amount"
+                  x-model="amount"
+                  :min="planData.min_investment"
+                  :max="planData.max_investment"
+                  step="0.01"
+                  class="pl-8 block w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 py-3 px-4 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors duration-200"
+                  required
+                />
+              </div>
+
+              <!-- Range Slider -->
+              <div class="mt-4 px-1">
+                <input
+                  type="range"
+                  x-model="amount"
+                  :min="planData.min_investment"
+                  :max="planData.max_investment"
+                  step="10"
+                  class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600 dark:accent-blue-500"
+                />
+                <div
+                  class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1"
+                >
+                  <span>Min: $<span x-text="planData.min_investment"></span></span>
+                  <span>Max: $<span x-text="planData.max_investment"></span></span>
+                </div>
+              </div>
+
+              <!-- Live Calculation Preview -->
+              <div class="mt-4 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                  Potential Return:
+                  <span class="text-green-600 dark:text-green-400 font-medium">
+                    $<span x-text="roi.toFixed(2)"></span>
+                  </span>
+                  <span x-text="' over ' + planData.duration"></span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Investment Summary Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <!-- Investment Amount Card -->
+              <div
+                class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-3"
+                  >
+                    <svg
+                      class="w-5 h-5 text-blue-600 dark:text-blue-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Investment</p>
+                   <p
+                      class="text-lg font-bold text-gray-900 dark:text-white"
+                      x-text="formattedAmount"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expected Return Card -->
+              <div
+                class="flex justify-between items-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3"
+                  >
+                    <svg
+                      class="w-5 h-5 text-green-600 dark:text-green-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Expected ROI</p>
+                    <p
+                      class="text-lg font-bold text-green-600 dark:text-green-400"
+                      x-text="'$' + roi.toFixed(2)"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Total Return Card -->
+              <div
+                class="flex justify-between items-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800"
+              >
+                <div class="flex items-center">
+                  <div
+                    class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-3"
+                  >
+                    <svg
+                      class="w-5 h-5 text-blue-600 dark:text-blue-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Total Return</p>
+                    <p
+                      class="text-lg font-bold text-blue-600 dark:text-blue-400"
+                      x-text="'$' + totalReturn.toFixed(2)"
+                    ></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Investment Type Selection -->
+            <div class="mb-6">
+              <label
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3"
+              >
+                Select Investment Type
+              </label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- New Investment Option -->
+                <label
+                  class="relative flex flex-col p-4 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 dark:has-[:checked]:bg-blue-900/20 has-[:checked]:ring-2 has-[:checked]:ring-blue-500"
+                >
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      name="investment_type"
+                      value="invest"
+                      class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      checked
+                    />
+                    <div class="ml-3 flex-1">
+                      <div class="flex items-center justify-between">
+                        <span
+                          class="text-lg font-medium text-gray-900 dark:text-white"
+                        >
+                          New Investment
+                        </span>
+                        <svg
+                          class="w-6 h-6 text-blue-600 dark:text-blue-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 4v16m8-8H4"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        Start a fresh investment with your funds
+                      </p>
+                    </div>
+                  </div>
+                </label>
+
+                <!-- Reinvestment Option -->
+                <label
+                  class="relative flex flex-col p-4 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-200 has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 dark:has-[:checked]:bg-blue-900/20 has-[:checked]:ring-2 has-[:checked]:ring-blue-500"
+                >
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      name="investment_type"
+                      value="reinvest"
+                      class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                    />
+                    <div class="ml-3 flex-1">
+                      <div class="flex items-center justify-between">
+                        <span
+                          class="text-lg font-medium text-gray-900 dark:text-white"
+                        >
+                          Reinvestment
+                        </span>
+                        <svg
+                          class="w-6 h-6 text-green-600 dark:text-green-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                          ></path>
+                        </svg>
+                      </div>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        Reinvest from your existing returns
+                      </p>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Info Box -->
+            <div
+              class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6"
+            >
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <svg
+                    class="w-5 h-5 text-blue-600 dark:text-blue-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h4
+                    class="text-sm font-medium text-blue-800 dark:text-blue-300"
+                  >
+                    Important Information
+                  </h4>
+                  <p class="mt-1 text-sm text-blue-700 dark:text-blue-400">
+                    By confirming this investment, you agree to the terms and
+                    conditions. Your funds will be locked for the duration of the
+                    investment period.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col-reverse sm:flex-row gap-4">
+              <a
+                href="/dashboard/investment-plans"
+                class="flex-1 py-3 px-6 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 text-center"
+              >
+                Cancel
+              </a>
+              <button
+                type="submit"
+                class="flex-1 py-3 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900"
+              >
+                <span class="flex items-center justify-center">
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  Confirm Investment
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+
+              <!-- Investment Guide Section -->
+      <div
+            class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8 border border-gray-100 dark:border-gray-700"
+          >
+        <h3
+          class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center"
+        >
+          <svg
+            class="w-6 h-6 mr-2 text-blue-600 dark:text-blue-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          Investment Guide
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="flex space-x-4">
+            <div class="flex-shrink-0">
+              <div
+                class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h4
+                class="text-lg font-medium text-gray-900 dark:text-white mb-1"
+              >
+                Choose your plan
+              </h4>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">
+                Select an investment plan that matches your financial goals and
+                risk tolerance.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex space-x-4">
+            <div class="flex-shrink-0">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-blue-600 dark:text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h4
+                class="text-lg font-medium text-gray-900 dark:text-white mb-1"
+              >
+                Invest securely
+              </h4>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">
+                Your funds are securely managed with state-of-the-art investment
+                strategies.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex space-x-4">
+            <div class="flex-shrink-0">
+              <div
+                class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 text-purple-600 dark:text-purple-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h4
+                class="text-lg font-medium text-gray-900 dark:text-white mb-1"
+              >
+                Earn returns
+              </h4>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">
+                Watch your investment grow with competitive returns deposited
+                directly to your account.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} </div> {% endcomment %}
+    </div>
+  </div>
+</main>
+
+<script src="{% static 'assets/scripts/scripts.js' %}"></script>
+{% endblock %}
