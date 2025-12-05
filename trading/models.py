@@ -104,6 +104,7 @@ class TradingPair(models.Model):
             models.Index(fields=['symbol']),
         ]
 
+
 class Order(models.Model):
     """Trading orders with industry-standard leverage and expiration"""
     
@@ -161,6 +162,13 @@ class Order(models.Model):
         ('gtc', 'Good Till Cancelled'),  # For limit orders
     ]
     
+    SOURCE_CHOICES = [
+        ('manual', 'Manual'),
+        ('bot', 'AI Bot'),
+        ('copy_trade', 'Copy Trade'),
+        ('signal', 'Signal')
+    ]   
+    
     # Relationships
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     trading_pair = models.ForeignKey(TradingPair, on_delete=models.CASCADE)
@@ -213,12 +221,7 @@ class Order(models.Model):
     # Source tracking
     source = models.CharField(
         max_length=20,
-        choices=[
-            ('manual', 'Manual'),
-            ('bot', 'AI Bot'),
-            ('copy_trade', 'Copy Trade'),
-            ('signal', 'Signal')
-        ],
+        choices=SOURCE_CHOICES,
         default='manual'
     )
     source_id = models.IntegerField(null=True)
@@ -344,6 +347,7 @@ class Position(models.Model):
     
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     trading_pair = models.ForeignKey(TradingPair, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
     side = models.CharField(
         max_length=50, 
         choices=POSITION_SIDE
@@ -369,8 +373,11 @@ class Position(models.Model):
     )
     
     stop_loss = models.DecimalField(max_digits=20, decimal_places=8, null=True, blank=True)
+    realized_pnl = models.DecimalField(max_digits=20, decimal_places=8, null=True, blank=True)
     take_profit = models.DecimalField(max_digits=20, decimal_places=8, null=True, blank=True)
+    exit_price = models.DecimalField(max_digits=20, decimal_places=8, null=True, blank=True)
     opened_at = models.DateTimeField(auto_now_add=True)
+    closed_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     class Meta:

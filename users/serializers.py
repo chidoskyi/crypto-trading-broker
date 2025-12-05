@@ -3,9 +3,9 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from users.models import Country, Profile, User, KYCDocument, Account
-import random
-import string
+from decimal import Decimal
 from django.core.cache import cache
+from django.db import transaction
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -282,17 +282,127 @@ class KYCDocumentSerializer(serializers.ModelSerializer):
                   'rejection_reason']
         read_only_fields = ['id', 'submitted_at', 'rejection_reason']
 
-
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for updating user profile.
+    Handles updates to both User model fields and Profile model fields.
+    """
+    # Profile fields
+    profile_picture = serializers.ImageField(required=False, write_only=True)
+    display_name = serializers.CharField(required=False, write_only=True)
+    bio = serializers.CharField(required=False, write_only=True, min_length=10)
+    # location = serializers.CharField(required=False, write_only=True, min_length=5)
+    website = serializers.URLField(required=False, write_only=True)
+    
+    # User fields
+    phone_number = serializers.CharField(required=False, write_only=True)
+    country = serializers.CharField(required=False, write_only=True)
+    first_name = serializers.CharField(required=False, write_only=True)
+    last_name = serializers.CharField(required=False, write_only=True)
+    
+    class Meta:
+        model = User
+        fields = [
+            'first_name', 'last_name', 'phone_number', 'country',
+            'bio', 'display_name', 'website', 'profile_picture'
+        ]
+    
+    def validate_profile_picture(self, value):
+        """Validate profile picture size and format"""
+        if value:
+            # Check file size (max 2MB)
+            if value.size > 2 * 1024 * 1024:
+                raise serializers.ValidationError("Profile picture must be less than 2MB.")
+            
+            # Check file format
+            allowed_formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+            if value.content_type not in allowed_formats:
+                raise serializers.ValidationError(
+                    "Profile picture must be in JPEG, PNG, or GIF format."
+                )
+        
+        return value
+    
+    def validate_bio(self, value):
+        """Validate bio length"""
+        if value and len(value) < 10:
+            raise serializers.ValidationError("Bio must be at least 10 characters long.")
+        return value
+    
+    def validate_website(self, value):
+        """Validate website URL format"""
+        if value and not value.startswith(('http://', 'https://')):
+            raise serializers.ValidationError("Website must start with http:// or https://")
+        return value
+    
+    def validate_country(self, value):
+        """Validate country exists"""
+        if value:
+            try:
+                country = Country.objects.get(name__iexact=value)
+                return country
+            except Country.DoesNotExist:
+                raise serializers.ValidationError(f"Country '{value}' not found.")
+        return value
+    
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        """
+        Update both User and Profile models.
+        Separates profile fields from user fields and updates accordingly.
+        """
+        # Extract profile-related fields
+        profile_fields = {
+            'bio': validated_data.pop('bio', None),
+            'display_name': validated_data.pop('display_name', None),
+            'website': validated_data.pop('website', None),
+            'profile_picture': validated_data.pop('profile_picture', None),
+        }
+        
+        # Handle country field (it's on User model)
+        country = validated_data.pop('country', None)
+        if country:
+            instance.country = country
+        
+        # Update User model fields (first_name, last_name, phone_number)
+        for attr, value in validated_data.items():
+            if value is not None:
+                setattr(instance, attr, value)
+        
+        instance.save()
+        
+        # Update or create Profile
+        profile, created = Profile.objects.get_or_create(
+            user=instance,
+            defaults={
+                'display_name': instance.get_full_name() or instance.username,
+                'is_complete': False
+            }
+        )
+        
+        # Update profile fields
+        profile_updated = False
+        for field, value in profile_fields.items():
+            if value is not None:
+                setattr(profile, field, value)
+                profile_updated = True
+        
+        if profile_updated:
+            profile.save()
+        instance.refresh_from_db()
+        
+        return instance
 
 class ProfileSerializer(serializers.ModelSerializer):
     """Serializer for user profile"""
     user_email = serializers.EmailField(source='user.email', read_only=True)
     user_name = serializers.SerializerMethodField()
+    profile_picture = serializers.ImageField(required=False, allow_null=True)
     
     class Meta:
         model = Profile
         fields = [
-            'id', 'user_email', 'user_name', 'bio', 'location', 
+            'id', 'user_email', 'user_name', 'bio', 'location', 'display_name',
             'website', 'profile_picture', 'is_complete',
             'created_at', 'updated_at'
         ]
@@ -320,16 +430,48 @@ class ProfileSerializer(serializers.ModelSerializer):
             # Check file size (max 2MB)
             if value.size > 2 * 1024 * 1024:
                 raise serializers.ValidationError("Profile picture must be less than 2MB.")
-            
+                
             # Check file format
-            allowed_formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+            allowed_formats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
             if value.content_type not in allowed_formats:
                 raise serializers.ValidationError(
                     "Profile picture must be in JPEG, PNG, or GIF format."
                 )
         
         return value
+    
+    def validate_location(self, value):
+        """Validate location length"""
+        if value and len(value) < 5:
+            raise serializers.ValidationError("Location must be at least 5 characters long.")
+        return value
+    
+    
 
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    """Extended user profile with country details"""
+    country = CountrySerializer(read_only=True)
+    referred_users_count = serializers.SerializerMethodField()
+    profile = ProfileSerializer(read_only=True)
+    full_name = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = User
+        fields = [  
+            'id', 'username', 'email', 'first_name', 'last_name',
+            'phone_number', 'country',  'profile', 'full_name',
+            'referred_users_count', 'is_verified', 'kyc_status',
+            'date_joined', 'updated_at'
+        ]
+        read_only_fields = ['id', 'email', 'date_joined']
+        
+    def get_referred_users_count(self, obj):
+        return obj.referred_users.count()
+    
+    def get_full_name(self, obj):
+        return obj.get_full_name()
+    
 class ProfileCompletionSerializer(serializers.ModelSerializer):
     """Serializer specifically for profile completion after registration"""
     
@@ -358,20 +500,6 @@ class ProfileCompletionSerializer(serializers.ModelSerializer):
         return value   
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    """Extended user profile with country details"""
-    country = CountrySerializer(read_only=True)
-    referred_users_count = serializers.SerializerMethodField()
-    
-    class Meta:
-        model = User
-        fields = [
-            'id', 'username', 'email', 'first_name', 'last_name',
-            'phone_number', 'country', 
-            'referred_users_count', 'is_verified', 'kyc_status',
-            'date_joined', 'updated_at'
-        ]
-        read_only_fields = ['id', 'email', 'date_joined']
     
 
 class PasswordResetRequestSerializer(serializers.Serializer):
@@ -411,6 +539,38 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         
         return attrs
     
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(write_only=True, required=True)
+    new_password = serializers.CharField(
+        write_only=True, 
+        required=True,
+        min_length=8,
+        error_messages={
+            'min_length': 'Password must be at least 8 characters long.'
+        }
+    )
+    confirm_password = serializers.CharField(write_only=True, required=True)
+    
+    def validate(self, attrs):
+        old_password = attrs.get('old_password')
+        new_password = attrs.get('new_password')
+        confirm_password = attrs.get('confirm_password')
+        
+        if new_password != confirm_password:
+            raise serializers.ValidationError({
+                'confirm_password': 'Passwords do not match.'
+            })
+        
+        # Validate password strength
+        try:
+            validate_password(new_password)
+        except Exception as e:
+            raise serializers.ValidationError({
+                'new_password': list(e.messages)
+            })
+        
+        return attrs 
+   
 class AccountSerializer(serializers.ModelSerializer):
     total_balance = serializers.DecimalField(
         max_digits=20, 

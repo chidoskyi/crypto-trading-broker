@@ -1,17 +1,17 @@
 # copy_trading/admin.py (ADD THIS)
 from django.contrib import admin
-from copy_trading.models import Trader, CopyTradingSubscription, CopiedTrade
+from copy_trading.models import Trader, CopyTradingSubscription, CopiedTrade, CopyTradingPerformance
 
 @admin.register(Trader)
 class TraderAdmin(admin.ModelAdmin):
     list_display = [
-        'display_name', 'user', 'total_followers', 'profit_percentage',
+        'display_name', 'user', 'total_followers', 'profit_percentage', 'total_profit', 'minimum_investment',
         'win_rate', 'risk_score', 'is_active', 'created_at'
     ]
     list_filter = ['is_active', 'risk_score', 'created_at']
     search_fields = ['display_name', 'user__username', 'user__email']
     readonly_fields = [
-        'total_followers', 'total_profit', 'profit_percentage',
+        'total_followers', 'total_profit', 'profit_percentage', 'minimum_investment',
         'win_rate', 'total_trades', 'created_at', 'updated_at'
     ]
     ordering = ['-total_followers', '-profit_percentage']
@@ -47,3 +47,22 @@ class CopiedTradeAdmin(admin.ModelAdmin):
     ]
     readonly_fields = ['created_at']
     raw_id_fields = ['subscription', 'master_order', 'follower_order']
+    
+
+@admin.register(CopyTradingPerformance)
+class CopyTradingPerformanceAdmin(admin.ModelAdmin):
+    list_display = [
+        'subscription', 'total_trades', 'winning_trades', 'losing_trades', 'total_profit_loss',
+        'win_rate', 'average_profit_per_trade', 'average_loss_per_trade', 'best_trade_profit', 'worst_trade_loss',
+        'last_trade_at', 'updated_at'
+    ]
+    list_filter = [
+        'subscription', 'last_trade_at'
+    ]
+    search_fields = [
+        'subscription__follower__username', 'subscription__follower__email',
+        'trader__display_name', 'trader__user__username'
+    ]
+    readonly_fields = ['last_trade_at', 'updated_at']
+    raw_id_fields = ['subscription']     
+    

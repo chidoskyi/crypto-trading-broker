@@ -2,22 +2,11 @@
 from celery import shared_task
 from django.utils import timezone
 from datetime import timedelta
+from copy_trading.services.copy_service import CopyTradingService
+from trading.models import Order
+import logging
 
-# @shared_task
-# def update_market_prices():
-#     """Update market prices for all active trading pairs"""
-#     from trading.models import TradingPair
-#     from trading.services.market_service import MarketDataService
-    
-#     market_service = MarketDataService()
-#     active_pairs = TradingPair.objects.filter(is_active=True)
-    
-#     for pair in active_pairs:
-#         try:
-#             ticker = market_service.get_ticker(pair.symbol)
-#             # Update cached prices or database as needed
-#         except Exception as e:
-#             print(f"Error updating {pair.symbol}: {e}")
+logger = logging.getLogger(__name__)
 
 @shared_task
 def update_market_prices():
@@ -207,3 +196,38 @@ def generate_missing_qr_codes():
             print(f"Error generating QR for {addr.id}: {e}")
     
     return f"Generated QR codes for {addresses.count()} addresses"
+
+
+@shared_task(bind=True, max_retries=3)
+def replicate_trade_async(self, order_id):
+    """
+    Asynchronously replicate a master trader's order to all followers
+    
+    Args:
+        order_id: ID of the master order to replicate
+        
+    This runs in the background so it doesn't slow down the master trader's order
+    """
+    try:
+        order = Order.objects.get(id=order_id)
+        service = CopyTradingService()
+        
+        results = service.replicate_trade(order)
+        
+        logger.info(
+            f"Async trade replication completed for order {order_id}. "
+            f"Success: {results['successful']}, Failed: {results['failed']}"
+        )
+        
+        return results
+        
+    except Order.DoesNotExist:
+        logger.error(f"Order {order_id} not found for replication")
+        raise
+        
+    except Exception as e:
+        logger.error(f"Error in async replication for order {order_id}: {e}")
+        # Retry with exponential backoff
+        raise self.retry(exc=e, countdown=60 * (2 ** self.request.retries))
+
+

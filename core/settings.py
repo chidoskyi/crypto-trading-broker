@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from decouple import config, Csv
+from decimal import Decimal
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,6 +138,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,  # ✅ Increase from default 5 seconds
+        }
     }
 }
 
@@ -263,6 +267,7 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             'hosts': [config('REDIS_URL', default='redis://localhost:6379/0')],
         },
+        # "CONNECTION_POOL_KWARGS": {"max_connections": 5},
     },
 }
 
@@ -271,31 +276,37 @@ from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
     'update-market-prices': {
-        'task': 'tasks.update_market_prices',
+        'task': 'copy_trading.tasks.update_market_prices',
         'schedule': 60.0,   # Every minute
     },
     'execute-pending-orders': {
-        'task': 'tasks.execute_pending_orders',
+        'task': 'copy_trading.tasks.execute_pending_orders',
         'schedule': 10.0,  # Every 10 seconds
     },
     'run-trading-bots': {
-        'task': 'tasks.run_trading_bots',
+        'task': 'copy_trading.tasks.run_trading_bots',
         'schedule': 60.0,  # Every minute
     },
+    
+    'replicate_trade_async': {
+        'task': 'copy_trading.tasks.replicate_trade_async',
+        'schedule': 10.0,  # Every 10 seconds
+    },
+    
     'process-copy-trades': {
-        'task': 'tasks.process_copy_trades',
+        'task': 'copy_trading.tasks.process_copy_trades',
         'schedule': 30.0,  # Every 30 seconds
     },
     'calculate-loan-interest': {
-        'task': 'tasks.calculate_loan_interest',
+        'task': 'copy_trading.tasks.calculate_loan_interest',
         'schedule': crontab(hour=0, minute=0),  # Daily at midnight
     },
     'process-referral-rewards': {
-        'task': 'tasks.process_referral_rewards',
+        'task': 'copy_trading.tasks.process_referral_rewards',
         'schedule': crontab(hour='*/6'),  # Every 6 hours
     },
     'check-kyc-expiry': {
-        'task': 'tasks.check_kyc_expiry',
+        'task': 'copy_trading.tasks.check_kyc_expiry',
         'schedule': crontab(hour=2, minute=0),  # Daily at 2 AM
     },
 }
@@ -307,6 +318,11 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+# CELERY_BROKER_TRANSPORT_OPTIONS = {
+#     "max_connections": 5,
+# }
+
 
 
 BINANCE_API_KEY = os.environ.get('BINANCE_API_KEY', '')
@@ -506,3 +522,24 @@ MASTER_SEED = config('MASTER_SEED', default='your_very_secure_master_seed')
 
 # Encryption key for sensitive data
 FIELD_ENCRYPTION_KEY = config('FIELD_ENCRYPTION_KEY', default='your_field_encryption_key')
+
+
+COPY_TRADING_CONFIG = {
+    # Balance & Position Limits
+    'MAX_POSITION_SIZE_PERCENTAGE': 40,  # Max 30% per trade
+    'MAX_LOCKED_BALANCE_PERCENTAGE': 80,  # Max 80% locked
+    'MIN_TRADING_BALANCE': Decimal('10.00'),  # Min balance to copy
+    
+    # Trade Limits
+    'MAX_SUBSCRIPTIONS_PER_USER': 10,
+    'MAX_OPEN_POSITIONS': 20,
+    'MAX_DAILY_TRADES': 50,
+    
+    # Execution Settings
+    'ENABLE_AUTO_EXECUTION': True,
+    'ENABLE_MANUAL_EXECUTION': True,
+    'ORDER_EXECUTION_TIMEOUT': 30,  # seconds
+    
+    # Performance
+    'PERFORMANCE_CACHE_TTL': 300,  # 5 minutes
+}

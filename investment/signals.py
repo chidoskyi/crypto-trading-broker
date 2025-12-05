@@ -61,26 +61,26 @@ from django.dispatch import receiver
 from users.models import Profile, Referral
 from .models import Investment
 
-@receiver(post_save, sender=Profile)
-def create_referral_code(sender, instance, created, **kwargs):
-    if created:
-        print(f"Profilez instance created for user: {instance.username}")  # Debugging
-        if not instance.referral_code:
-            print("Generating referral code...")  # Debugging
-            instance.referral_code = instance.generate_referral_code()
-            instance.save()
-            print(f"Referral code generated: {instance.referral_code}")  # Debugging
+# @receiver(post_save, sender=Profile)
+# def create_referral_code(sender, instance, created, **kwargs):
+#     if created:
+#         if not instance.referral_code:
+#             print("Generating referral code...")  # Debugging
+#             instance.referral_code = instance.generate_referral_code()
+#             instance.save()
+#             print(f"Referral code generated: {instance.referral_code}")  # Debugging
 
-        if instance.referred_by and not Referral.objects.filter(referee=instance).exists():
-            print(f"User was referred by: {instance.referred_by.username}")  # Debugging
-            Referral.objects.create(
-                referrer=instance.referred_by,
-                referee=instance,
-                total_commission=00.00,  # Set your default reward amount here
-                active_referrals= + 1
-            )
-            print("Referral instance created.")  # Debugging
-                   
+#         if instance.referred_by and not Referral.objects.filter(referee=instance).exists():
+#             print(f"User was referred by: {instance.referred_by.username}")  # Debugging
+#             Referral.objects.create(
+#                 referrer=instance.referred_by,
+#                 referee=instance,
+#                 total_commission=00.00,  # Set your default reward amount here
+#                 active_referrals= + 1
+#             )
+#             print("Referral instance created.")  # Debugging
+
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail

@@ -345,7 +345,7 @@ class StatusFilter(admin.SimpleListFilter):
         return queryset
 
 @admin.register(Deposit)
-class DepositAdmin(ModelAdmin):
+class DepositAdmin(admin.ModelAdmin):
     list_display = [
         'deposit_id_short',
         'user_email',

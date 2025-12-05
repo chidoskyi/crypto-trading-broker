@@ -82,6 +82,8 @@ def copy_trade_experts(request):
     return render(request, 'user-dashboard/copy-trade-experts.html')
 def bot_trading(request):
     return render(request, 'user-dashboard/bot-trading.html')
+def bot_trading_dahboard(request):
+    return render(request, 'user-dashboard/bot-trading-dashboard.html')
 def signal(request):
     return render(request, 'user-dashboard/signal.html')
 def withdrawals(request):
@@ -238,6 +240,9 @@ def investment_history(request):
 
 def transactions(request):
     return render(request, 'user-dashboard/transactions.html')
+
+def copy_trading_experts(request):
+    return render(request, 'user-dashboard/copy-trading-experts.html')
 
 def transaction_details(request, transaction_id):
     transaction = Transaction.objects.get(id=transaction_id)

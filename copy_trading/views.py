@@ -1,61 +1,63 @@
 # copy_trading/views.py
-from rest_framework import viewsets, status, filters
+from rest_framework import viewsets, status, filters, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q, Sum, Count, Avg
 from django.db import transaction
 from decimal import Decimal
+from rest_framework import serializers
 
-from copy_trading.models import Trader, CopyTradingSubscription, CopiedTrade
+from copy_trading.models import (
+    Trader, CopyTradingSubscription, CopiedTrade, CopyTradingPerformance
+)
 from copy_trading.serializers import (
     TraderSerializer, 
     CopyTradingSubscriptionSerializer,
     SubscriptionCreateSerializer,
     SubscriptionUpdateSerializer,
-    CopiedTradeSerializer
+    CopiedTradeSerializer,
+    CopyTradingPerformanceSerializer
 )
+from users.models import Account
 
 
 class TraderViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Master trader listing and statistics endpoints
-    
-    Provides:
-    - List of active traders
-    - Trader details and statistics
-    - Search and filtering capabilities
     """
     serializer_class = TraderSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['display_name', 'bio']
+    search_fields = ['display_name', 'bio', 'user__username']
     filterset_fields = ['risk_score']
     ordering_fields = ['total_followers', 'profit_percentage', 'win_rate', 'total_trades']
     ordering = ['-total_followers']
     
     def get_queryset(self):
         """Filter active traders and exclude self"""
-        return Trader.objects.filter(
+        queryset = Trader.objects.filter(
             is_active=True
         ).exclude(
             user=self.request.user
-        ).select_related('user')
+        ).select_related('user', 'user__profile')
+        
+        return queryset
     
     @action(detail=True, methods=['get'])
     def statistics(self, request, pk=None):
         """Get detailed statistics for a specific trader"""
         trader = self.get_object()
         
-        # Get performance metrics
         stats = {
             'trader': TraderSerializer(trader).data,
             'performance': {
-                'total_profit': trader.total_profit,
-                'profit_percentage': trader.profit_percentage,
-                'win_rate': trader.win_rate,
+                'total_profit': str(trader.total_profit),
+                'profit_percentage': str(trader.profit_percentage),
+                'win_rate': str(trader.win_rate),
                 'total_trades': trader.total_trades,
                 'risk_score': trader.risk_score,
+                'minimum_investment': str(trader.minimum_investment),
             },
             'followers': {
                 'total': trader.total_followers,
@@ -88,73 +90,235 @@ class TraderViewSet(viewsets.ReadOnlyModelViewSet):
         
         return Response(TraderSerializer(traders, many=True).data)
 
+    @action(detail=False, methods=['get'])
+    def check_trader_status(self, request):
+        """Check if current user has a trader profile and whether it is active"""
+        try:
+            trader = Trader.objects.get(user=request.user)
+            
+            return Response({
+                'is_trader': True,
+                'is_active': trader.is_active,
+                'trader': TraderSerializer(trader).data 
+            })
+            
+        except Trader.DoesNotExist:
+            return Response({
+                'is_trader': False,
+                'is_active': False,
+                'trader': None 
+            })
+            
+    @action(detail=False, methods=['post'])
+    @transaction.atomic
+    def activate_trader(self, request):
+        """Activate user as a trader"""
+        if Trader.objects.filter(user=request.user).exists():
+            return Response(
+                {'message': 'You are already a trader'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        display_name = request.data.get('display_name', request.user.get_full_name() or request.user.username)
+        minimum_investment_str = request.data.get('minimum_investment', '100.00')
+        minimum_investment = Decimal(minimum_investment_str) if minimum_investment_str else Decimal('100.00')
+        risk_score = int(request.data.get('risk_score', 5))
+        
+        trader = Trader.objects.create(
+            user=request.user,
+            display_name=display_name,
+            minimum_investment=minimum_investment,
+            risk_score=risk_score,
+            is_active=True
+        )
+        
+        return Response({
+            'message': 'Trader account activated successfully',
+            'trader': TraderSerializer(trader).data
+        }, status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=['put'])
+    @transaction.atomic
+    def update_trader(self, request):
+        """Update current user's trader settings"""
+        try:
+            trader = Trader.objects.get(user=request.user)
+        except Trader.DoesNotExist:
+            return Response(
+                {'message': 'Trader account not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        trader.display_name = request.data.get('display_name', trader.display_name)
+        trader.bio = request.data.get('bio', trader.bio)
+        
+        if 'minimum_investment' in request.data:
+            trader.minimum_investment = Decimal(request.data['minimum_investment'])
+        if 'risk_score' in request.data:
+            trader.risk_score = int(request.data['risk_score'])
+        
+        trader.save()
+        
+        return Response({
+            'message': 'Trader settings updated successfully',
+            'trader': TraderSerializer(trader).data
+        })
+
+    @action(detail=False, methods=['post'])
+    @transaction.atomic
+    def deactivate_trader(self, request):
+        """Deactivate current user's trader account"""
+        try:
+            trader = Trader.objects.get(user=request.user)
+        except Trader.DoesNotExist:
+            return Response(
+                {
+                    'success': False,
+                    'message': 'Trader account not found'
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        if not trader.is_active:
+            return Response(
+                {
+                    'success': False,
+                    'message': 'Trader account is already inactive'
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        active_followers = CopyTradingSubscription.objects.filter(
+            trader=trader,
+            is_active=True
+        ).count()
+        
+        if active_followers > 0:
+            return Response(
+                {
+                    'success': False,
+                    'message': f'Cannot deactivate. You have {active_followers} active followers. Please ask them to unfollow first.'
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        trader.is_active = False
+        trader.save()
+        
+        return Response({
+            'success': True,
+            'message': 'Trader account deactivated successfully',
+            'trader': TraderSerializer(trader).data
+        })
+
+    @action(detail=False, methods=['post'])
+    @transaction.atomic
+    def reactivate_trader(self, request):
+        """Reactivate current user's trader account"""
+        try:
+            trader = Trader.objects.get(user=request.user)
+        except Trader.DoesNotExist:
+            return Response(
+                {
+                    'success': False,
+                    'message': 'Trader account not found'
+                },
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        if trader.is_active:
+            return Response(
+                {
+                    'success': False,
+                    'message': 'Trader account is already active'
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        trader.is_active = True
+        trader.save()
+        
+        return Response({
+            'success': True,
+            'message': 'Trader account reactivated successfully',
+            'trader': TraderSerializer(trader).data
+        })
+    
+    @action(detail=False, methods=['post'])
+    @transaction.atomic
+    def update_performance(self, request):
+        """Manually trigger performance metrics update for current trader"""
+        try:
+            trader = Trader.objects.get(user=request.user)
+        except Trader.DoesNotExist:
+            return Response(
+                {'message': 'Trader account not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        # Update trader performance metrics
+        trader.update_performance_metrics()
+        
+        return Response({
+            'message': 'Performance metrics updated successfully',
+            'trader': TraderSerializer(trader).data
+        })
+
 
 class CopyTradingSubscriptionViewSet(viewsets.ModelViewSet):
-    """
-    Copy trading subscription management
-    
-    Provides:
-    - Create/update/delete subscriptions
-    - View active subscriptions
-    - Performance tracking
-    - Subscription controls
-    """
     permission_classes = [IsAuthenticated]
-    
+
     def get_serializer_class(self):
-        """Use different serializers for different actions"""
         if self.action == 'create':
             return SubscriptionCreateSerializer
         elif self.action in ['update', 'partial_update']:
             return SubscriptionUpdateSerializer
         return CopyTradingSubscriptionSerializer
-    
+
     def get_queryset(self):
-        """Get subscriptions for current user"""
-        return CopyTradingSubscription.objects.filter(
-            follower=self.request.user
-        ).select_related('trader', 'trader__user')
-    
+        return (
+            CopyTradingSubscription.objects
+            .filter(follower=self.request.user)
+            .select_related('trader', 'trader__user')
+            .prefetch_related('copied_trades')
+            .order_by('-created_at')
+        )
+
     @transaction.atomic
     def perform_create(self, serializer):
-        """Create subscription and update trader follower count"""
-        # Check for existing subscription
+        """Create subscription with balance validation and performance tracker"""
         trader = serializer.validated_data['trader']
-        existing = CopyTradingSubscription.objects.filter(
-            follower=self.request.user,
-            trader=trader
-        ).first()
         
-        if existing:
-            raise serializers.ValidationError(
-                "You are already following this trader"
-            )
+        # Check minimum investment
+        try:
+            account = Account.objects.get(user=self.request.user)
+            
+            if account.trading_balance < trader.minimum_investment:
+                raise serializers.ValidationError({
+                    'error': f'Insufficient trading balance. Minimum required: ${trader.minimum_investment}',
+                    'redirect_url': '/dashboard/deposit',
+                    'minimum_required': str(trader.minimum_investment),
+                    'current_balance': str(account.trading_balance)
+                })
+        except Account.DoesNotExist:
+            raise serializers.ValidationError({'error': 'Account not found'})
         
-        # Create subscription
+        trader = Trader.objects.select_for_update().get(pk=trader.pk)
+        
         subscription = serializer.save(follower=self.request.user)
         
-        # Increment trader's follower count
+        # Create performance tracker for this subscription
+        CopyTradingPerformance.objects.get_or_create(subscription=subscription)
+        
         trader.total_followers += 1
         trader.save(update_fields=['total_followers'])
-    
+
     @transaction.atomic
     def perform_destroy(self, instance):
-        """Delete subscription and update trader follower count"""
         trader = instance.trader
         
-        # Check for pending trades
-        pending_trades = CopiedTrade.objects.filter(
-            subscription=instance,
-            status=CopiedTrade.STATUS_PENDING
-        ).exists()
+        trader = Trader.objects.select_for_update().get(pk=trader.pk)
         
-        if pending_trades:
-            raise serializers.ValidationError(
-                "Cannot unfollow while you have pending trades. "
-                "Please wait for all trades to complete."
-            )
-        
-        # Decrement trader's follower count
         if trader.total_followers > 0:
             trader.total_followers -= 1
             trader.save(update_fields=['total_followers'])
@@ -179,7 +343,6 @@ class CopyTradingSubscriptionViewSet(viewsets.ModelViewSet):
         """Get comprehensive copy trading performance"""
         subscriptions = self.get_queryset()
         
-        # Calculate aggregate statistics
         active_subs = subscriptions.filter(is_active=True)
         all_copied_trades = CopiedTrade.objects.filter(
             subscription__in=subscriptions
@@ -190,17 +353,23 @@ class CopyTradingSubscriptionViewSet(viewsets.ModelViewSet):
             follower_order__status='filled'
         )
         
-        # Calculate total profit (placeholder - implement actual P&L)
+        # Calculate aggregate P&L from positions
+        from trading.models import Position
         total_profit = Decimal('0.00')
         winning_trades = 0
+        losing_trades = 0
         
         for trade in completed_trades:
-            # Implement actual profit calculation based on your Order model
-            # profit = calculate_trade_profit(trade.follower_order)
-            # total_profit += profit
-            # if profit > 0:
-            #     winning_trades += 1
-            pass
+            try:
+                position = Position.objects.get(order=trade.follower_order)
+                if position.status == 'closed' and position.realized_pnl is not None:
+                    total_profit += position.realized_pnl
+                    if position.realized_pnl > 0:
+                        winning_trades += 1
+                    else:
+                        losing_trades += 1
+            except Position.DoesNotExist:
+                pass
         
         win_rate = (winning_trades / completed_trades.count() * 100) if completed_trades.count() > 0 else 0
         
@@ -208,10 +377,12 @@ class CopyTradingSubscriptionViewSet(viewsets.ModelViewSet):
             'summary': {
                 'total_subscriptions': subscriptions.count(),
                 'active_subscriptions': active_subs.count(),
-                'total_profit': float(total_profit),
+                'total_profit': str(total_profit),
                 'total_trades': all_copied_trades.count(),
                 'completed_trades': completed_trades.count(),
                 'pending_trades': all_copied_trades.filter(status=CopiedTrade.STATUS_PENDING).count(),
+                'winning_trades': winning_trades,
+                'losing_trades': losing_trades,
                 'win_rate': float(win_rate),
             },
             'subscriptions': CopyTradingSubscriptionSerializer(
@@ -229,7 +400,6 @@ class CopyTradingSubscriptionViewSet(viewsets.ModelViewSet):
             'master_order', 'follower_order'
         ).order_by('-created_at')
         
-        # Pagination
         page = self.paginate_queryset(trades)
         if page is not None:
             serializer = CopiedTradeSerializer(page, many=True)
@@ -237,16 +407,27 @@ class CopyTradingSubscriptionViewSet(viewsets.ModelViewSet):
         
         serializer = CopiedTradeSerializer(trades, many=True)
         return Response(serializer.data)
+    
+    @action(detail=True, methods=['get'])
+    def detailed_performance(self, request, pk=None):
+        """Get detailed performance metrics for a subscription"""
+        subscription = self.get_object()
+        
+        # Get or create performance record
+        performance, created = CopyTradingPerformance.objects.get_or_create(
+            subscription=subscription
+        )
+        
+        # Update metrics if needed
+        if created or not performance.last_trade_at:
+            performance.update_metrics()
+        
+        return Response(CopyTradingPerformanceSerializer(performance).data)
 
 
 class CopiedTradeViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Copied trade history and management
-    
-    Provides:
-    - View all copied trades
-    - Trade details and status
-    - Manual trade approval (for manual execution mode)
     """
     serializer_class = CopiedTradeSerializer
     permission_classes = [IsAuthenticated]
@@ -283,10 +464,15 @@ class CopiedTradeViewSet(viewsets.ReadOnlyModelViewSet):
             )
         
         try:
-            # Execute the trade
             from copy_trading.services.copy_service import CopyTradingService
             service = CopyTradingService()
             service.execute_pending_trade(trade)
+            
+            # Update performance metrics after trade execution
+            performance, _ = CopyTradingPerformance.objects.get_or_create(
+                subscription=trade.subscription
+            )
+            performance.update_metrics()
             
             return Response({
                 'status': 'success',
@@ -328,3 +514,63 @@ class CopiedTradeViewSet(viewsets.ReadOnlyModelViewSet):
         
         serializer = self.get_serializer(pending_trades, many=True)
         return Response(serializer.data)
+
+
+class CopyTradingPerformanceViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Performance metrics for copy trading subscriptions
+    """
+    serializer_class = CopyTradingPerformanceSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        """Get performance records for user's subscriptions"""
+        return CopyTradingPerformance.objects.filter(
+            subscription__follower=self.request.user
+        ).select_related('subscription', 'subscription__trader')
+    
+    @action(detail=True, methods=['post'])
+    def refresh(self, request, pk=None):
+        """Refresh performance metrics for a subscription"""
+        performance = self.get_object()
+        performance.update_metrics()
+        
+        return Response({
+            'message': 'Performance metrics updated',
+            'performance': CopyTradingPerformanceSerializer(performance).data
+        })
+    
+    @action(detail=False, methods=['get'])
+    def summary(self, request):
+        """Get aggregate performance summary across all subscriptions"""
+        performances = self.get_queryset()
+        
+        total_profit_loss = performances.aggregate(
+            total=Sum('total_profit_loss')
+        )['total'] or Decimal('0.00')
+        
+        total_trades = performances.aggregate(
+            total=Sum('total_trades')
+        )['total'] or 0
+        
+        total_winning = performances.aggregate(
+            total=Sum('winning_trades')
+        )['total'] or 0
+        
+        total_losing = performances.aggregate(
+            total=Sum('losing_trades')
+        )['total'] or 0
+        
+        overall_win_rate = (total_winning / total_trades * 100) if total_trades > 0 else 0
+        
+        return Response({
+            'total_subscriptions': performances.count(),
+            'total_profit_loss': str(total_profit_loss),
+            'total_trades': total_trades,
+            'total_winning_trades': total_winning,
+            'total_losing_trades': total_losing,
+            'overall_win_rate': float(overall_win_rate),
+            'performances': CopyTradingPerformanceSerializer(
+                performances, many=True
+            ).data
+        })

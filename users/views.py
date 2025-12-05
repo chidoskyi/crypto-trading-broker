@@ -1,10 +1,10 @@
 # users/views.py
 import uuid
-from rest_framework import generics, status, viewsets
+from rest_framework import generics, status, viewsets, mixins, permissions
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django.core.cache import cache
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -17,23 +17,22 @@ from django.contrib.auth.tokens import default_token_generator
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from users.serializers import (
-    CustomTokenObtainPairSerializer, ProfileCompletionSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer, ProfileSerializer, UserProfileSerializer, UserSerializer, UserRegistrationSerializer, KYCDocumentSerializer, AccountSerializer
+    CustomTokenObtainPairSerializer, ProfileCompletionSerializer, PasswordResetRequestSerializer, PasswordResetConfirmSerializer, ProfileSerializer, UserProfileSerializer, UserSerializer, UserRegistrationSerializer, KYCDocumentSerializer, AccountSerializer, ChangePasswordSerializer, UserProfileUpdateSerializer, CountrySerializer
 )
+from users.models import KYCDocument, Profile, Account, User, Country
 from decimal import Decimal
 from django.utils import timezone
 from django.db import transaction
 from django.conf import settings
 import logging
+
 logger = logging.getLogger(__name__)
-from .models import KYCDocument, Profile, Account
 import random
 import string
 
 
 User = get_user_model()
 
-import random
-import string
 
 class CaptchaView(APIView):
     """Generate CAPTCHA code for registration security"""
@@ -165,22 +164,9 @@ class RefreshCaptchaView(APIView):
 
 # Optional: Country list endpoint if you want to populate dropdown dynamically
 class CountryListView(generics.ListAPIView):
-    """Get list of all countries"""
+    queryset = Country.objects.all().order_by('name')
+    serializer_class = CountrySerializer
     permission_classes = [AllowAny]
-    
-    def get(self, request):
-        from .models import Country
-        
-        countries = Country.objects.all().order_by('name')
-        country_list = [
-            {'id': country.id, 'name': country.name} 
-            for country in countries
-        ]
-        
-        return Response({
-            'countries': country_list,
-            'count': len(country_list)
-        }, status=status.HTTP_200_OK)
     
 class CustomLoginView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
@@ -310,6 +296,29 @@ class PasswordResetValidateView(generics.GenericAPIView):
                 'success': False,
                 'message': 'Invalid or expired reset link.'
             }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChangePasswordView(generics.GenericAPIView):
+    """Change user password"""
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        """Change user password"""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        user = request.user
+        user.set_password(serializer.validated_data['new_password'])
+        user.save()
+        
+        logger.info(f"Password changed successfully for user: {user.email}")
+        
+        return Response({
+            'success': True,
+            'message': 'Password has been changed successfully.'
+        }, status=status.HTTP_200_OK)
+
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
     """Get and update user profile"""
@@ -886,4 +895,204 @@ class AccountViewSet(viewsets.ReadOnlyModelViewSet):
             return Response(
                 {'error': 'Account not found'},
                 status=status.HTTP_404_NOT_FOUND
+            )
+            
+class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Profile management endpoints.
+    Provides read operations by default (GET /profile/) and custom update actions.
+    
+    - GET /profile/ - Retrieve current user's profile
+    - PATCH /profile/update/ - Update current user's profile
+    - Custom actions for profile picture management and public profile access
+    """
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserProfileSerializer
+    
+    def get_queryset(self):
+        """
+        Filter queryset to only show the current user.
+        This is used by ReadOnlyModelViewSet's list/retrieve actions.
+        """
+        return User.objects.filter(id=self.request.user.id)
+
+    def get_profile_object(self):
+        """
+        Helper method to fetch or create the profile for the current user.
+        """
+        profile, created = Profile.objects.get_or_create(
+            user=self.request.user,
+            defaults={
+                'display_name': self.request.user.get_full_name() or self.request.user.username,
+                'is_complete': False
+            }
+        )
+        return profile
+    
+    # --- Update Action (since ReadOnlyModelViewSet doesn't include update) ---
+    
+    @action(detail=False, methods=['patch', 'put'], parser_classes=[MultiPartParser, FormParser, JSONParser])
+    @transaction.atomic
+    def update_profile(self, request):
+        """
+        PATCH/PUT /profile/update_profile/
+        Updates the current user's profile and user information.
+        """
+        try:
+            user = request.user
+            profile = self.get_profile_object()
+            
+            # Use UserProfileUpdateSerializer for handling the update
+            serializer = UserProfileUpdateSerializer(user, data=request.data, partial=True, context={'request': request})
+            
+            if not serializer.is_valid():
+                return Response(
+                    {'error': serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Save will handle both user and profile updates
+            serializer.save()
+            
+            # Return full user profile data using UserProfileSerializer
+            user_serializer = UserProfileSerializer(request.user)
+            
+            return Response({
+                'message': 'Profile updated successfully',
+                'data': user_serializer.data
+            })
+            
+        except Exception as e:
+            logger.error(f"Error updating profile: {e}")
+            return Response(
+                {'error': 'Failed to update profile'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    
+    # --- Custom Actions ---
+    @action(detail=False, methods=['get'], permission_classes=[permissions.AllowAny])
+    def get_by_username(self, request):
+        """
+        GET /profile/get_by_username/?username=<username>
+        Get profile by username (public endpoint)
+        """
+        username = request.query_params.get('username')
+        if not username:
+            return Response(
+                {'error': 'Username parameter is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            user = User.objects.get(username=username)
+            profile = get_object_or_404(Profile, user=user)
+            
+            public_fields = ['id', 'display_name', 'bio', 'location', 'website', 'profile_picture']
+            profile_data = {field: getattr(profile, field) for field in public_fields}
+            
+            user_data = {
+                'username': user.username,
+                'date_joined': user.date_joined,
+                'is_verified': user.is_verified
+            }
+            
+            return Response({
+                'profile': profile_data,
+                'user': user_data
+            })
+            
+        except User.DoesNotExist:
+            return Response(
+                {'error': 'User not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            logger.error(f"Error fetching profile by username: {e}")
+            return Response(
+                {'error': 'Failed to fetch profile'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+
+    @action(detail=False, methods=['post'], parser_classes=[MultiPartParser, FormParser])
+    @transaction.atomic
+    def upload_profile_picture(self, request):
+        """
+        POST /profile/upload_profile_picture/
+        Upload profile picture
+        """
+        try:
+            profile = self.get_profile_object() 
+            profile_picture_file = request.FILES.get('profile_picture')
+            
+            if not profile_picture_file:
+                # 💡 DRF standard error format for consistency
+                return Response(
+                    {'profile_picture': ['No profile picture file provided in the request.']},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # 1. Use the Serializer *only* for validation logic
+            # We construct data from request.FILES, but we only need to validate the file field.
+            # We pass it through the serializer's validation functions.
+            validation_serializer = ProfileSerializer(
+                profile, 
+                data={'profile_picture': profile_picture_file}, 
+                partial=True
+            )
+            
+            if not validation_serializer.is_valid():
+                # 💡 Returns the clean DRF error dictionary structure
+                return Response(validation_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+            # 2. If validation passes, assign and save directly to the model
+            profile.profile_picture = profile_picture_file
+            profile.save()
+            
+            # 3. Success response
+            picture_url = profile.profile_picture.url if profile.profile_picture else None
+            
+            return Response({
+                'message': 'Profile picture uploaded successfully',
+                'profile_picture_url': picture_url
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Error uploading profile picture: {e}")
+            return Response(
+                {'error': 'Failed to upload profile picture due to a server error.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['delete'])
+    @transaction.atomic
+    def delete_profile_picture(self, request):
+        """
+        DELETE /profile/delete_profile_picture/
+        Remove profile picture
+        """
+        try:
+            profile = self.get_profile_object()
+            
+            if not profile.profile_picture:
+                return Response(
+                    {'error': 'No profile picture to delete'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            profile.profile_picture.delete(save=False)
+            profile.profile_picture = None
+            profile.save()
+            
+            return Response({
+                'message': 'Profile picture deleted successfully'
+            })
+            
+        except Exception as e:
+            logger.error(f"Error deleting profile picture: {e}")
+            return Response(
+                {'error': 'Failed to delete profile picture'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

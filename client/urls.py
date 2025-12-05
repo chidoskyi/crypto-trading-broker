@@ -35,6 +35,7 @@ urlpatterns = [
     path('dashboard/copy-trading', views.copy_trading, name='copy-trading'),
     path('dashboard/copy-trade-experts', views.copy_trade_experts, name='copy-trade-experts'),
     path('dashboard/bot-trading', views.bot_trading, name='bot-trading'),
+    path('dashboard/bot-trading/dashboard', views.bot_trading_dahboard, name='bot-trading-dashboard'),
     path('dashboard/premium-signals', views.signal, name='signal'),
     path('dashboard/withdrawals', views.withdrawals, name='withdrawals'),
     path('dashboard/transfer-funds', views.transfer_funds, name='transfer-funds'),
@@ -58,5 +59,6 @@ urlpatterns = [
     path('dashboard/trading-view2/', views.trading_view2, name='trading-view2'),
     path('dashboard/transactions/', views.transactions, name='transactions'),
     path('dashboard/transactions/<int:transaction_id>/', views.transaction_details, name='transaction-details'),
+    path('dashboard/copy-trading/experts/', views.copy_trading_experts, name='copy-trading-experts'),
     
 ]

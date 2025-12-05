@@ -86,6 +86,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    
+    class Meta:
+        ordering = ['email']
 
     def __str__(self):
         return self.email
@@ -101,6 +104,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         from users.models import Account
         account, created = Account.objects.get_or_create(user=self)
         return account
+    
+    def get_full_name(self):
+        """
+        Returns the first_name plus the last_name, with a space in between.
+        """
+        full_name = f"{self.first_name} {self.last_name}".strip()
+        # Fallback to username if no first/last name is set
+        return full_name if full_name else self.username
    
 class Account(models.Model):
     STATUS_ACTIVE = 'active'
@@ -409,6 +420,7 @@ class Profile(models.Model):
         null=True,
         help_text="User profile picture"
     )
+    display_name = models.CharField(max_length=50, blank=True)
     location = models.CharField(max_length=100, blank=True)
     website = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)

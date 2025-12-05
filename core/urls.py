@@ -16,7 +16,7 @@ from drf_spectacular.views import (
 
 # Import all viewsets
 from users.views import (
-    CountryListView, CustomLoginView, PasswordResetConfirmView, PasswordResetRequestView, PasswordResetValidateView, ProfileCompletionView, RefreshCaptchaView, UserLogoutView, UserRegistrationView, UserProfileView, KYCViewSet, CaptchaView, AccountViewSet
+    CountryListView, CustomLoginView, ProfileViewSet, ChangePasswordView, PasswordResetConfirmView, PasswordResetRequestView, PasswordResetValidateView, ProfileCompletionView, RefreshCaptchaView, UserLogoutView, UserRegistrationView, UserProfileView, KYCViewSet, CaptchaView, AccountViewSet
 )
 # from funds.views import (
 #     CryptoWalletViewSet, DepositMethodViewSet, PendingDepositViewSet, WalletViewSet, TransactionViewSet, 
@@ -30,7 +30,7 @@ from trading.views import (
 )
 from bots.views import TradingBotViewSet, BotTradeViewSet
 from copy_trading.views import (
-    TraderViewSet, CopyTradingSubscriptionViewSet, CopiedTradeViewSet
+    TraderViewSet, CopyTradingSubscriptionViewSet, CopiedTradeViewSet, CopyTradingPerformanceViewSet
 )
 from signals.views import (
     SignalProviderViewSet, SignalPlanViewSet, SignalSubscriptionViewSet,
@@ -108,25 +108,24 @@ router.register(r'bot-trades', BotTradeViewSet, basename='bot-trade')
 
 # Copy Trading
 router.register(r'traders', TraderViewSet, basename='trader')
-router.register(r'copy-trading', CopyTradingSubscriptionViewSet, 
-                basename='copy-trading')
+router.register(r'subscriptions', CopyTradingSubscriptionViewSet, basename='subscription')
 router.register(r'copied-trades', CopiedTradeViewSet, basename='copied-trade')
+router.register(r'performance', CopyTradingPerformanceViewSet, basename='copy-trading-performance')
 
 # Signals
-router.register(r'signal-providers', SignalProviderViewSet, 
-                basename='signal-provider')
+router.register(r'signal-providers', SignalProviderViewSet, basename='signal-provider')
 router.register(r'signal-plans', SignalPlanViewSet, basename='signal-plan')
-router.register(r'signal-subscriptions', SignalSubscriptionViewSet,
-                basename='signal-subscription')
+router.register(r'signal-subscriptions', SignalSubscriptionViewSet, basename='signal-subscription')
 router.register(r'signals', TradingSignalViewSet, basename='signal')
-router.register(r'signal-notifications', SignalNotificationViewSet,
-                basename='signal-notification')
+router.register(r'signal-notifications', SignalNotificationViewSet, basename='signal-notification')
+
+    # Profile 
+router.register(r'profile', ProfileViewSet, basename='profile')
 
 # Loans
 router.register(r'loan-products', LoanProductViewSet, basename='loan-product')
 router.register(r'loans', LoanViewSet, basename='loan')
-router.register(r'loan-repayments', LoanRepaymentViewSet, 
-                basename='loan-repayment')
+router.register(r'loan-repayments', LoanRepaymentViewSet, basename='loan-repayment')
 
 # Referrals
 router.register(r'referrals', ReferralViewSet, basename='referral')
@@ -149,6 +148,9 @@ urlpatterns = [
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     
+
+    
+    
     # Authentication
     path('api/v1/auth/register/', UserRegistrationView.as_view(), 
          name='registeration'),
@@ -158,6 +160,9 @@ urlpatterns = [
          name='token_refresh'),
     path('api/v1/auth/captcha/', CaptchaView.as_view(), name='captcha'),
     path('api/v1/auth/captcha/refresh/', RefreshCaptchaView.as_view(), name='captcha-refresh'),
+    
+    # Chnage Password
+    path('api/v1/auth/change-password/', ChangePasswordView.as_view(), name='change-password'),
 
     # Password Reset
     path('api/v1/auth/password/reset/', PasswordResetRequestView.as_view(), name='reset-request'),
@@ -165,7 +170,8 @@ urlpatterns = [
     path('api/v1/auth/password/reset/confirm/<str:uidb64>/<str:token>/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
 
     # Optional: Countries list
-    path('countries/', CountryListView.as_view(), name='countries'),
+    path('api/v1/auth/countries/', CountryListView.as_view(), name='countries'),
+    
     path('api/v1/auth/me/', UserProfileView.as_view(), name='user-profile'),
     path('api/v1/auth/logout/', UserLogoutView.as_view(), name='logout'),
     path('api/v1/auth/profile/complete/', ProfileCompletionView.as_view(), name='complete_profile'),

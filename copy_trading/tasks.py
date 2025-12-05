@@ -2,6 +2,11 @@
 from celery import shared_task
 from django.utils import timezone
 from datetime import timedelta
+from copy_trading.services.copy_service import CopyTradingService
+from trading.models import Order
+import logging
+
+logger = logging.getLogger(__name__)
 
 @shared_task
 def update_market_prices():
@@ -159,48 +164,6 @@ def check_kyc_expiry():
         kyc.user.save()
         # Send notification to user
 
-from celery import shared_task
-from copy_trading.services.copy_service import CopyTradingService
-from trading.models import Order
-import logging
-
-logger = logging.getLogger(__name__)
-
-@shared_task(bind=True, max_retries=3)
-def replicate_trade_task(self, order_id):
-    '''
-    Asynchronous task to replicate a master trader's order
-    '''
-    try:
-        order = Order.objects.get(id=order_id)
-        service = CopyTradingService()
-        results = service.replicate_trade(order)
-        
-        logger.info(f"Successfully replicated order {order_id}: {results}")
-        return results
-        
-    except Order.DoesNotExist:
-        logger.error(f"Order {order_id} not found")
-        return {'error': 'Order not found'}
-        
-    except Exception as e:
-        logger.error(f"Failed to replicate order {order_id}: {e}", exc_info=True)
-        # Retry with exponential backoff
-        raise self.retry(exc=e, countdown=60 * (2 ** self.request.retries))
-
-
-@shared_task
-def update_trader_statistics():
-    '''
-    Periodic task to update trader performance statistics
-    '''
-    from copy_trading.models import Trader
-    from django.db.models import Sum, Count, Avg
-    
-    for trader in Trader.objects.filter(is_active=True):
-        # Update statistics based on recent trades
-        # This is a placeholder - implement based on your requirements
-        pass
 
 
 @shared_task
@@ -233,3 +196,38 @@ def generate_missing_qr_codes():
             print(f"Error generating QR for {addr.id}: {e}")
     
     return f"Generated QR codes for {addresses.count()} addresses"
+
+
+@shared_task(bind=True, max_retries=3)
+def replicate_trade_async(self, order_id):
+    """
+    Asynchronously replicate a master trader's order to all followers
+    
+    Args:
+        order_id: ID of the master order to replicate
+        
+    This runs in the background so it doesn't slow down the master trader's order
+    """
+    try:
+        order = Order.objects.get(id=order_id)
+        service = CopyTradingService()
+        
+        results = service.replicate_trade(order)
+        
+        logger.info(
+            f"Async trade replication completed for order {order_id}. "
+            f"Success: {results['successful']}, Failed: {results['failed']}"
+        )
+        
+        return results
+        
+    except Order.DoesNotExist:
+        logger.error(f"Order {order_id} not found for replication")
+        raise
+        
+    except Exception as e:
+        logger.error(f"Error in async replication for order {order_id}: {e}")
+        # Retry with exponential backoff
+        raise self.retry(exc=e, countdown=60 * (2 ** self.request.retries))
+
+

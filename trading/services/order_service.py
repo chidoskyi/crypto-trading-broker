@@ -18,74 +18,7 @@ class OrderExecutionService:
     def __init__(self):
         self.market_service = MarketDataService()
     
-    def handle_expired_orders(self):
-        """Handle expired orders - cancel them and unlock funds"""
-        now = timezone.now()
-        
-        # Find all orders that should be expired
-        expired_orders = Order.objects.filter(
-            status__in=['open', 'pending'],
-            expiration_time__isnull=False,
-            expiration_time__lte=now
-        ).select_related('user', 'trading_pair')
-        
-        expired_count = 0
-        
-        for order in expired_orders:
-            try:
-                with transaction.atomic():
-                    # Cancel the expired order
-                    self.cancel_expired_order(order)
-                    expired_count += 1
-                    logger.info(f"Order {order.id} expired and cancelled")
-                    
-            except Exception as e:
-                logger.error(f"Error handling expired order {order.id}: {str(e)}")
-                continue
-        
-        return expired_count
 
-    @transaction.atomic
-    def cancel_expired_order(self, order):
-        """Cancel an expired order and unlock funds"""
-        if order.status not in ['open', 'pending']:
-            return
-        
-        # Calculate remaining quantity that wasn't filled
-        remaining_quantity = order.quantity - order.filled_quantity
-        
-        if remaining_quantity > 0 and order.side == 'buy':
-            # Calculate locked amount to unlock
-            price = order.price or Decimal('0')
-            leverage = Decimal(order.leverage)
-            
-            position_value = remaining_quantity * price
-            required_margin = position_value / leverage if leverage > 1 else position_value
-            fee = position_value * order.trading_pair.trading_fee_percentage / 100
-            locked_amount = required_margin + fee
-            
-            # Unlock funds
-            self._unlock_trading_funds(order.user, locked_amount)
-        
-        # Update order status
-        order.status = 'expired'
-        order.save()
-        
-        # Create transaction for expiration
-        create_transaction(
-            user=order.user,
-            transaction_type=Transaction.TYPE_ORDER_EXPIRED,
-            amount=Decimal('0'),
-            balance_type='trading',
-            order=order,
-            description=f'Order #{order.id} expired for {order.trading_pair.symbol}',
-            metadata={
-                'symbol': order.trading_pair.symbol,
-                'quantity': str(remaining_quantity),
-                'order_type': order.order_type
-            }
-        )
-    
     @transaction.atomic
     def create_order(self, user, order_data):
         """Create and validate a new order"""
@@ -137,32 +70,19 @@ class OrderExecutionService:
                 f"with {leverage}x leverage, expires: {expiration_type}"
             )
             
-            # Step 5: Execute based on order type
-            if order_data['order_type'] == 'market':
+            # Execute based on order type
+            if order_type == 'market':
                 # Market orders execute immediately
                 result = self._execute_market_order(order)
-                # ✅ Return the Order object, not the full result dict
-                return result['order']  # Extract the order from the result
+                # ✅ FIXED: Return just the order object
+                return result['order']
             
-            elif order_data['order_type'] in ['limit', 'stop_loss', 'take_profit']:
-                # Pending orders - reserve balance
-                account.pending_balance += total_required
-                account.available_trading_balance -= total_required
-                account.save()
-                
-                # ❌ NO POSITION CREATED YET!
-                # ❌ NO TRANSACTION CREATED YET!
-                # Order stays as 'pending' until price is reached
-            
-            return {
-                'order': order,
-                'position': None,  # No position until filled
-                'account_balance': {
-                    'trading_balance': str(account.trading_balance),
-                    'available_trading_balance': str(account.available_trading_balance),
-                    'pending_balance': str(account.pending_balance),
-                }
-            }
+            else:
+                # Limit/Stop orders remain pending
+                # Funds are already locked in pending_balance
+                logger.info(f"Order {order.id} created as {order_type}, waiting for execution")
+                # ✅ FIXED: Return the order object directly
+                return order
             
         except Exception as e:
             # Rollback fund lock on error
@@ -248,17 +168,21 @@ class OrderExecutionService:
         fee = position_value * trading_pair.trading_fee_percentage / 100
         total_required = required_margin + fee
         
+        # Check available balance (trading_balance - locked_trading_balance)
+        available_balance = account.trading_balance - account.locked_trading_balance
+
+        
         # Check if user has sufficient trading balance
-        if account.trading_balance < total_required:
+        if available_balance < total_required:
             raise ValueError(
                 f"Insufficient trading balance. "
                 f"Required: ${total_required:.2f}, "
-                f"Available: ${account.trading_balance:.2f}"
+                f"Available: ${available_balance:.2f}"
             )
     
     @transaction.atomic
     def _lock_trading_funds(self, user, trading_pair, side, quantity, order_data, leverage=Decimal('1')):
-        """✅ NEW: Lock funds from Account.trading_balance"""
+        """✅ FIXED: Lock funds from Account.trading_balance"""
         account = Account.objects.select_for_update().get(user=user)
         
         # Only lock funds for BUY orders
@@ -282,7 +206,7 @@ class OrderExecutionService:
             fee = position_value * trading_pair.trading_fee_percentage / 100
             required_balance = required_margin + fee
             
-            # Lock from trading_balance
+            # ✅ FIXED: Use direct arithmetic
             if account.trading_balance < required_balance:
                 raise ValueError(
                     f"Insufficient trading balance. "
@@ -290,19 +214,15 @@ class OrderExecutionService:
                     f"Available: ${account.trading_balance:.2f}"
                 )
             
-            # Deduct from trading_balance and add to pending_balance
             account.trading_balance = F('trading_balance') - required_balance
-            account.pending_balance = F('pending_balance') + required_balance
-            account.save()
-            account.refresh_from_db()
+            account.locked_trading_balance = F('locked_trading_balance') + required_balance
+            account.save(update_fields=['trading_balance', 'locked_trading_balance'])
+            account.refresh_from_db() 
             
             logger.info(f"Locked ${required_balance:.2f} from user {user.id} trading balance")
             return required_balance
         
         else:  # SELL
-            # For selling, we need to check if user has a position
-            # The position itself acts as collateral
-            # We don't lock funds for selling (we're receiving funds)
             return Decimal('0')
     
     @transaction.atomic
@@ -314,7 +234,7 @@ class OrderExecutionService:
         try:
             account = Account.objects.select_for_update().get(user=user)
             account.trading_balance = F('trading_balance') + amount
-            account.pending_balance = F('pending_balance') - amount
+            account.locked_trading_balance = F('locked_trading_balance') - amount
             account.save()
             logger.info(f"Unlocked ${amount:.2f} back to user {user.id} trading balance")
         except Exception as e:
@@ -396,7 +316,7 @@ class OrderExecutionService:
             transactions = self._create_order_transactions(order, fee, execution_price)
             
             # Update or create position
-            self._update_position(order, trade)
+            position = self._update_position(order, trade)
             
             logger.info(
                 f"Order executed: {order.id} - {order.side} {order.quantity} "
@@ -406,6 +326,7 @@ class OrderExecutionService:
             return {
                 'order': order,
                 'trade': trade,
+                'position': position,
                 'transactions': transactions,
             }
             
@@ -421,13 +342,14 @@ class OrderExecutionService:
         account = Account.objects.select_for_update().get(user=order.user)
         
         total_cost = trade.quantity * trade.price
+        cost_with_fee = total_cost + trade.fee
         
         if order.side == 'buy':
-            # BUY: Remove from pending_balance (already locked)
+            # BUY: Remove from locked_trading_balance (already locked)
             # The actual asset is now in the Position (created by _update_position)
-            cost_with_fee = total_cost + trade.fee
-            account.pending_balance = F('pending_balance') - cost_with_fee
-            account.save()
+            Account.objects.filter(id=account.id).update(
+                locked_trading_balance=F('locked_trading_balance') - cost_with_fee
+            )
             
             logger.info(
                 f"BUY settled: User {order.user.id} bought {trade.quantity} "
@@ -460,18 +382,21 @@ class OrderExecutionService:
         position_side = 'long' if order.side == 'buy' else 'short'
         leverage = Decimal(order.leverage)
         
+        position = None  # ✅ FIX: Initialize position variable
+        
         if order.side == 'buy':
             # BUY: Create or add to position
             try:
                 position = Position.objects.select_for_update().get(
                     user=user,
                     trading_pair=trading_pair,
-                    side=position_side
+                    side=position_side,
+                    status=Position.STATUS_OPEN
                 )
                 
                 # Update existing position (weighted average entry price)
                 total_cost = (position.quantity * position.entry_price + 
-                             trade.quantity * trade.price)
+                            trade.quantity * trade.price)
                 total_quantity = position.quantity + trade.quantity
                 
                 position.quantity = total_quantity
@@ -482,8 +407,8 @@ class OrderExecutionService:
                 position.save()
                 
             except Position.DoesNotExist:
-                # Create new position
-                Position.objects.create(
+                # ✅ FIX: Assign the created position to the variable
+                position = Position.objects.create(
                     user=user,
                     trading_pair=trading_pair,
                     side=position_side,
@@ -491,8 +416,12 @@ class OrderExecutionService:
                     entry_price=trade.price,
                     current_price=trade.price,
                     unrealized_pnl=Decimal('0'),
-                    leverage=leverage
+                    leverage=leverage,
+                    status=Position.STATUS_OPEN,
                 )
+            
+            # ✅ FIX: Return position for BUY orders
+            return position
         
         else:  # SELL
             # SELL: Reduce or close position
@@ -500,7 +429,8 @@ class OrderExecutionService:
                 position = Position.objects.select_for_update().get(
                     user=user,
                     trading_pair=trading_pair,
-                    side='long'  # Can only sell from long positions
+                    side='long',  # Can only sell from long positions
+                    status=Position.STATUS_OPEN
                 )
                 
                 if position.quantity < trade.quantity:
@@ -514,6 +444,7 @@ class OrderExecutionService:
                     # Close entire position
                     position.delete()
                     logger.info(f"Position closed for {user.id} - {trading_pair.symbol}")
+                    position = None  # ✅ Position no longer exists
                 else:
                     # Reduce position
                     position.quantity = F('quantity') - trade.quantity
@@ -527,19 +458,86 @@ class OrderExecutionService:
                     account.total_earned = F('total_earned') + realized_pnl if realized_pnl > 0 else F('total_earned')
                     account.save()
                 
+                # ✅ FIX: Return position (or None if closed)
+                return position
+                
             except Position.DoesNotExist:
                 raise ValueError("No long position to sell from")
     
     @transaction.atomic
     def cancel_order(self, order):
         """Cancel an open order and unlock funds"""
-        if order.status not in ['open', 'partially_filled']:
-            raise ValueError("Only open or partially filled orders can be cancelled")
+        if order.status not in ['open', 'partially_filled', 'pending']:
+            raise ValueError("Only open, pending, or partially filled orders can be cancelled")
         
+        # ✅ Calculate remaining quantity that needs to be unlocked
         remaining_quantity = order.quantity - order.filled_quantity
         
-        if order.side == 'buy':
-            # Calculate locked amount
+        if remaining_quantity > 0 and order.side == 'buy':
+            # ✅ Get the account with lock
+            account = Account.objects.select_for_update().get(user=order.user)
+            
+            # Calculate locked amount to release
+            price = order.price or Decimal('0')
+            leverage = Decimal(order.leverage)
+            
+            position_value = remaining_quantity * price
+            required_margin = position_value / leverage if leverage > 1 else position_value
+            fee = position_value * order.trading_pair.trading_fee_percentage / 100
+            locked_amount = required_margin + fee
+            
+            # ✅ IMPORTANT: Prevent negative locked balance
+            actual_unlock = min(locked_amount, account.locked_trading_balance)
+            
+            if actual_unlock > 0:
+                # Unlock funds back to trading balance
+                account.trading_balance += actual_unlock
+                account.locked_trading_balance -= actual_unlock
+                account.save(update_fields=['trading_balance', 'locked_trading_balance'])
+                
+                logger.info(
+                    f"Unlocked ${actual_unlock:.2f} from cancelled order {order.id} "
+                    f"for user {order.user.username}"
+                )
+            else:
+                logger.warning(
+                    f"No locked balance to unlock for order {order.id}. "
+                    f"Locked balance: ${account.locked_trading_balance}"
+                )
+        
+        # Update order status
+        order.status = 'cancelled'
+        order.save(update_fields=['status'])
+        
+        # Create transaction record
+        create_transaction(
+            user=order.user,
+            transaction_type=Transaction.TYPE_ADJUSTMENT,
+            amount=Decimal('0'),
+            balance_type='trading',
+            order=order,
+            description=f'Order #{order.id} cancelled - {order.trading_pair.symbol}',
+            metadata={
+                'order_id': order.id,
+                'symbol': order.trading_pair.symbol,
+                'quantity': str(order.quantity)
+            }
+        )
+        
+        logger.info(f"Order cancelled: {order.id}")
+        return order    
+    
+    @transaction.atomic
+    def cancel_expired_order(self, order):
+        """Cancel an expired order and unlock funds"""
+        if order.status not in ['open', 'pending', 'partially_filled']:
+            return
+        
+        # Calculate remaining quantity that wasn't filled
+        remaining_quantity = order.quantity - order.filled_quantity
+        
+        if remaining_quantity > 0 and order.side == 'buy':
+            # Calculate locked amount to unlock
             price = order.price or Decimal('0')
             leverage = Decimal(order.leverage)
             
@@ -551,30 +549,52 @@ class OrderExecutionService:
             # Unlock funds
             self._unlock_trading_funds(order.user, locked_amount)
         
-        order.status = 'cancelled'
+        # Update order status
+        order.status = 'expired'
         order.save()
         
-        logger.info(f"Order cancelled: {order.id}")
-        return order
+        # Create transaction for expiration
+        create_transaction(
+            user=order.user,
+            transaction_type=Transaction.TYPE_ORDER_EXPIRED,
+            amount=Decimal('0'),
+            balance_type='trading',
+            order=order,
+            description=f'Order #{order.id} expired for {order.trading_pair.symbol}',
+            metadata={
+                'symbol': order.trading_pair.symbol,
+                'quantity': str(remaining_quantity),
+                'order_type': order.order_type
+            }
+        )
     
-    # @transaction.atomic
-    # def close_position(self, position):
-    #     """Close an entire position by creating opposite order"""
-    #     opposite_side = 'sell' if position.side == 'long' else 'buy'
+    def handle_expired_orders(self):
+        """Handle expired orders - cancel them and unlock funds"""
+        now = timezone.now()
         
-    #     order_data = {
-    #         'trading_pair': position.trading_pair,
-    #         'order_type': 'market',
-    #         'side': opposite_side,
-    #         'quantity': position.quantity,
-    #         'leverage': str(position.leverage),
-    #         'source': 'manual'
-    #     }
+        # Find all orders that should be expired
+        expired_orders = Order.objects.filter(
+            status__in=['open', 'pending', 'partially_filled'],
+            expiration_time__isnull=False,
+            expiration_time__lte=now
+        ).select_related('user', 'trading_pair')
         
-    #     order = self.create_order(position.user, order_data)
+        expired_count = 0
         
-    #     return order
-    
+        for order in expired_orders:
+            try:
+                with transaction.atomic():
+                    # Cancel the expired order
+                    self.cancel_expired_order(order)
+                    expired_count += 1
+                    logger.info(f"Order {order.id} expired and cancelled")
+                    
+            except Exception as e:
+                logger.error(f"Error handling expired order {order.id}: {str(e)}")
+                continue
+        
+        return expired_count
+
     @transaction.atomic
     def close_position(self, position):
         """Close an entire position by creating opposite order - FIXED"""
@@ -591,7 +611,6 @@ class OrderExecutionService:
             'original_position_id': position.id
         }
         
-        # Create and execute the closing order
         # create_order returns just the Order object for market orders
         closing_order = self.create_order(position.user, order_data)
         

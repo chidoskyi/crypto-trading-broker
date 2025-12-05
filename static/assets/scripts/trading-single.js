@@ -389,12 +389,7 @@ function tradingSingle() {
                 console.error('❌ Failed to load instrument:', error);
                 this.error = 'Failed to load instrument data. Please try again.';
                 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error Loading Instrument',
-                    text: error.message || 'Failed to load instrument data',
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Error Loading Instrument', 'error');
             } finally {
                 this.loadingData = false;
             }
@@ -636,24 +631,14 @@ function tradingSingle() {
         async submitOrder() {
             // Validation
             if (!this.amount || this.amount <= 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Amount',
-                    text: 'Please enter a valid amount to trade.',
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Invalid Amount', 'error');
                 return;
             }
 
             const leverage = this.selectedLeverage;
 
             if (!leverage) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Select Leverage',
-                    text: 'Please select a leverage ratio.',
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Select Leverage', 'error');
                 return;
             }
 
@@ -754,12 +739,7 @@ function tradingSingle() {
                 }
             } catch (error) {
                 console.error('Order submission failed:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Order Failed',
-                    text: error.message || 'Failed to place order. Please try again.',
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Order Failed', 'error');
             } finally {
                 this.loading = false;
             }
@@ -806,12 +786,7 @@ function tradingSingle() {
 
         async submitTransfer() {
             if (!this.transferAmount || this.transferAmount <= 0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Amount',
-                    text: 'Please enter a valid transfer amount.',
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Invalid Amount', 'error');
                 return;
             }
 
@@ -820,12 +795,7 @@ function tradingSingle() {
                 : this.tradingBalance;
 
             if (parseFloat(this.transferAmount) > sourceBalance) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Insufficient Balance',
-                    text: 'Transfer amount exceeds available balance.',
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Insufficient Balance', 'error');
                 return;
             }
 
@@ -865,21 +835,11 @@ function tradingSingle() {
                         this.showTransferModal = false;
                         this.transferAmount = '';
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Transfer Successful!',
-                            text: `${this.formatPrice(this.transferAmount)} has been transferred.`,
-                            confirmButtonColor: '#3B82F6'
-                        });
+                        APIClient.showMessage('Transfer Successful!', 'success');
 
                     } catch (error) {
                         console.error('Transfer failed:', error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Transfer Failed',
-                            text: error.message || 'Failed to complete the transfer. Please try again.',
-                            confirmButtonColor: '#3B82F6'
-                        });
+                        APIClient.showMessage('Transfer Failed', 'error');
                     } finally {
                         this.transferLoading = false;
                     }
@@ -953,12 +913,7 @@ function tradingSingle() {
 
                     successHtml += `</div>`;
                     
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Trade Executed!',
-                        html: successHtml,
-                        confirmButtonColor: '#3B82F6'
-                    });
+                    APIClient.showMessage('Trade Executed!', 'success');
                     
                     this.amount = '';
                     this.price = '';
@@ -966,12 +921,7 @@ function tradingSingle() {
                     throw new Error(result.error);
                 }
             } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Trade Failed',
-                    text: error.message,
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Trade Failed', 'error');
             }
         },
 
@@ -998,20 +948,10 @@ function tradingSingle() {
                     await this.loadUserBalances();
                     await this.loadTransactions();
                     
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Position Closed!',
-                        text: 'Your position has been closed successfully.',
-                        confirmButtonColor: '#3B82F6'
-                    });
+                    APIClient.showMessage('Position Closed!', 'success');
                 } catch (error) {
                     console.error('❌ Failed to close position:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed to close position',
-                        text: error.response?.data?.message || error.message || 'Please try again.',
-                        confirmButtonColor: '#3B82F6'
-                    });
+                    APIClient.showMessage('Failed to close position', 'error');
                 }
             }
         },
@@ -1022,18 +962,9 @@ function tradingSingle() {
                 await this.loadPositionsAndOrders();
                 await this.loadUserBalances();
                 await this.loadTransactions();            
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Order Cancelled!',
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Order Cancelled!', 'success');
             } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Failed to cancel order',
-                    text: error.message,
-                    confirmButtonColor: '#3B82F6'
-                });
+                APIClient.showMessage('Failed to cancel order', 'error');
             }
         }
     }   

@@ -8,7 +8,7 @@ from users.models import Profile, User, KYCDocument, Country, Account
 class UserAdmin(BaseUserAdmin):
     list_display = ['email', 'username', 'is_verified', 'kyc_status', 'created_at', 'is_active', 'is_staff', 'first_name', 'last_name']  # FIXED: Added first_name and last_name for better identification
     list_filter = ['is_verified', 'kyc_status', 'is_staff', 'is_active']  # FIXED: Now these are actual fields
-    search_fields = ['email', 'username', 'referral_code']
+    search_fields = ['email', 'username']
     ordering = ['-created_at']
     readonly_fields = ['created_at', 'updated_at']
     
@@ -17,7 +17,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('first_name', 'last_name','email', 'username', 'password')}),
         ('Personal Info', {'fields': ('phone_number', 'country')}),
         ('Verification Status', {'fields': ('is_verified', 'kyc_status')}),
-        ('Referral Info', {'fields': ('referral_code', 'referred_by')}),
+        # ('Referral Info', {'fields': ('referral_code', 'referred_by')}),
         ('Permissions', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
         }),
@@ -44,14 +44,14 @@ class CountryAdmin(admin.ModelAdmin):
     search_fields = ['name', 'iso']
     
 @admin.register(Profile)
-class ProfileAdmin(ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'bio', 'location', 'website', 'created_at']
     search_fields = ['user__email', 'user__username', 'bio', 'location', 'website']
     readonly_fields = ['created_at']
     ordering = ['-created_at']
     
 admin.site.register(Account)
-class AccountAdmin(ModelAdmin):
+class AccountAdmin(admin.ModelAdmin):
     # List Display
     list_display = (
         'user',
